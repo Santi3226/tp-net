@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CentroAtencion - Copia.cs" />
+  </ItemGroup>
+
 </Project>

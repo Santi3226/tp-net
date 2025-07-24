@@ -1,0 +1,8 @@
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.csproj.AssemblyReference.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.AssemblyInfoInputs.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.AssemblyInfo.cs
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.csproj.CoreCompileInputs.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WebAPI\obj\Debug\net8.0\WebAPI.sourcelink.json

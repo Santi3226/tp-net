@@ -1,0 +1,17 @@
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\bin\Debug\net8.0-windows\WinForms.exe
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\bin\Debug\net8.0-windows\WinForms.deps.json
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\bin\Debug\net8.0-windows\WinForms.runtimeconfig.json
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\bin\Debug\net8.0-windows\WinForms.dll
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\bin\Debug\net8.0-windows\WinForms.pdb
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.Form1.resources
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.csproj.GenerateResource.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.AssemblyInfoInputs.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.AssemblyInfo.cs
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.csproj.CoreCompileInputs.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.sourcelink.json
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.dll
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\refint\WinForms.dll
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.pdb
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\WinForms.genruntimeconfig.cache
+C:\Users\Santiago\Documents\Escuela\2025\TpNet\WinForms\WinForms\obj\Debug\net8.0-windows\ref\WinForms.dll
