@@ -1,49 +1,19 @@
-using Domain.Services;
+using Application.Services;
 using Domain.Model;
+using DTOs;
 
-var builder = WebApplication.CreateBuilder(args); //Crea el builder de la app web
+var builder = WebApplication.CreateBuilder(args); 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); //Agrega los servicios
-
-
-var app = builder.Build(); //Crea la app web
-
-
-/* app.UseSwagger(); //Consume los servicios
-app.UseSwaggerUI();
-
-app.MapGet("/centros/{id}", (int id) =>
-    CentroAtencion.Lista.Find(a => a.Id == id) is CentroAtencion centro
-        ? Results.Ok(alumno)
-        : Results.NotFound());
-
-app.MapPost("/alumnos", (Alumno alumno) =>
-{
-    alumno.Id = Alumno.ObtenerProximoId();
-    Alumno.Lista.Add(alumno);
-    return Results.Created($"/alumnos/{alumno.Id}", alumno);
-});
-
-app.Run();
-
-/*
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); 
 builder.Services.AddHttpLogging(o => { });
 
-var app = builder.Build();
+var app = builder.Build(); 
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
-    //Falta configurar de manera correcta        
+    app.UseSwaggerUI();   
     app.UseHttpLogging();
 }
 
@@ -52,94 +22,63 @@ app.UseHttpsRedirection();
 
 
 
-app.MapGet("/clientes/{id}", (int id) =>
+app.MapGet("/pacientes/{id}", (int id) =>
 {
-    ClienteService clienteService = new ClienteService();
+    PacienteService pacienteService = new PacienteService();
 
-    Cliente cliente = clienteService.Get(id);
+    PacienteDTO dto = pacienteService.Get(id);
 
-    if (cliente == null)
+    if (dto == null)
     {
         return Results.NotFound();
     }
 
-    var dto = new DTOs.Cliente
-    {
-        Id = cliente.Id,
-        Nombre = cliente.Nombre,
-        Apellido = cliente.Apellido,
-        Email = cliente.Email,
-        FechaAlta = cliente.FechaAlta
-    };
-
     return Results.Ok(dto);
 })
-.WithName("GetCliente")
-.Produces<DTOs.Cliente>(StatusCodes.Status200OK)
+.WithName("GetPaciente")
+.Produces<PacienteDTO>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
 
-app.MapGet("/clientes", () =>
+app.MapGet("/pacientes", () =>
 {
-    ClienteService clienteService = new ClienteService();
+    PacienteService pacienteService = new PacienteService();
 
-    var clientes = clienteService.GetAll();
-
-    var dtos = clientes.Select(cliente => new DTOs.Cliente
-    {
-        Id = cliente.Id,
-        Nombre = cliente.Nombre,
-        Apellido = cliente.Apellido,
-        Email = cliente.Email,
-        FechaAlta = cliente.FechaAlta
-    }).ToList();
+    PacienteDTO dtos = pacienteService.GetAll();
 
     return Results.Ok(dtos);
 })
-.WithName("GetAllClientes")
-.Produces<List<DTOs.Cliente>>(StatusCodes.Status200OK)
+.WithName("GetAllPacientes")
+.Produces<List<PacienteDTO>>(StatusCodes.Status200OK)
 .WithOpenApi();
 
-app.MapPost("/clientes", (DTOs.Cliente dto) =>
+app.MapPost("/pacientes", (PacienteDTO dto) =>
 {
     try
     {
-        ClienteService clienteService = new ClienteService();
+        PacienteService pacienteService = new PacienteService();
 
-        Cliente cliente = new Cliente(dto.Id, dto.Nombre, dto.Apellido, dto.Email, dto.FechaAlta);
+        PacienteDTO pacienteDTO = pacienteService.Add(dto);
 
-        clienteService.Add(cliente);
-
-        var dtoResultado = new DTOs.Cliente
-        {
-            Id = cliente.Id,
-            Nombre = cliente.Nombre,
-            Apellido = cliente.Apellido,
-            Email = cliente.Email,
-            FechaAlta = cliente.FechaAlta
-        };
-
-        return Results.Created($"/clientes/{dtoResultado.Id}", dtoResultado);
+        return Results.Created($"/pacientes/{pacienteDTO.Id}", pacienteDTO);
     }
     catch (ArgumentException ex)
     {
         return Results.BadRequest(new { error = ex.Message });
     }
 })
-.WithName("AddCliente")
-.Produces<DTOs.Cliente>(StatusCodes.Status201Created)
+.WithName("AddPaciente")
+.Produces<PacienteDTO>(StatusCodes.Status201Created)
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
 
-app.MapPut("/clientes", (DTOs.Cliente dto) =>
+app.MapPut("/pacientes", (PacienteDTO dto) =>
 {
     try
     {
-        ClienteService clienteService = new ClienteService();
+        PacienteService clienteService = new PacienteService();
 
-        Cliente cliente = new Cliente(dto.Id, dto.Nombre, dto.Apellido, dto.Email, dto.FechaAlta);
-
-        var found = clienteService.Update(cliente);
+        var found = clienteService.Update(dto);
 
         if (!found)
         {
@@ -153,16 +92,16 @@ app.MapPut("/clientes", (DTOs.Cliente dto) =>
         return Results.BadRequest(new { error = ex.Message });
     }
 })
-.WithName("UpdateCliente")
+.WithName("UpdatePaciente")
 .Produces(StatusCodes.Status404NotFound)
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
 
-app.MapDelete("/clientes/{id}", (int id) =>
+app.MapDelete("/pacientes/{id}", (int id) =>
 {
-    ClienteService clienteService = new ClienteService();
+    PacienteService pacienteService = new PacienteService();
 
-    var deleted = clienteService.Delete(id);
+    var deleted = pacienteService.Delete(id);
 
     if (!deleted)
     {
@@ -172,10 +111,11 @@ app.MapDelete("/clientes/{id}", (int id) =>
     return Results.NoContent();
 
 })
-.WithName("DeleteCliente")
+.WithName("DeletePaciente")
 .Produces(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
-*/
+
+
 app.Run();
 

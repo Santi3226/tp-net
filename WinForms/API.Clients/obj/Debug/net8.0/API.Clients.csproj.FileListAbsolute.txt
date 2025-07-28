@@ -1,0 +1,6 @@
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.csproj.AssemblyReference.cache
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.AssemblyInfoInputs.cache
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.AssemblyInfo.cs
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.csproj.CoreCompileInputs.cache
+C:\Users\camix\Desktop\tp-net\WinForms\API.Clients\obj\Debug\net8.0\API.Clients.sourcelink.json

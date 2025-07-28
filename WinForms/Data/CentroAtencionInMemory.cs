@@ -4,11 +4,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Data
 {
-    public class CentroInMemory
+    public class CentroAtencionInMemory
     {
         public static List<CentroAtencion> Centros;
 
-        static CentroInMemory()
+        static CentroAtencionInMemory()
         {
             Centros = new List<CentroAtencion>
             {

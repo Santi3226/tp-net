@@ -1,9 +1,9 @@
 ﻿namespace DTOs
 {
-    public class CentroAtencion
+    public class CentroAtencionDTO
     {
-        public int Id { get; private set; }
-        public string Nombre { get; private set; }
-        public string Domicilio { get; private set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Domicilio { get; set; }
     }
 }
