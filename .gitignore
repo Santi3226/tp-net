@@ -1,0 +1,3 @@
+# ignore built ts files
+Winforms/**/bin/
+Winforms/**/obj/
