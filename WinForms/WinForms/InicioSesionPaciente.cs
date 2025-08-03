@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using DTOs;
+using Data;
 
 namespace WinForms
 {
@@ -21,15 +22,22 @@ namespace WinForms
             InitializeComponent();
         }
 
-        private async void iniciarSesionBtn_Click(object sender, EventArgs e)
+        private void iniciarSesionBtn_Click(object sender, EventArgs e)
         {
             PacienteApiClient client = new PacienteApiClient();
 
             if (this.ValidateEntry())
             {
-                if (await this.ValidatePacienteAsync())
+                if (this.ValidatePacienteAsync())
                 {
                     // acá iria la iniciacion del menu principal
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    emailTextBox.Clear();
+                    contraseñaTextBox.Clear();
+                    emailTextBox.Focus();
                 }
             }
         }
@@ -51,9 +59,9 @@ namespace WinForms
                 return isValid;
         }
 
-        private async Task<bool> ValidatePacienteAsync()
+        private bool ValidatePacienteAsync()
         {
-            var pacientes = await PacienteApiClient.GetAllAsync();
+            var pacientes = PacienteInMemory.Pacientes;
             string email = this.emailTextBox.Text.Trim();
             string contraseña = this.contraseñaTextBox.Text.Trim();
 
@@ -61,12 +69,9 @@ namespace WinForms
             {
                 if (p.Email == email && p.Contraseña == contraseña)
                 {
-                    this.Paciente = p;
                     return true;
                 }
             }
-
-            MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
