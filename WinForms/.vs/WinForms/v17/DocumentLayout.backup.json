@@ -1,10 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\Escuela\\2025\\TpNet\\tp-net\\WinForms\\",
+  "WorkspaceRootPath": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7729CB64-AA6A-4B66-BFBB-8AD32FC6BF4A}|WebAPI\\WebAPI.csproj|c:\\users\\santiago\\documents\\escuela\\2025\\tpnet\\tp-net\\winforms\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7729CB64-AA6A-4B66-BFBB-8AD32FC6BF4A}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\registropaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\registropaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +31,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\Escuela\\2025\\TpNet\\tp-net\\WinForms\\WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\Escuela\\2025\\TpNet\\tp-net\\WinForms\\WebAPI\\Program.cs",
-              "RelativeToolTip": "WebAPI\\Program.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAgwNIAAAAKAAAAAAAAAA==",
+              "Title": "RegistroPaciente.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\RegistroPaciente.cs",
+              "RelativeDocumentMoniker": "WinForms\\RegistroPaciente.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\RegistroPaciente.cs [Dise\u00F1o]*",
+              "RelativeToolTip": "WinForms\\RegistroPaciente.cs [Dise\u00F1o]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-28T19:38:22.234Z",
+              "WhenOpened": "2025-08-01T00:02:30.528Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InicioSesionPaciente.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\InicioSesionPaciente.cs",
+              "RelativeDocumentMoniker": "WinForms\\InicioSesionPaciente.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\InicioSesionPaciente.cs [Dise\u00F1o]",
+              "RelativeToolTip": "WinForms\\InicioSesionPaciente.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T23:08:36.79Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\Program.cs",
+              "RelativeDocumentMoniker": "WinForms\\Program.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\Program.cs",
+              "RelativeToolTip": "WinForms\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T23:56:46.098Z",
               "EditorCaption": ""
             }
           ]
