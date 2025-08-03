@@ -116,6 +116,7 @@
             iniciarSesionBtn.TabIndex = 7;
             iniciarSesionBtn.Text = "Iniciar Sesion";
             iniciarSesionBtn.UseVisualStyleBackColor = false;
+            iniciarSesionBtn.Click += iniciarSesionBtn_Click;
             // 
             // noCuentaLabel
             // 
