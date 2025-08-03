@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\registropaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\registropaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\iniciosesionpaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CDFBC7F-6031-4088-9087-9809894B8F7C}|Domain.Model\\Domain.Model.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\domain.model\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CDFBC7F-6031-4088-9087-9809894B8F7C}|Domain.Model\\Domain.Model.csproj|solutionrelative:domain.model\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\winforms\\pacienteapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9BE54A4-F19F-4A91-A4B6-1FF50A255D63}|WinForms\\WinForms.csproj|solutionrelative:winforms\\pacienteapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E045D675-7FC5-49A3-AC18-C719DE51A380}|Data\\Data.csproj|c:\\users\\giani\\onedrive\\escritorio\\tp-net\\winforms\\data\\pacienteinmemory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E045D675-7FC5-49A3-AC18-C719DE51A380}|Data\\Data.csproj|solutionrelative:data\\pacienteinmemory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,15 +38,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RegistroPaciente.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\RegistroPaciente.cs",
-              "RelativeDocumentMoniker": "WinForms\\RegistroPaciente.cs",
-              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\RegistroPaciente.cs [Dise\u00F1o]*",
-              "RelativeToolTip": "WinForms\\RegistroPaciente.cs [Dise\u00F1o]*",
+              "DocumentIndex": 4,
+              "Title": "PacienteInMemory.cs",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\Data\\PacienteInMemory.cs",
+              "RelativeDocumentMoniker": "Data\\PacienteInMemory.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\Data\\PacienteInMemory.cs",
+              "RelativeToolTip": "Data\\PacienteInMemory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-01T00:02:30.528Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-08-03T22:57:54.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\Domain.Model\\Paciente.cs",
+              "RelativeDocumentMoniker": "Domain.Model\\Paciente.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\Domain.Model\\Paciente.cs",
+              "RelativeToolTip": "Domain.Model\\Paciente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T22:50:11.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PacienteApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\PacienteApiClient.cs",
+              "RelativeDocumentMoniker": "WinForms\\PacienteApiClient.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\PacienteApiClient.cs",
+              "RelativeToolTip": "WinForms\\PacienteApiClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T19:35:42.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InicioSesionPaciente.cs",
+              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\InicioSesionPaciente.cs",
+              "RelativeDocumentMoniker": "WinForms\\InicioSesionPaciente.cs",
+              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\InicioSesionPaciente.cs",
+              "RelativeToolTip": "WinForms\\InicioSesionPaciente.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAIwEUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T19:19:08.07Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -49,21 +97,8 @@
               "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\InicioSesionPaciente.cs [Dise\u00F1o]",
               "RelativeToolTip": "WinForms\\InicioSesionPaciente.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T23:08:36.79Z",
+              "WhenOpened": "2025-08-03T19:18:44.622Z",
               "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\Program.cs",
-              "RelativeDocumentMoniker": "WinForms\\Program.cs",
-              "ToolTip": "C:\\Users\\giani\\OneDrive\\Escritorio\\tp-net\\WinForms\\WinForms\\Program.cs",
-              "RelativeToolTip": "WinForms\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-31T23:56:46.098Z",
-              "EditorCaption": ""
             }
           ]
         }

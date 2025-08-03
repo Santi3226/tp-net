@@ -11,8 +11,9 @@ namespace Domain.Model
         public string Telefono { get; private set; }
         public string Domicilio { get; private set; }
         public string Email { get; private set; }
+        public string Contraseña { get; private set; }
         public DateTime FechaNacimiento { get; private set; }
-        public Paciente(int id, string nombre, string apellido, string dni, string telefono, string domicilio, string email, DateTime fechaNacimiento)
+        public Paciente(int id, string nombre, string apellido, string dni, string telefono, string domicilio, string email, string contraseña, DateTime fechaNacimiento)
         {
             SetId(id);
             SetNombre(nombre);
@@ -21,6 +22,7 @@ namespace Domain.Model
             SetTelefono(telefono);
             SetDomicilio(domicilio);
             SetEmail(email);
+            SetContraseña(contraseña);
             SetFechaNacimiento(fechaNacimiento);
         }
 
@@ -73,6 +75,13 @@ namespace Domain.Model
             if (!EsEmailValido(email))
                 throw new ArgumentException("El email no tiene un formato válido", nameof(email));
             Email = email;
+        }
+
+        public void SetContraseña(string contraseña)
+        {
+            if (string.IsNullOrWhiteSpace(contraseña))
+                throw new ArgumentException("La contraseña no puede ser vacía", nameof(contraseña));
+            Contraseña = contraseña;
         }
 
         public void SetFechaNacimiento(DateTime fechaNacimiento)
