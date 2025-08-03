@@ -9,6 +9,7 @@
         public string Telefono { get; set; }
         public string Domicilio { get; set; }
         public string Email { get; set; }
+        public string Contraseña { get; set; }
         public DateTime FechaNacimiento { get; set; }
     }
 }
