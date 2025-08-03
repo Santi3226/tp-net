@@ -5,6 +5,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="RegistroPaciente.cs">
+    <Compile Update="BorrarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModificarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModificarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

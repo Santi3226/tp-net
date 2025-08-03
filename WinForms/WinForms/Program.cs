@@ -13,6 +13,10 @@ namespace WinForms
             ApplicationConfiguration.Initialize();
             Application.Run(new InicioSesionPaciente());
             Application.Run(new RegistroPaciente());
+            Application.Run(new ModificarPaciente());
+            Application.Run(new AgregarCA());
+            Application.Run(new ModificarCA());
+            Application.Run(new BorrarCA());
         }
     }
 }
