@@ -6,26 +6,24 @@ namespace Application.Services
 {
     public class PacienteService
     {
-        public PacienteDTO Add(PacienteDTO dto)
+        public static Paciente Add(string nombre, string apellido, string dni, string telefono, string domicilio, string email, string contraseña, DateTime fechaNacimiento)
         {
-            if (PacienteInMemory.Pacientes.Any(p => p.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase)))
+            if (PacienteInMemory.Pacientes.Any(p => p.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
             {
-                throw new ArgumentException($"Ya existe un paciente con el Email '{dto.Email}'.");
+                throw new ArgumentException($"Ya existe un paciente con el Email '{email}'.");
             }
-            if (PacienteInMemory.Pacientes.Any(p => p.Dni.Equals(dto.Dni, StringComparison.OrdinalIgnoreCase)))
+            if (PacienteInMemory.Pacientes.Any(p => p.Dni.Equals(dni, StringComparison.OrdinalIgnoreCase)))
             {
-                throw new ArgumentException($"Ya existe un paciente con el Dni '{dto.Dni}'.");
+                throw new ArgumentException($"Ya existe un paciente con el Dni '{dni}'.");
             }
 
             var id = GetNextId();
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.Email, dto.Telefono, dto.Dni, dto.Domicilio,dto.Contraseña, dto.FechaNacimiento);
+            Paciente paciente = new Paciente(id, nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
 
             PacienteInMemory.Pacientes.Add(paciente);
 
-            dto.Id = paciente.Id;
-
-            return dto;
+            return paciente;
         }
 
         public bool Delete(int id)

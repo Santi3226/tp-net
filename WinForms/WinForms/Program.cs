@@ -13,6 +13,8 @@ namespace WinForms
             ApplicationConfiguration.Initialize();
             MenuPrincipal form = new MenuPrincipal();
             form.ShowDialog();
+            InicioSesionPaciente inicioSesionPaciente = new InicioSesionPaciente();
+            inicioSesionPaciente.ShowDialog();
         }
     }
 }

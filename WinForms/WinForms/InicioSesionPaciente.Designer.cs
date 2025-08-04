@@ -156,6 +156,7 @@
             registrarmeLabel.TabIndex = 11;
             registrarmeLabel.TabStop = true;
             registrarmeLabel.Text = "Registrarme";
+            registrarmeLabel.LinkClicked += registrarmeLabel_LinkClicked;
             // 
             // InicioSesionPaciente
             // 

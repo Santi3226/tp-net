@@ -45,18 +45,19 @@ namespace WinForms
         private bool ValidateEntry()
         {
             bool isValid = true;
-            
+
             if (this.emailTextBox.Text == string.Empty || this.contraseñaTextBox.Text == string.Empty)
             {
                 isValid = false;
                 MessageBox.Show("Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else if (!this.emailTextBox.Text.Contains('@'))
+            }
+            else if (!this.emailTextBox.Text.Contains('@'))
             {
                 isValid = false;
                 MessageBox.Show("Por favor, ingrese un mail válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-                return isValid;
+            return isValid;
         }
 
         private bool ValidatePacienteAsync()
@@ -65,7 +66,7 @@ namespace WinForms
             string email = this.emailTextBox.Text.Trim();
             string contraseña = this.contraseñaTextBox.Text.Trim();
 
-            foreach(var p in pacientes)
+            foreach (var p in pacientes)
             {
                 if (p.Email == email && p.Contraseña == contraseña)
                 {
@@ -78,6 +79,12 @@ namespace WinForms
         private void InicioSesionPaciente_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void registrarmeLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RegistroPaciente registroPaciente = new RegistroPaciente();
+            registroPaciente.ShowDialog();
         }
     }
 }
