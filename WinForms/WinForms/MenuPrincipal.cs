@@ -21,13 +21,14 @@ namespace WinForms
         {
 
         }
-        private void mostrarCaBtn_Click(object sender, EventArgs e)
+
+        private void menuCentrosBtn_Click(object sender, EventArgs e)
         {
             MostrarCA form = new MostrarCA();
             form.ShowDialog();
         }
-        
-        private void mostrarPacienteBtn_Click(object sender, EventArgs e)
+
+        private void menuPacienteBtn_Click(object sender, EventArgs e)
         {
             MostrarPaciente form = new MostrarPaciente();
             form.ShowDialog();

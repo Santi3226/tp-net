@@ -30,9 +30,9 @@
         {
             dataGridViewCA = new DataGridView();
             comboId = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
-            titulo = new Label();
+            mostrarUnoBtn = new Button();
+            mostrarTodosBtn = new Button();
+            mostrarCentrosLabel = new Label();
             borrarBtn = new Button();
             agregarCaBtn = new Button();
             modificarCaBtn = new Button();
@@ -48,73 +48,75 @@
             dataGridViewCA.BackgroundColor = Color.Gainsboro;
             dataGridViewCA.BorderStyle = BorderStyle.None;
             dataGridViewCA.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCA.Location = new Point(36, 90);
+            dataGridViewCA.Location = new Point(32, 68);
+            dataGridViewCA.Margin = new Padding(3, 2, 3, 2);
             dataGridViewCA.Name = "dataGridViewCA";
             dataGridViewCA.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewCA.Size = new Size(925, 272);
+            dataGridViewCA.Size = new Size(809, 204);
             dataGridViewCA.TabIndex = 0;
-            dataGridViewCA.CellContentClick += dataGridViewCA_CellContentClick;
             // 
             // comboId
             // 
             comboId.DisplayMember = "id";
             comboId.FormattingEnabled = true;
-            comboId.Location = new Point(25, 401);
+            comboId.Location = new Point(22, 301);
+            comboId.Margin = new Padding(3, 2, 3, 2);
             comboId.Name = "comboId";
-            comboId.Size = new Size(198, 28);
+            comboId.Size = new Size(174, 23);
             comboId.TabIndex = 36;
             comboId.Tag = "id";
             comboId.Text = "Seleccionar Id";
             comboId.ValueMember = "id";
             // 
-            // button1
+            // mostrarUnoBtn
             // 
-            button1.BackColor = Color.SteelBlue;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(240, 395);
-            button1.Name = "button1";
-            button1.Size = new Size(139, 40);
-            button1.TabIndex = 37;
-            button1.Text = "Mostrar uno";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            mostrarUnoBtn.BackColor = Color.SteelBlue;
+            mostrarUnoBtn.Cursor = Cursors.Hand;
+            mostrarUnoBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            mostrarUnoBtn.FlatAppearance.BorderSize = 0;
+            mostrarUnoBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            mostrarUnoBtn.FlatStyle = FlatStyle.Flat;
+            mostrarUnoBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            mostrarUnoBtn.ForeColor = SystemColors.ControlLightLight;
+            mostrarUnoBtn.Location = new Point(210, 296);
+            mostrarUnoBtn.Margin = new Padding(3, 2, 3, 2);
+            mostrarUnoBtn.Name = "mostrarUnoBtn";
+            mostrarUnoBtn.Size = new Size(122, 30);
+            mostrarUnoBtn.TabIndex = 37;
+            mostrarUnoBtn.Text = "Mostrar uno";
+            mostrarUnoBtn.UseVisualStyleBackColor = false;
+            mostrarUnoBtn.Click += mostrarUnoBtn_Click;
             // 
-            // button2
+            // mostrarTodosBtn
             // 
-            button2.BackColor = Color.SteelBlue;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderColor = Color.SteelBlue;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.ControlLightLight;
-            button2.Location = new Point(385, 395);
-            button2.Name = "button2";
-            button2.Size = new Size(139, 40);
-            button2.TabIndex = 38;
-            button2.Text = "Mostrar Todos";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            mostrarTodosBtn.BackColor = Color.SteelBlue;
+            mostrarTodosBtn.Cursor = Cursors.Hand;
+            mostrarTodosBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            mostrarTodosBtn.FlatAppearance.BorderSize = 0;
+            mostrarTodosBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            mostrarTodosBtn.FlatStyle = FlatStyle.Flat;
+            mostrarTodosBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            mostrarTodosBtn.ForeColor = SystemColors.ControlLightLight;
+            mostrarTodosBtn.Location = new Point(337, 296);
+            mostrarTodosBtn.Margin = new Padding(3, 2, 3, 2);
+            mostrarTodosBtn.Name = "mostrarTodosBtn";
+            mostrarTodosBtn.Size = new Size(122, 30);
+            mostrarTodosBtn.TabIndex = 38;
+            mostrarTodosBtn.Text = "Mostrar Todos";
+            mostrarTodosBtn.UseVisualStyleBackColor = false;
+            mostrarTodosBtn.Click += mostrarTodosBtn_Click;
             // 
-            // titulo
+            // mostrarCentrosLabel
             // 
-            titulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            titulo.AutoSize = true;
-            titulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            titulo.Location = new Point(282, 24);
-            titulo.Name = "titulo";
-            titulo.Size = new Size(422, 41);
-            titulo.TabIndex = 39;
-            titulo.Text = "Mostrar Centros de Atencion";
-            titulo.TextAlign = ContentAlignment.TopCenter;
-            titulo.Click += titulo_Click;
+            mostrarCentrosLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            mostrarCentrosLabel.AutoSize = true;
+            mostrarCentrosLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            mostrarCentrosLabel.Location = new Point(247, 18);
+            mostrarCentrosLabel.Name = "mostrarCentrosLabel";
+            mostrarCentrosLabel.Size = new Size(345, 32);
+            mostrarCentrosLabel.TabIndex = 39;
+            mostrarCentrosLabel.Text = "Mostrar Centros de Atencion";
+            mostrarCentrosLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // borrarBtn
             // 
@@ -126,9 +128,10 @@
             borrarBtn.FlatStyle = FlatStyle.Flat;
             borrarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             borrarBtn.ForeColor = SystemColors.ControlLightLight;
-            borrarBtn.Location = new Point(839, 395);
+            borrarBtn.Location = new Point(734, 296);
+            borrarBtn.Margin = new Padding(3, 2, 3, 2);
             borrarBtn.Name = "borrarBtn";
-            borrarBtn.Size = new Size(139, 40);
+            borrarBtn.Size = new Size(122, 30);
             borrarBtn.TabIndex = 40;
             borrarBtn.Text = "Borrar";
             borrarBtn.UseVisualStyleBackColor = false;
@@ -144,9 +147,10 @@
             agregarCaBtn.FlatStyle = FlatStyle.Flat;
             agregarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             agregarCaBtn.ForeColor = SystemColors.ControlLightLight;
-            agregarCaBtn.Location = new Point(553, 395);
+            agregarCaBtn.Location = new Point(484, 296);
+            agregarCaBtn.Margin = new Padding(3, 2, 3, 2);
             agregarCaBtn.Name = "agregarCaBtn";
-            agregarCaBtn.Size = new Size(136, 40);
+            agregarCaBtn.Size = new Size(119, 30);
             agregarCaBtn.TabIndex = 41;
             agregarCaBtn.Text = "Agregar";
             agregarCaBtn.UseVisualStyleBackColor = false;
@@ -162,9 +166,10 @@
             modificarCaBtn.FlatStyle = FlatStyle.Flat;
             modificarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             modificarCaBtn.ForeColor = SystemColors.ControlLightLight;
-            modificarCaBtn.Location = new Point(695, 395);
+            modificarCaBtn.Location = new Point(608, 296);
+            modificarCaBtn.Margin = new Padding(3, 2, 3, 2);
             modificarCaBtn.Name = "modificarCaBtn";
-            modificarCaBtn.Size = new Size(136, 40);
+            modificarCaBtn.Size = new Size(119, 30);
             modificarCaBtn.TabIndex = 42;
             modificarCaBtn.Text = "Modificar";
             modificarCaBtn.UseVisualStyleBackColor = false;
@@ -172,18 +177,19 @@
             // 
             // MostrarCA
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(990, 451);
+            ClientSize = new Size(866, 338);
             Controls.Add(modificarCaBtn);
             Controls.Add(agregarCaBtn);
             Controls.Add(borrarBtn);
-            Controls.Add(titulo);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(mostrarCentrosLabel);
+            Controls.Add(mostrarTodosBtn);
+            Controls.Add(mostrarUnoBtn);
             Controls.Add(comboId);
             Controls.Add(dataGridViewCA);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MostrarCA";
             Text = "Laboratorio";
             Load += MostrarCA_Load;
@@ -196,9 +202,9 @@
 
         private DataGridView dataGridViewCA;
         private ComboBox comboId;
-        private Button button1;
-        private Button button2;
-        private Label titulo;
+        private Button mostrarUnoBtn;
+        private Button mostrarTodosBtn;
+        private Label mostrarCentrosLabel;
         private Button borrarBtn;
         private Button agregarCaBtn;
         private Button modificarCaBtn;

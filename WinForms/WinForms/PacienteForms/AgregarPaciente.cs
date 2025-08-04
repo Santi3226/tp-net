@@ -84,7 +84,7 @@ namespace WinForms
                 string apellido = apellidoTextBox.Text;
                 string dni = dniTextBox.Text;
                 string telefono = telefonoTextBox.Text;
-                string domicilio = direccionLabel.Text;
+                string domicilio = direccionTextBox.Text;
                 string email = mailTextBox.Text;
                 string contraseña = contraseñaTextBox.Text;
                 DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;

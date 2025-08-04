@@ -24,16 +24,7 @@ namespace WinForms
         {
             GetAllAndLoad();
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            GetAll();
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int id = Convert.ToInt32(comboId.Text);
-            GetOneAndLoad(id);
-        }
         private void GetOneAndLoad(int id)
         {
             try
@@ -74,10 +65,6 @@ namespace WinForms
                 MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void dataGridViewCA_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void borrarBtn_Click(object sender, EventArgs e)
         {
@@ -96,6 +83,7 @@ namespace WinForms
                     if (delete)
                     {
                         MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.comboId.DataSource = CentroAtencionService.GetAll();
                     }
                     else
                     {
@@ -124,11 +112,18 @@ namespace WinForms
         {
             AgregarCA agregarCA = new AgregarCA();
             agregarCA.ShowDialog();
+            this.comboId.DataSource = CentroAtencionService.GetAll();
         }
 
-        private void titulo_Click(object sender, EventArgs e)
+        private void mostrarUnoBtn_Click(object sender, EventArgs e)
         {
+            int id = Convert.ToInt32(comboId.Text);
+            GetOneAndLoad(id);
+        }
 
+        private void mostrarTodosBtn_Click(object sender, EventArgs e)
+        {
+            GetAll();
         }
     }
 }   

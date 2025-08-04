@@ -57,11 +57,11 @@ namespace WinForms
             bool update = PacienteService.Update(p);
             if (update)
             {
-                MessageBox.Show("Centro de Atencion N°" + textId.Text + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Paciente N°" + textId.Text + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + textId.Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo modificar el Paciente N°" + textId.Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.Close();
         }

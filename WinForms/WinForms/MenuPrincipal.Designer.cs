@@ -29,66 +29,69 @@
         private void InitializeComponent()
         {
             bienvenidoLabel = new Label();
-            mostrarCaBtn = new Button();
-            mostrarPacienteBtn = new Button();
+            menuCentrosBtn = new Button();
+            menuPacienteBtn = new Button();
             SuspendLayout();
             // 
             // bienvenidoLabel
             // 
             bienvenidoLabel.AutoSize = true;
             bienvenidoLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            bienvenidoLabel.Location = new Point(70, 40);
+            bienvenidoLabel.Location = new Point(61, 30);
             bienvenidoLabel.Name = "bienvenidoLabel";
-            bienvenidoLabel.Size = new Size(685, 41);
+            bienvenidoLabel.Size = new Size(557, 32);
             bienvenidoLabel.TabIndex = 3;
             bienvenidoLabel.Text = "Bienvenido al Sistema de Laboratorio Generico!";
             bienvenidoLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // mostrarCaBtn
+            // menuCentrosBtn
             // 
-            mostrarCaBtn.BackColor = Color.SteelBlue;
-            mostrarCaBtn.Cursor = Cursors.Hand;
-            mostrarCaBtn.FlatAppearance.BorderColor = Color.SteelBlue;
-            mostrarCaBtn.FlatAppearance.BorderSize = 0;
-            mostrarCaBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            mostrarCaBtn.FlatStyle = FlatStyle.Flat;
-            mostrarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            mostrarCaBtn.ForeColor = SystemColors.ControlLightLight;
-            mostrarCaBtn.Location = new Point(158, 149);
-            mostrarCaBtn.Name = "mostrarCaBtn";
-            mostrarCaBtn.Size = new Size(152, 43);
-            mostrarCaBtn.TabIndex = 16;
-            mostrarCaBtn.Text = "Menu Centros";
-            mostrarCaBtn.UseVisualStyleBackColor = false;
-            mostrarCaBtn.Click += mostrarCaBtn_Click;
+            menuCentrosBtn.BackColor = Color.SteelBlue;
+            menuCentrosBtn.Cursor = Cursors.Hand;
+            menuCentrosBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            menuCentrosBtn.FlatAppearance.BorderSize = 0;
+            menuCentrosBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            menuCentrosBtn.FlatStyle = FlatStyle.Flat;
+            menuCentrosBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            menuCentrosBtn.ForeColor = SystemColors.ControlLightLight;
+            menuCentrosBtn.Location = new Point(138, 112);
+            menuCentrosBtn.Margin = new Padding(3, 2, 3, 2);
+            menuCentrosBtn.Name = "menuCentrosBtn";
+            menuCentrosBtn.Size = new Size(133, 32);
+            menuCentrosBtn.TabIndex = 16;
+            menuCentrosBtn.Text = "Menu Centros";
+            menuCentrosBtn.UseVisualStyleBackColor = false;
+            menuCentrosBtn.Click += menuCentrosBtn_Click;
             // 
-            // mostrarPacienteBtn
+            // menuPacienteBtn
             // 
-            mostrarPacienteBtn.BackColor = Color.SteelBlue;
-            mostrarPacienteBtn.Cursor = Cursors.Hand;
-            mostrarPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
-            mostrarPacienteBtn.FlatAppearance.BorderSize = 0;
-            mostrarPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            mostrarPacienteBtn.FlatStyle = FlatStyle.Flat;
-            mostrarPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            mostrarPacienteBtn.ForeColor = SystemColors.ControlLightLight;
-            mostrarPacienteBtn.Location = new Point(497, 149);
-            mostrarPacienteBtn.Name = "mostrarPacienteBtn";
-            mostrarPacienteBtn.Size = new Size(152, 43);
-            mostrarPacienteBtn.TabIndex = 17;
-            mostrarPacienteBtn.Text = "Menu Paciente";
-            mostrarPacienteBtn.UseVisualStyleBackColor = false;
-            mostrarPacienteBtn.Click += mostrarPacienteBtn_Click;
+            menuPacienteBtn.BackColor = Color.SteelBlue;
+            menuPacienteBtn.Cursor = Cursors.Hand;
+            menuPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            menuPacienteBtn.FlatAppearance.BorderSize = 0;
+            menuPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            menuPacienteBtn.FlatStyle = FlatStyle.Flat;
+            menuPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            menuPacienteBtn.ForeColor = SystemColors.ControlLightLight;
+            menuPacienteBtn.Location = new Point(435, 112);
+            menuPacienteBtn.Margin = new Padding(3, 2, 3, 2);
+            menuPacienteBtn.Name = "menuPacienteBtn";
+            menuPacienteBtn.Size = new Size(133, 32);
+            menuPacienteBtn.TabIndex = 17;
+            menuPacienteBtn.Text = "Menu Paciente";
+            menuPacienteBtn.UseVisualStyleBackColor = false;
+            menuPacienteBtn.Click += menuPacienteBtn_Click;
             // 
             // MenuPrincipal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(827, 233);
-            Controls.Add(mostrarPacienteBtn);
-            Controls.Add(mostrarCaBtn);
+            ClientSize = new Size(724, 175);
+            Controls.Add(menuPacienteBtn);
+            Controls.Add(menuCentrosBtn);
             Controls.Add(bienvenidoLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";
@@ -100,7 +103,7 @@
         #endregion
 
         private Label bienvenidoLabel;
-        private Button mostrarCaBtn;
-        private Button mostrarPacienteBtn;
+        private Button menuCentrosBtn;
+        private Button menuPacienteBtn;
     }
 }
