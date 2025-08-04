@@ -77,7 +77,7 @@ namespace Application.Services
             }).ToList();
         }
 
-        public static bool Update(PacienteDTO dto)
+        public static bool Update(Paciente dto)
         {
             Paciente? pacienteToUpdate = PacienteInMemory.Pacientes.Find(p => p.Id == dto.Id);
 
@@ -95,6 +95,12 @@ namespace Application.Services
                 pacienteToUpdate.SetNombre(dto.Nombre);
                 pacienteToUpdate.SetApellido(dto.Apellido);
                 pacienteToUpdate.SetEmail(dto.Email);
+                pacienteToUpdate.SetContraseña(dto.Contraseña);
+                pacienteToUpdate.SetTelefono(dto.Telefono);
+                pacienteToUpdate.SetDomicilio(dto.Domicilio);
+                pacienteToUpdate.SetDni(dto.Dni);
+                pacienteToUpdate.SetNombre(dto.Nombre);
+                pacienteToUpdate.SetFechaNacimiento(dto.FechaNacimiento);
 
                 return true;
             }

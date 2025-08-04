@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using DTOs;
 using System;
+using Domain.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ namespace WinForms
             InitializeComponent();
         }
 
-        private void ModificarCA_Load(object sender, EventArgs e)
+        private void ModificarPaciente_Load(object sender, EventArgs e)
         {
             GetAllAndLoad();
         }
@@ -40,16 +41,16 @@ namespace WinForms
         private void guardarBtn_Click(object sender, EventArgs e)
         {
             string nombre = nombreText.Text;
+            string dni = dniText.Text;
             string apellido = apellidoText.Text;
             string contraseña = contraseñaText.Text;
             string domicilio = domicilioText.Text;
             string email = emailText.Text;
             string celular = celularText.Text;
-            string sexo = sexoCombo.Text;
-            DateTime fechaNacimientoCalendario = fechaNacimientoCalendario.
+            DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
             int id = Convert.ToInt32(comboId.Text);
-            PacienteDTO p = new PacienteDTO(id, nombre, apellido, contraseña, email, celular, sexo, fechaNacimientoCalendario)
-            bool update = PacienteService.Update(id, nombre, domicilio);
+            Paciente p = new Paciente(id, nombre, apellido, dni, celular, domicilio, email, contraseña, fechaNacimiento);
+            bool update = PacienteService.Update(p);
             if (update)
             {
                 MessageBox.Show("Centro de Atencion N°" + id + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -59,11 +60,6 @@ namespace WinForms
                 MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.Close();
-        }
-
-        private void ModificarPaciente_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

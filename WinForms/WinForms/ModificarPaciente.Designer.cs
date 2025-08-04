@@ -33,7 +33,6 @@
             modificarLabel = new Label();
             fechaNacimientoLabel = new Label();
             guardarBtn = new Button();
-            sexoLabel = new Label();
             celularLabel = new Label();
             nombreLabel = new Label();
             emailLabel = new Label();
@@ -43,11 +42,12 @@
             celularText = new TextBox();
             domicilioText = new TextBox();
             apellidoText = new TextBox();
-            sexoCombo = new ComboBox();
             comboId = new ComboBox();
             idLabel = new Label();
             contraseñaText = new TextBox();
             contraseñaLabel = new Label();
+            label1 = new Label();
+            dniText = new TextBox();
             SuspendLayout();
             // 
             // fechaNacimientoCalendario
@@ -105,17 +105,6 @@
             guardarBtn.TabIndex = 9;
             guardarBtn.Text = "Guardar";
             guardarBtn.UseVisualStyleBackColor = false;
-            // 
-            // sexoLabel
-            // 
-            sexoLabel.AutoSize = true;
-            sexoLabel.Font = new Font("Segoe UI", 9F);
-            sexoLabel.Location = new Point(643, 251);
-            sexoLabel.Name = "sexoLabel";
-            sexoLabel.Size = new Size(32, 15);
-            sexoLabel.TabIndex = 10;
-            sexoLabel.Text = "Sexo";
-            sexoLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // celularLabel
             // 
@@ -208,18 +197,6 @@
             apellidoText.Size = new Size(263, 23);
             apellidoText.TabIndex = 20;
             // 
-            // sexoCombo
-            // 
-            sexoCombo.DisplayMember = "-";
-            sexoCombo.FormattingEnabled = true;
-            sexoCombo.Items.AddRange(new object[] { "Sin Especificar", "Masculino", "Femenino" });
-            sexoCombo.Location = new Point(645, 268);
-            sexoCombo.Margin = new Padding(3, 2, 3, 2);
-            sexoCombo.Name = "sexoCombo";
-            sexoCombo.Size = new Size(263, 23);
-            sexoCombo.TabIndex = 21;
-            sexoCombo.Text = "-";
-            // 
             // comboId
             // 
             comboId.DisplayMember = "id";
@@ -263,17 +240,38 @@
             contraseñaLabel.Text = "Contraseña";
             contraseñaLabel.TextAlign = ContentAlignment.TopCenter;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F);
+            label1.Location = new Point(641, 251);
+            label1.Name = "label1";
+            label1.Size = new Size(27, 15);
+            label1.TabIndex = 42;
+            label1.Text = "DNI";
+            label1.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // dniText
+            // 
+            dniText.BorderStyle = BorderStyle.FixedSingle;
+            dniText.Location = new Point(643, 268);
+            dniText.Margin = new Padding(3, 2, 3, 2);
+            dniText.Name = "dniText";
+            dniText.Size = new Size(263, 23);
+            dniText.TabIndex = 41;
+            // 
             // ModificarPaciente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(929, 396);
+            Controls.Add(label1);
+            Controls.Add(dniText);
             Controls.Add(contraseñaText);
             Controls.Add(contraseñaLabel);
             Controls.Add(comboId);
             Controls.Add(idLabel);
-            Controls.Add(sexoCombo);
             Controls.Add(apellidoText);
             Controls.Add(domicilioText);
             Controls.Add(celularText);
@@ -283,7 +281,6 @@
             Controls.Add(emailLabel);
             Controls.Add(nombreLabel);
             Controls.Add(celularLabel);
-            Controls.Add(sexoLabel);
             Controls.Add(guardarBtn);
             Controls.Add(fechaNacimientoLabel);
             Controls.Add(modificarLabel);
@@ -305,7 +302,6 @@
         private Label modificarLabel;
         private Label fechaNacimientoLabel;
         private Button guardarBtn;
-        private Label sexoLabel;
         private Label celularLabel;
         private Label nombreLabel;
         private Label emailLabel;
@@ -315,10 +311,11 @@
         private TextBox celularText;
         private TextBox domicilioText;
         private TextBox apellidoText;
-        private ComboBox sexoCombo;
         private ComboBox comboId;
         private Label idLabel;
         private TextBox contraseñaText;
         private Label contraseñaLabel;
+        private Label label1;
+        private TextBox dniText;
     }
 }

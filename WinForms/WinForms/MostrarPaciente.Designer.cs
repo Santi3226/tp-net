@@ -127,6 +127,7 @@
             Controls.Add(dataGridViewPac);
             Margin = new Padding(3, 2, 3, 2);
             Name = "MostrarPaciente";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
             Load += MostrarPaciente_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewPac).EndInit();

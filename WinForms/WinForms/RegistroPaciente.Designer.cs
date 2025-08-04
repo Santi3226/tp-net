@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tituloLabel = new Label();
             nombreTextBox = new TextBox();
             apellidoTextBox = new TextBox();
             dniTextBox = new TextBox();
@@ -50,23 +49,15 @@
             mailLabel = new Label();
             contraseñaLabel = new Label();
             confirmarContraseñaLabel = new Label();
+            modificarLabel = new Label();
+            label1 = new Label();
             SuspendLayout();
-            // 
-            // tituloLabel
-            // 
-            tituloLabel.AutoSize = true;
-            tituloLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tituloLabel.Location = new Point(394, 26);
-            tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(239, 29);
-            tituloLabel.TabIndex = 1;
-            tituloLabel.Text = "Registro de usuario";
             // 
             // nombreTextBox
             // 
             nombreTextBox.BorderStyle = BorderStyle.FixedSingle;
             nombreTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreTextBox.Location = new Point(86, 109);
+            nombreTextBox.Location = new Point(106, 117);
             nombreTextBox.Name = "nombreTextBox";
             nombreTextBox.Size = new Size(380, 33);
             nombreTextBox.TabIndex = 1;
@@ -75,7 +66,7 @@
             // 
             apellidoTextBox.BorderStyle = BorderStyle.FixedSingle;
             apellidoTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            apellidoTextBox.Location = new Point(582, 109);
+            apellidoTextBox.Location = new Point(602, 117);
             apellidoTextBox.Name = "apellidoTextBox";
             apellidoTextBox.Size = new Size(380, 33);
             apellidoTextBox.TabIndex = 2;
@@ -84,7 +75,7 @@
             // 
             dniTextBox.BorderStyle = BorderStyle.FixedSingle;
             dniTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dniTextBox.Location = new Point(86, 179);
+            dniTextBox.Location = new Point(106, 187);
             dniTextBox.Name = "dniTextBox";
             dniTextBox.Size = new Size(380, 33);
             dniTextBox.TabIndex = 3;
@@ -93,7 +84,7 @@
             // 
             telefonoTextBox.BorderStyle = BorderStyle.FixedSingle;
             telefonoTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            telefonoTextBox.Location = new Point(582, 179);
+            telefonoTextBox.Location = new Point(602, 187);
             telefonoTextBox.Name = "telefonoTextBox";
             telefonoTextBox.Size = new Size(380, 33);
             telefonoTextBox.TabIndex = 4;
@@ -102,7 +93,7 @@
             // 
             nombreLabel.AutoSize = true;
             nombreLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreLabel.Location = new Point(84, 89);
+            nombreLabel.Location = new Point(104, 97);
             nombreLabel.Name = "nombreLabel";
             nombreLabel.Size = new Size(57, 17);
             nombreLabel.TabIndex = 6;
@@ -112,7 +103,7 @@
             // 
             apellidoLabel.AutoSize = true;
             apellidoLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            apellidoLabel.Location = new Point(580, 89);
+            apellidoLabel.Location = new Point(600, 97);
             apellidoLabel.Name = "apellidoLabel";
             apellidoLabel.Size = new Size(56, 17);
             apellidoLabel.TabIndex = 7;
@@ -122,7 +113,7 @@
             // 
             dniLabel.AutoSize = true;
             dniLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dniLabel.Location = new Point(84, 159);
+            dniLabel.Location = new Point(104, 167);
             dniLabel.Name = "dniLabel";
             dniLabel.Size = new Size(30, 17);
             dniLabel.TabIndex = 8;
@@ -132,7 +123,7 @@
             // 
             telefonoLabel.AutoSize = true;
             telefonoLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            telefonoLabel.Location = new Point(580, 159);
+            telefonoLabel.Location = new Point(600, 167);
             telefonoLabel.Name = "telefonoLabel";
             telefonoLabel.Size = new Size(58, 17);
             telefonoLabel.TabIndex = 9;
@@ -148,7 +139,7 @@
             registrarBtn.FlatStyle = FlatStyle.Flat;
             registrarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             registrarBtn.ForeColor = Color.White;
-            registrarBtn.Location = new Point(318, 538);
+            registrarBtn.Location = new Point(519, 444);
             registrarBtn.Name = "registrarBtn";
             registrarBtn.Size = new Size(173, 33);
             registrarBtn.TabIndex = 10;
@@ -166,7 +157,7 @@
             cancelarBtn.FlatStyle = FlatStyle.Flat;
             cancelarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelarBtn.ForeColor = Color.Black;
-            cancelarBtn.Location = new Point(527, 538);
+            cancelarBtn.Location = new Point(728, 444);
             cancelarBtn.Name = "cancelarBtn";
             cancelarBtn.Size = new Size(171, 33);
             cancelarBtn.TabIndex = 11;
@@ -179,7 +170,7 @@
             yaCuentaLabel.AutoSize = true;
             yaCuentaLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             yaCuentaLabel.ForeColor = Color.Black;
-            yaCuentaLabel.Location = new Point(381, 609);
+            yaCuentaLabel.Location = new Point(582, 515);
             yaCuentaLabel.Name = "yaCuentaLabel";
             yaCuentaLabel.Size = new Size(120, 15);
             yaCuentaLabel.TabIndex = 12;
@@ -192,7 +183,7 @@
             iniciarSesionLabel.Cursor = Cursors.Hand;
             iniciarSesionLabel.LinkBehavior = LinkBehavior.NeverUnderline;
             iniciarSesionLabel.LinkColor = Color.DodgerBlue;
-            iniciarSesionLabel.Location = new Point(527, 609);
+            iniciarSesionLabel.Location = new Point(728, 515);
             iniciarSesionLabel.Name = "iniciarSesionLabel";
             iniciarSesionLabel.Size = new Size(76, 15);
             iniciarSesionLabel.TabIndex = 13;
@@ -204,7 +195,7 @@
             // 
             direccionTextBox.BorderStyle = BorderStyle.FixedSingle;
             direccionTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionTextBox.Location = new Point(86, 245);
+            direccionTextBox.Location = new Point(106, 253);
             direccionTextBox.Name = "direccionTextBox";
             direccionTextBox.Size = new Size(380, 33);
             direccionTextBox.TabIndex = 5;
@@ -213,7 +204,7 @@
             // 
             mailTextBox.BorderStyle = BorderStyle.FixedSingle;
             mailTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            mailTextBox.Location = new Point(582, 339);
+            mailTextBox.Location = new Point(600, 250);
             mailTextBox.Name = "mailTextBox";
             mailTextBox.Size = new Size(380, 33);
             mailTextBox.TabIndex = 6;
@@ -222,7 +213,7 @@
             // 
             contraseñaTextBox.BorderStyle = BorderStyle.FixedSingle;
             contraseñaTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contraseñaTextBox.Location = new Point(582, 397);
+            contraseñaTextBox.Location = new Point(106, 321);
             contraseñaTextBox.Name = "contraseñaTextBox";
             contraseñaTextBox.PasswordChar = '*';
             contraseñaTextBox.Size = new Size(380, 33);
@@ -232,7 +223,7 @@
             // 
             confirmarContraseñaTextBox.BorderStyle = BorderStyle.FixedSingle;
             confirmarContraseñaTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            confirmarContraseñaTextBox.Location = new Point(582, 457);
+            confirmarContraseñaTextBox.Location = new Point(600, 321);
             confirmarContraseñaTextBox.Name = "confirmarContraseñaTextBox";
             confirmarContraseñaTextBox.PasswordChar = '*';
             confirmarContraseñaTextBox.Size = new Size(380, 33);
@@ -240,7 +231,7 @@
             // 
             // fechaNacimientoCalendario
             // 
-            fechaNacimientoCalendario.Location = new Point(164, 339);
+            fechaNacimientoCalendario.Location = new Point(106, 409);
             fechaNacimientoCalendario.Name = "fechaNacimientoCalendario";
             fechaNacimientoCalendario.TabIndex = 19;
             // 
@@ -248,7 +239,7 @@
             // 
             direccionLabel.AutoSize = true;
             direccionLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionLabel.Location = new Point(84, 225);
+            direccionLabel.Location = new Point(104, 233);
             direccionLabel.Name = "direccionLabel";
             direccionLabel.Size = new Size(62, 17);
             direccionLabel.TabIndex = 20;
@@ -258,7 +249,7 @@
             // 
             mailLabel.AutoSize = true;
             mailLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            mailLabel.Location = new Point(580, 319);
+            mailLabel.Location = new Point(598, 230);
             mailLabel.Name = "mailLabel";
             mailLabel.Size = new Size(33, 17);
             mailLabel.TabIndex = 21;
@@ -268,7 +259,7 @@
             // 
             contraseñaLabel.AutoSize = true;
             contraseñaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contraseñaLabel.Location = new Point(580, 377);
+            contraseñaLabel.Location = new Point(104, 301);
             contraseñaLabel.Name = "contraseñaLabel";
             contraseñaLabel.Size = new Size(74, 17);
             contraseñaLabel.TabIndex = 22;
@@ -278,18 +269,41 @@
             // 
             confirmarContraseñaLabel.AutoSize = true;
             confirmarContraseñaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            confirmarContraseñaLabel.Location = new Point(580, 437);
+            confirmarContraseñaLabel.Location = new Point(598, 301);
             confirmarContraseñaLabel.Name = "confirmarContraseñaLabel";
             confirmarContraseñaLabel.Size = new Size(134, 17);
             confirmarContraseñaLabel.TabIndex = 23;
             confirmarContraseñaLabel.Text = "Confirmar contraseña";
+            // 
+            // modificarLabel
+            // 
+            modificarLabel.AutoSize = true;
+            modificarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            modificarLabel.Location = new Point(416, 27);
+            modificarLabel.Name = "modificarLabel";
+            modificarLabel.Size = new Size(220, 32);
+            modificarLabel.TabIndex = 24;
+            modificarLabel.Text = "Registrar Paciente";
+            modificarLabel.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(104, 383);
+            label1.Name = "label1";
+            label1.Size = new Size(130, 17);
+            label1.TabIndex = 25;
+            label1.Text = "Fecha de Nacimiento";
             // 
             // RegistroPaciente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(1064, 681);
+            ClientSize = new Size(1067, 589);
+            Controls.Add(label1);
+            Controls.Add(modificarLabel);
             Controls.Add(confirmarContraseñaLabel);
             Controls.Add(contraseñaLabel);
             Controls.Add(mailLabel);
@@ -311,7 +325,6 @@
             Controls.Add(dniTextBox);
             Controls.Add(apellidoTextBox);
             Controls.Add(nombreTextBox);
-            Controls.Add(tituloLabel);
             Name = "RegistroPaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -321,8 +334,6 @@
         }
 
         #endregion
-
-        private Label tituloLabel;
         private TextBox nombreTextBox;
         private TextBox apellidoTextBox;
         private TextBox dniTextBox;
@@ -344,5 +355,7 @@
         private Label mailLabel;
         private Label contraseñaLabel;
         private Label confirmarContraseñaLabel;
+        private Label modificarLabel;
+        private Label label1;
     }
 }
