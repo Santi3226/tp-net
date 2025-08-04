@@ -34,7 +34,7 @@
             titulo = new Label();
             button1 = new Button();
             pacienteInMemoryBindingSource = new BindingSource(components);
-            textBoxId = new TextBox();
+            comboId = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)centroAtencionInMemoryBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacienteInMemoryBindingSource).BeginInit();
             SuspendLayout();
@@ -88,13 +88,16 @@
             // 
             pacienteInMemoryBindingSource.DataSource = typeof(Data.PacienteInMemory);
             // 
-            // textBoxId
+            // comboId
             // 
-            textBoxId.BorderStyle = BorderStyle.FixedSingle;
-            textBoxId.Location = new Point(158, 191);
-            textBoxId.Name = "textBoxId";
-            textBoxId.Size = new Size(300, 27);
-            textBoxId.TabIndex = 34;
+            comboId.DisplayMember = "id";
+            comboId.FormattingEnabled = true;
+            comboId.Location = new Point(161, 191);
+            comboId.Name = "comboId";
+            comboId.Size = new Size(317, 28);
+            comboId.TabIndex = 35;
+            comboId.Tag = "id";
+            comboId.ValueMember = "id";
             // 
             // BorrarCA
             // 
@@ -102,7 +105,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(623, 388);
-            Controls.Add(textBoxId);
+            Controls.Add(comboId);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(titulo);
@@ -123,5 +126,6 @@
         private BindingSource centroAtencionInMemoryBindingSource;
         private BindingSource pacienteInMemoryBindingSource;
         private TextBox textBoxId;
+        private ComboBox comboId;
     }
 }

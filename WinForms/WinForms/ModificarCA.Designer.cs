@@ -35,7 +35,7 @@
             textBoxNombre = new TextBox();
             label7 = new Label();
             label1 = new Label();
-            textBoxId = new TextBox();
+            comboId = new ComboBox();
             SuspendLayout();
             // 
             // button1
@@ -117,13 +117,16 @@
             label1.Text = "Id";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // textBoxId
+            // comboId
             // 
-            textBoxId.BorderStyle = BorderStyle.FixedSingle;
-            textBoxId.Location = new Point(144, 132);
-            textBoxId.Name = "textBoxId";
-            textBoxId.Size = new Size(300, 27);
-            textBoxId.TabIndex = 33;
+            comboId.DisplayMember = "id";
+            comboId.FormattingEnabled = true;
+            comboId.Location = new Point(144, 132);
+            comboId.Name = "comboId";
+            comboId.Size = new Size(300, 28);
+            comboId.TabIndex = 36;
+            comboId.Tag = "id";
+            comboId.ValueMember = "id";
             // 
             // ModificarCA
             // 
@@ -131,8 +134,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(612, 425);
+            Controls.Add(comboId);
             Controls.Add(label1);
-            Controls.Add(textBoxId);
             Controls.Add(button1);
             Controls.Add(textBoxDomicilio);
             Controls.Add(label8);
@@ -142,6 +145,7 @@
             Name = "ModificarCA";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
+            Load += ModificarCA_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -155,6 +159,6 @@
         private TextBox textBoxNombre;
         private Label label7;
         private Label label1;
-        private TextBox textBoxId;
+        private ComboBox comboId;
     }
 }
