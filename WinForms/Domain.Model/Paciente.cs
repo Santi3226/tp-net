@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Domain.Model
 {
@@ -51,8 +52,6 @@ namespace Domain.Model
         {
             if (string.IsNullOrWhiteSpace(dni))
                 throw new ArgumentException("El DNI no puede ser nulo o vacío.", nameof(dni));
-            else if(dni.Length != 8 || !int.TryParse(dni, out _))
-                throw new ArgumentException("El DNI debe tener 8 dígitos numéricos.", nameof(dni));
             Dni = dni;
         }
 
@@ -72,8 +71,8 @@ namespace Domain.Model
 
         public void SetEmail(string email)
         {
-            if (!EsEmailValido(email))
-                throw new ArgumentException("El email no tiene un formato válido", nameof(email));
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("El mail no puede ser nulo o vacío.", nameof(email));
             Email = email;
         }
 
@@ -89,13 +88,6 @@ namespace Domain.Model
             if (fechaNacimiento == default)
                 throw new ArgumentException("La fecha de nacimiento no puede ser nula.", nameof(fechaNacimiento));
             FechaNacimiento = fechaNacimiento;
-        }
-
-        public static bool EsEmailValido(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-                return false;
-            return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.+[^@\s]+$");
         }
     }
 }
