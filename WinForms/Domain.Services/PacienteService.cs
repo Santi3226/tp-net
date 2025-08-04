@@ -73,6 +73,7 @@ namespace Application.Services
                 Telefono = paciente.Telefono,
                 Dni = paciente.Dni,
                 Domicilio = paciente.Domicilio,
+                Contraseña = paciente.Contraseña,
                 FechaNacimiento = paciente.FechaNacimiento
             }).ToList();
         }

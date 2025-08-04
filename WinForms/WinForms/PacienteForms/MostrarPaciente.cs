@@ -49,6 +49,7 @@ namespace WinForms
             {
                 this.dataGridViewPac.DataSource = null;
                 this.dataGridViewPac.DataSource = PacienteService.GetAll();
+                this.dataGridViewPac.Columns[7].Visible = false;
                 this.comboId.DataSource = null;
                 this.comboId.DataSource = PacienteService.GetAll();
             }
@@ -70,15 +71,56 @@ namespace WinForms
             }
         }
 
+        private void borrarBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewPac.SelectedRows.Count == 0)
+            {
+                MessageBox.Show($"Seleccionar un Paciente para Borrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var p = (PacienteDTO)dataGridViewPac.SelectedRows[0].DataBoundItem;
+                var dec = MessageBox.Show("Desea eliminar el paciente N°" + p.Id + "?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dec == DialogResult.Yes)
+                {
+                    int id = Convert.ToInt32(p.Id);
+                    bool delete = PacienteService.Delete(id);
+                    if (delete)
+                    {
+                        MessageBox.Show("Paciente N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el Paciente N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+        }
+
+        private void modificarCaBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewPac.SelectedRows.Count == 0)
+            {
+                MessageBox.Show($"Seleccionar un Paciente para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var ca = (PacienteDTO)dataGridViewPac.SelectedRows[0].DataBoundItem;
+                ModificarPaciente form = new ModificarPaciente(ca);
+                form.ShowDialog();
+            }
+        }
+
+        private void agregarCaBtn_Click(object sender, EventArgs e)
+        {
+            AgregarPaciente form = new AgregarPaciente();
+            form.ShowDialog();
+        }
+
         private void dataGridViewPac_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            int id = Convert.ToInt32(comboId.Text);
-            GetOneAndLoad(id);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -86,5 +128,4 @@ namespace WinForms
             GetAll();
         }
     }
-}   
-
+}

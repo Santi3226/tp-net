@@ -7,27 +7,13 @@ namespace WinForms
 {
     public partial class BorrarCA : Form
     {
-        public BorrarCA()
+        public BorrarCA(CentroAtencionDTO ca)
         {
             InitializeComponent();
         }
 
         private void BorrarCA_Load(object sender, EventArgs e)
         {
-            this.GetAllAndLoad();
-        }
-
-        private void GetAllAndLoad()
-        {
-            try
-            {
-                this.comboId.DataSource = null;
-                this.comboId.DataSource = CentroAtencionService.GetAll();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void borrarBtn_Click(object sender, EventArgs e)
@@ -42,7 +28,6 @@ namespace WinForms
             {
                 MessageBox.Show("No se pudo eliminar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.Close();
         }
     }
 }

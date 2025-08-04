@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using DTOs;
 using Data;
+using WinForms;
 
 namespace WinForms
 {
@@ -31,8 +32,10 @@ namespace WinForms
                 if (this.ValidatePacienteAsync())
                 {
                     // acá iria la iniciacion del menu principal
-                    MessageBox.Show(Text = "Bienvenido " , "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                    MessageBox.Show(Text = "Bienvenido!", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    this.Hide();
+                    menuPrincipal.ShowDialog();
                 }
                 else
                 {
@@ -89,6 +92,11 @@ namespace WinForms
             contraseñaTextBox.Clear();
             RegistroPaciente registroPaciente = new RegistroPaciente();
             registroPaciente.ShowDialog();
+        }
+
+        private void emailTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

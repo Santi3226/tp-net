@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Domain.Model;
 using DTOs;
 using System;
 using System.Collections.Generic;
@@ -73,8 +74,59 @@ namespace WinForms
                 MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void dataGridViewCA_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void borrarBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCA.SelectedRows.Count == 0)
+            {
+                MessageBox.Show($"Seleccionar un Centro para Borrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var ca = (CentroAtencionDTO)dataGridViewCA.SelectedRows[0].DataBoundItem;
+                var dec = MessageBox.Show("Desea eliminar el centro N°" + ca.Id + "?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dec == DialogResult.Yes)
+                {
+                    int id = Convert.ToInt32(ca.Id);
+                    bool delete = CentroAtencionService.Delete(id);
+                    if (delete)
+                    {
+                        MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+        }
+
+        private void modificarCaBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCA.SelectedRows.Count == 0)
+            {
+                MessageBox.Show($"Seleccionar un Centro para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var ca = (CentroAtencionDTO)dataGridViewCA.SelectedRows[0].DataBoundItem;
+                ModificarCA form = new ModificarCA(ca);
+                form.ShowDialog();
+            }
+        }
+
+        private void agregarCaBtn_Click(object sender, EventArgs e)
+        {
+            AgregarCA agregarCA = new AgregarCA();
+            agregarCA.ShowDialog();
+        }
+
+        private void titulo_Click(object sender, EventArgs e)
         {
 
         }

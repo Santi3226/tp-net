@@ -18,7 +18,7 @@ namespace WinForms
         {
             string nombre = this.textBoxNombre.Text;
             string domicilio = this.textBoxDomicilio.Text;
-            CentroAtencion ca = CentroAtencionService.Add(nombre, domicilio);
+            Domain.Model.CentroAtencion ca = CentroAtencionService.Add(nombre, domicilio);
             MessageBox.Show("Centro de Atencion " + ca.Nombre + " N°" + ca.Id + " registrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }

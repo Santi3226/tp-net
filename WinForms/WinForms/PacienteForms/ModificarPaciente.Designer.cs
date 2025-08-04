@@ -42,37 +42,35 @@
             celularText = new TextBox();
             domicilioText = new TextBox();
             apellidoText = new TextBox();
-            comboId = new ComboBox();
-            idLabel = new Label();
             contraseñaText = new TextBox();
             contraseñaLabel = new Label();
             label1 = new Label();
             dniText = new TextBox();
+            textId = new TextBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // fechaNacimientoCalendario
             // 
-            fechaNacimientoCalendario.Location = new Point(42, 140);
-            fechaNacimientoCalendario.Margin = new Padding(8, 7, 8, 7);
+            fechaNacimientoCalendario.Location = new Point(48, 187);
             fechaNacimientoCalendario.Name = "fechaNacimientoCalendario";
             fechaNacimientoCalendario.TabIndex = 0;
             // 
             // nombreText
             // 
             nombreText.BorderStyle = BorderStyle.FixedSingle;
-            nombreText.Location = new Point(349, 139);
-            nombreText.Margin = new Padding(3, 2, 3, 2);
+            nombreText.Location = new Point(737, 103);
             nombreText.Name = "nombreText";
-            nombreText.Size = new Size(263, 23);
+            nombreText.Size = new Size(300, 27);
             nombreText.TabIndex = 1;
             // 
             // modificarLabel
             // 
             modificarLabel.AutoSize = true;
             modificarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            modificarLabel.Location = new Point(62, 40);
+            modificarLabel.Location = new Point(71, 53);
             modificarLabel.Name = "modificarLabel";
-            modificarLabel.Size = new Size(228, 32);
+            modificarLabel.Size = new Size(282, 41);
             modificarLabel.TabIndex = 2;
             modificarLabel.Text = "Modificar Paciente";
             modificarLabel.TextAlign = ContentAlignment.TopCenter;
@@ -81,9 +79,9 @@
             // 
             fechaNacimientoLabel.AutoSize = true;
             fechaNacimientoLabel.Font = new Font("Segoe UI", 9F);
-            fechaNacimientoLabel.Location = new Point(97, 117);
+            fechaNacimientoLabel.Location = new Point(111, 156);
             fechaNacimientoLabel.Name = "fechaNacimientoLabel";
-            fechaNacimientoLabel.Size = new Size(119, 15);
+            fechaNacimientoLabel.Size = new Size(149, 20);
             fechaNacimientoLabel.TabIndex = 3;
             fechaNacimientoLabel.Text = "Fecha de Nacimiento";
             fechaNacimientoLabel.TextAlign = ContentAlignment.TopCenter;
@@ -98,21 +96,21 @@
             guardarBtn.FlatStyle = FlatStyle.Flat;
             guardarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guardarBtn.ForeColor = SystemColors.ControlLightLight;
-            guardarBtn.Location = new Point(411, 329);
-            guardarBtn.Margin = new Padding(3, 2, 3, 2);
+            guardarBtn.Location = new Point(470, 439);
             guardarBtn.Name = "guardarBtn";
-            guardarBtn.Size = new Size(122, 30);
+            guardarBtn.Size = new Size(139, 40);
             guardarBtn.TabIndex = 9;
             guardarBtn.Text = "Guardar";
             guardarBtn.UseVisualStyleBackColor = false;
+            guardarBtn.Click += guardarBtn_Click;
             // 
             // celularLabel
             // 
             celularLabel.AutoSize = true;
             celularLabel.Font = new Font("Segoe UI", 9F);
-            celularLabel.Location = new Point(347, 251);
+            celularLabel.Location = new Point(397, 335);
             celularLabel.Name = "celularLabel";
-            celularLabel.Size = new Size(44, 15);
+            celularLabel.Size = new Size(55, 20);
             celularLabel.TabIndex = 11;
             celularLabel.Text = "Celular";
             celularLabel.TextAlign = ContentAlignment.TopCenter;
@@ -121,9 +119,9 @@
             // 
             nombreLabel.AutoSize = true;
             nombreLabel.Font = new Font("Segoe UI", 9F);
-            nombreLabel.Location = new Point(347, 122);
+            nombreLabel.Location = new Point(735, 81);
             nombreLabel.Name = "nombreLabel";
-            nombreLabel.Size = new Size(51, 15);
+            nombreLabel.Size = new Size(64, 20);
             nombreLabel.TabIndex = 12;
             nombreLabel.Text = "Nombre";
             nombreLabel.TextAlign = ContentAlignment.TopCenter;
@@ -132,9 +130,9 @@
             // 
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI", 9F);
-            emailLabel.Location = new Point(347, 186);
+            emailLabel.Location = new Point(397, 248);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(36, 15);
+            emailLabel.Size = new Size(46, 20);
             emailLabel.TabIndex = 13;
             emailLabel.Text = "Email";
             emailLabel.TextAlign = ContentAlignment.TopCenter;
@@ -143,9 +141,9 @@
             // 
             domicilioLabel.AutoSize = true;
             domicilioLabel.Font = new Font("Segoe UI", 9F);
-            domicilioLabel.Location = new Point(643, 186);
+            domicilioLabel.Location = new Point(735, 334);
             domicilioLabel.Name = "domicilioLabel";
-            domicilioLabel.Size = new Size(58, 15);
+            domicilioLabel.Size = new Size(74, 20);
             domicilioLabel.TabIndex = 14;
             domicilioLabel.Text = "Domicilio";
             domicilioLabel.TextAlign = ContentAlignment.TopCenter;
@@ -154,9 +152,9 @@
             // 
             apellidoLabel.AutoSize = true;
             apellidoLabel.Font = new Font("Segoe UI", 9F);
-            apellidoLabel.Location = new Point(643, 122);
+            apellidoLabel.Location = new Point(397, 165);
             apellidoLabel.Name = "apellidoLabel";
-            apellidoLabel.Size = new Size(51, 15);
+            apellidoLabel.Size = new Size(66, 20);
             apellidoLabel.TabIndex = 15;
             apellidoLabel.Text = "Apellido";
             apellidoLabel.TextAlign = ContentAlignment.TopCenter;
@@ -164,78 +162,51 @@
             // emailText
             // 
             emailText.BorderStyle = BorderStyle.FixedSingle;
-            emailText.Location = new Point(349, 203);
-            emailText.Margin = new Padding(3, 2, 3, 2);
+            emailText.Location = new Point(399, 271);
             emailText.Name = "emailText";
-            emailText.Size = new Size(263, 23);
+            emailText.Size = new Size(300, 27);
             emailText.TabIndex = 16;
             // 
             // celularText
             // 
             celularText.BorderStyle = BorderStyle.FixedSingle;
-            celularText.Location = new Point(349, 268);
-            celularText.Margin = new Padding(3, 2, 3, 2);
+            celularText.Location = new Point(399, 357);
             celularText.Name = "celularText";
-            celularText.Size = new Size(263, 23);
+            celularText.Size = new Size(300, 27);
             celularText.TabIndex = 17;
             // 
             // domicilioText
             // 
             domicilioText.BorderStyle = BorderStyle.FixedSingle;
-            domicilioText.Location = new Point(645, 203);
-            domicilioText.Margin = new Padding(3, 2, 3, 2);
+            domicilioText.Location = new Point(737, 357);
             domicilioText.Name = "domicilioText";
-            domicilioText.Size = new Size(263, 23);
+            domicilioText.Size = new Size(300, 27);
             domicilioText.TabIndex = 19;
             // 
             // apellidoText
             // 
             apellidoText.BorderStyle = BorderStyle.FixedSingle;
-            apellidoText.Location = new Point(645, 139);
-            apellidoText.Margin = new Padding(3, 2, 3, 2);
+            apellidoText.Location = new Point(399, 187);
             apellidoText.Name = "apellidoText";
-            apellidoText.Size = new Size(263, 23);
+            apellidoText.Size = new Size(300, 27);
             apellidoText.TabIndex = 20;
-            // 
-            // comboId
-            // 
-            comboId.DisplayMember = "id";
-            comboId.FormattingEnabled = true;
-            comboId.Location = new Point(645, 74);
-            comboId.Margin = new Padding(3, 2, 3, 2);
-            comboId.Name = "comboId";
-            comboId.Size = new Size(263, 23);
-            comboId.TabIndex = 38;
-            comboId.Tag = "id";
-            comboId.ValueMember = "id";
-            // 
-            // idLabel
-            // 
-            idLabel.AutoSize = true;
-            idLabel.Font = new Font("Segoe UI", 9F);
-            idLabel.Location = new Point(643, 57);
-            idLabel.Name = "idLabel";
-            idLabel.Size = new Size(17, 15);
-            idLabel.TabIndex = 37;
-            idLabel.Text = "Id";
-            idLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // contraseñaText
             // 
             contraseñaText.BorderStyle = BorderStyle.FixedSingle;
-            contraseñaText.Location = new Point(349, 80);
-            contraseñaText.Margin = new Padding(3, 2, 3, 2);
+            contraseñaText.Location = new Point(737, 271);
             contraseñaText.Name = "contraseñaText";
-            contraseñaText.Size = new Size(263, 23);
+            contraseñaText.PasswordChar = '*';
+            contraseñaText.Size = new Size(300, 27);
             contraseñaText.TabIndex = 40;
             // 
             // contraseñaLabel
             // 
             contraseñaLabel.AutoSize = true;
             contraseñaLabel.Font = new Font("Segoe UI", 9F);
-            contraseñaLabel.Location = new Point(347, 63);
+            contraseñaLabel.Location = new Point(735, 248);
             contraseñaLabel.Name = "contraseñaLabel";
-            contraseñaLabel.Size = new Size(67, 15);
+            contraseñaLabel.Size = new Size(83, 20);
             contraseñaLabel.TabIndex = 39;
             contraseñaLabel.Text = "Contraseña";
             contraseñaLabel.TextAlign = ContentAlignment.TopCenter;
@@ -244,9 +215,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(641, 251);
+            label1.Location = new Point(735, 165);
             label1.Name = "label1";
-            label1.Size = new Size(27, 15);
+            label1.Size = new Size(35, 20);
             label1.TabIndex = 42;
             label1.Text = "DNI";
             label1.TextAlign = ContentAlignment.TopCenter;
@@ -254,24 +225,43 @@
             // dniText
             // 
             dniText.BorderStyle = BorderStyle.FixedSingle;
-            dniText.Location = new Point(643, 268);
-            dniText.Margin = new Padding(3, 2, 3, 2);
+            dniText.Location = new Point(737, 187);
             dniText.Name = "dniText";
-            dniText.Size = new Size(263, 23);
+            dniText.Size = new Size(300, 27);
             dniText.TabIndex = 41;
+            // 
+            // textId
+            // 
+            textId.BorderStyle = BorderStyle.FixedSingle;
+            textId.Location = new Point(399, 103);
+            textId.Name = "textId";
+            textId.ReadOnly = true;
+            textId.Size = new Size(300, 27);
+            textId.TabIndex = 44;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F);
+            label2.Location = new Point(397, 80);
+            label2.Name = "label2";
+            label2.Size = new Size(22, 20);
+            label2.TabIndex = 43;
+            label2.Text = "Id";
+            label2.TextAlign = ContentAlignment.TopCenter;
             // 
             // ModificarPaciente
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(929, 396);
+            ClientSize = new Size(1062, 528);
+            Controls.Add(textId);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(dniText);
             Controls.Add(contraseñaText);
             Controls.Add(contraseñaLabel);
-            Controls.Add(comboId);
-            Controls.Add(idLabel);
             Controls.Add(apellidoText);
             Controls.Add(domicilioText);
             Controls.Add(celularText);
@@ -286,7 +276,6 @@
             Controls.Add(modificarLabel);
             Controls.Add(nombreText);
             Controls.Add(fechaNacimientoCalendario);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "ModificarPaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -311,11 +300,11 @@
         private TextBox celularText;
         private TextBox domicilioText;
         private TextBox apellidoText;
-        private ComboBox comboId;
-        private Label idLabel;
         private TextBox contraseñaText;
         private Label contraseñaLabel;
         private Label label1;
         private TextBox dniText;
+        private TextBox textId;
+        private Label label2;
     }
 }

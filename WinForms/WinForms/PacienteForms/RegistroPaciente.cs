@@ -96,7 +96,7 @@ namespace WinForms
                 string contraseña = contraseñaTextBox.Text;
                 DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
                 PacienteService.Add(nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
-                MessageBox.Show("Paciente registrado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Paciente registrado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             catch (ArgumentException ex)

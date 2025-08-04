@@ -128,7 +128,6 @@
         private Button borrarBtn;
         private BindingSource centroAtencionInMemoryBindingSource;
         private BindingSource pacienteInMemoryBindingSource;
-        private TextBox textBoxId;
         private ComboBox comboId;
     }
 }

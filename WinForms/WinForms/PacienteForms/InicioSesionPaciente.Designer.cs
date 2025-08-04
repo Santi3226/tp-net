@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tituloLabel = new Label();
             emailTextBox = new TextBox();
             contraseñaTextBox = new TextBox();
             emailLabel = new Label();
@@ -38,44 +37,38 @@
             noCuentaLabel = new Label();
             olvidasteLabel = new LinkLabel();
             registrarmeLabel = new LinkLabel();
+            modificarLabel = new Label();
             SuspendLayout();
-            // 
-            // tituloLabel
-            // 
-            tituloLabel.AutoSize = true;
-            tituloLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tituloLabel.Location = new Point(423, 52);
-            tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(198, 29);
-            tituloLabel.TabIndex = 0;
-            tituloLabel.Text = "Inicio de Sesion";
             // 
             // emailTextBox
             // 
             emailTextBox.BorderStyle = BorderStyle.FixedSingle;
             emailTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailTextBox.Location = new Point(328, 215);
+            emailTextBox.Location = new Point(238, 204);
+            emailTextBox.Margin = new Padding(3, 4, 3, 4);
             emailTextBox.Name = "emailTextBox";
-            emailTextBox.Size = new Size(380, 33);
+            emailTextBox.Size = new Size(434, 39);
             emailTextBox.TabIndex = 1;
+            emailTextBox.TextChanged += emailTextBox_TextChanged;
             // 
             // contraseñaTextBox
             // 
             contraseñaTextBox.BorderStyle = BorderStyle.FixedSingle;
             contraseñaTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contraseñaTextBox.Location = new Point(328, 372);
+            contraseñaTextBox.Location = new Point(238, 295);
+            contraseñaTextBox.Margin = new Padding(3, 4, 3, 4);
             contraseñaTextBox.Name = "contraseñaTextBox";
             contraseñaTextBox.PasswordChar = '*';
-            contraseñaTextBox.Size = new Size(380, 33);
+            contraseñaTextBox.Size = new Size(434, 39);
             contraseñaTextBox.TabIndex = 2;
             // 
             // emailLabel
             // 
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailLabel.Location = new Point(325, 195);
+            emailLabel.Location = new Point(234, 177);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(39, 17);
+            emailLabel.Size = new Size(51, 23);
             emailLabel.TabIndex = 3;
             emailLabel.Text = "Email";
             // 
@@ -83,9 +76,9 @@
             // 
             contraseñaLabel.AutoSize = true;
             contraseñaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contraseñaLabel.Location = new Point(325, 352);
+            contraseñaLabel.Location = new Point(238, 268);
             contraseñaLabel.Name = "contraseñaLabel";
-            contraseñaLabel.Size = new Size(74, 17);
+            contraseñaLabel.Size = new Size(97, 23);
             contraseñaLabel.TabIndex = 4;
             contraseñaLabel.Text = "Contraseña";
             // 
@@ -93,9 +86,10 @@
             // 
             recordarmeCheckBox.AutoSize = true;
             recordarmeCheckBox.FlatStyle = FlatStyle.Flat;
-            recordarmeCheckBox.Location = new Point(328, 432);
+            recordarmeCheckBox.Location = new Point(238, 383);
+            recordarmeCheckBox.Margin = new Padding(3, 4, 3, 4);
             recordarmeCheckBox.Name = "recordarmeCheckBox";
-            recordarmeCheckBox.Size = new Size(87, 19);
+            recordarmeCheckBox.Size = new Size(108, 24);
             recordarmeCheckBox.TabIndex = 5;
             recordarmeCheckBox.Text = "Recordarme";
             recordarmeCheckBox.UseVisualStyleBackColor = true;
@@ -110,9 +104,10 @@
             iniciarSesionBtn.FlatStyle = FlatStyle.Flat;
             iniciarSesionBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             iniciarSesionBtn.ForeColor = Color.White;
-            iniciarSesionBtn.Location = new Point(459, 517);
+            iniciarSesionBtn.Location = new Point(380, 443);
+            iniciarSesionBtn.Margin = new Padding(3, 4, 3, 4);
             iniciarSesionBtn.Name = "iniciarSesionBtn";
-            iniciarSesionBtn.Size = new Size(137, 33);
+            iniciarSesionBtn.Size = new Size(157, 44);
             iniciarSesionBtn.TabIndex = 7;
             iniciarSesionBtn.Text = "Iniciar Sesion";
             iniciarSesionBtn.UseVisualStyleBackColor = false;
@@ -123,9 +118,9 @@
             noCuentaLabel.AutoSize = true;
             noCuentaLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             noCuentaLabel.ForeColor = Color.Black;
-            noCuentaLabel.Location = new Point(423, 577);
+            noCuentaLabel.Location = new Point(477, 544);
             noCuentaLabel.Name = "noCuentaLabel";
-            noCuentaLabel.Size = new Size(101, 15);
+            noCuentaLabel.Size = new Size(131, 20);
             noCuentaLabel.TabIndex = 8;
             noCuentaLabel.Text = "No tienes cuenta?";
             // 
@@ -136,9 +131,9 @@
             olvidasteLabel.Cursor = Cursors.Hand;
             olvidasteLabel.LinkBehavior = LinkBehavior.NeverUnderline;
             olvidasteLabel.LinkColor = Color.DodgerBlue;
-            olvidasteLabel.Location = new Point(596, 436);
+            olvidasteLabel.Location = new Point(530, 387);
             olvidasteLabel.Name = "olvidasteLabel";
-            olvidasteLabel.Size = new Size(112, 15);
+            olvidasteLabel.Size = new Size(142, 20);
             olvidasteLabel.TabIndex = 10;
             olvidasteLabel.TabStop = true;
             olvidasteLabel.Text = "Olvidaste tus datos?";
@@ -150,20 +145,32 @@
             registrarmeLabel.Cursor = Cursors.Hand;
             registrarmeLabel.LinkBehavior = LinkBehavior.NeverUnderline;
             registrarmeLabel.LinkColor = Color.DodgerBlue;
-            registrarmeLabel.Location = new Point(547, 577);
+            registrarmeLabel.Location = new Point(619, 544);
             registrarmeLabel.Name = "registrarmeLabel";
-            registrarmeLabel.Size = new Size(70, 15);
+            registrarmeLabel.Size = new Size(89, 20);
             registrarmeLabel.TabIndex = 11;
             registrarmeLabel.TabStop = true;
             registrarmeLabel.Text = "Registrarme";
             registrarmeLabel.LinkClicked += registrarmeLabel_LinkClicked;
             // 
+            // modificarLabel
+            // 
+            modificarLabel.AutoSize = true;
+            modificarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            modificarLabel.Location = new Point(349, 65);
+            modificarLabel.Name = "modificarLabel";
+            modificarLabel.Size = new Size(205, 41);
+            modificarLabel.TabIndex = 25;
+            modificarLabel.Text = "Iniciar Sesion";
+            modificarLabel.TextAlign = ContentAlignment.TopCenter;
+            // 
             // InicioSesionPaciente
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(1064, 681);
+            ClientSize = new Size(927, 545);
+            Controls.Add(modificarLabel);
             Controls.Add(registrarmeLabel);
             Controls.Add(olvidasteLabel);
             Controls.Add(noCuentaLabel);
@@ -173,7 +180,7 @@
             Controls.Add(emailLabel);
             Controls.Add(contraseñaTextBox);
             Controls.Add(emailTextBox);
-            Controls.Add(tituloLabel);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "InicioSesionPaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -183,8 +190,6 @@
         }
 
         #endregion
-
-        private Label tituloLabel;
         private TextBox emailTextBox;
         private TextBox contraseñaTextBox;
         private Label emailLabel;
@@ -194,5 +199,6 @@
         private Label noCuentaLabel;
         private LinkLabel olvidasteLabel;
         private LinkLabel registrarmeLabel;
+        private Label modificarLabel;
     }
 }

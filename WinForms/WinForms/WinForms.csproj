@@ -15,9 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\API.Clients\API.Clients.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" />
     <ProjectReference Include="..\Domain.Services\Application.Services.csproj" />
     <ProjectReference Include="..\DTOs\DTOs.csproj" />
-    <Compile Update="AgregarCA.cs">
+    <Compile Update="CentroAtencionForms\AgregarCA.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
