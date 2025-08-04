@@ -19,7 +19,7 @@ namespace Application.Services
 
             var id = GetNextId();
 
-            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.Email, dto.Telefono, dto.Dni, dto.Domicilio, dto.FechaNacimiento);
+            Paciente paciente = new Paciente(id, dto.Nombre, dto.Apellido, dto.Email, dto.Telefono, dto.Dni, dto.Domicilio,dto.Contraseña, dto.FechaNacimiento);
 
             PacienteInMemory.Pacientes.Add(paciente);
 
@@ -44,7 +44,7 @@ namespace Application.Services
             }
         }
 
-        public PacienteDTO Get(int id)
+        public PacienteDTO? Get(int id)
         {
             Paciente? paciente = PacienteInMemory.Pacientes.Find(p => p.Id == id);
 

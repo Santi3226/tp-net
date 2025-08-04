@@ -11,7 +11,8 @@ namespace WinForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MenuPrincipal());
+            MenuPrincipal form = new MenuPrincipal();
+            form.ShowDialog();
         }
     }
 }

@@ -44,10 +44,10 @@
             apellidoText = new TextBox();
             sexoCombo = new ComboBox();
             label7 = new Label();
-            textBox2 = new TextBox();
+            textBoxDomicilio = new TextBox();
             label8 = new Label();
             label9 = new Label();
-            textBox3 = new TextBox();
+            textBoxNombre = new TextBox();
             button1 = new Button();
             SuspendLayout();
             // 
@@ -223,15 +223,14 @@
             label7.TabIndex = 3;
             label7.Text = "Crear Centro de Atencion";
             label7.TextAlign = ContentAlignment.TopCenter;
-            label7.Click += label7_Click;
             // 
-            // textBox2
+            // textBoxDomicilio
             // 
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
-            textBox2.Location = new Point(201, 229);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(300, 27);
-            textBox2.TabIndex = 22;
+            textBoxDomicilio.BorderStyle = BorderStyle.FixedSingle;
+            textBoxDomicilio.Location = new Point(201, 229);
+            textBoxDomicilio.Name = "textBoxDomicilio";
+            textBoxDomicilio.Size = new Size(300, 27);
+            textBoxDomicilio.TabIndex = 22;
             // 
             // label8
             // 
@@ -243,7 +242,6 @@
             label8.TabIndex = 21;
             label8.Text = "Domicilio";
             label8.TextAlign = ContentAlignment.TopCenter;
-            label8.Click += label8_Click;
             // 
             // label9
             // 
@@ -256,13 +254,13 @@
             label9.Text = "Nombre";
             label9.TextAlign = ContentAlignment.TopCenter;
             // 
-            // textBox3
+            // textBoxNombre
             // 
-            textBox3.BorderStyle = BorderStyle.FixedSingle;
-            textBox3.Location = new Point(201, 143);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(300, 27);
-            textBox3.TabIndex = 18;
+            textBoxNombre.BorderStyle = BorderStyle.FixedSingle;
+            textBoxNombre.Location = new Point(201, 143);
+            textBoxNombre.Name = "textBoxNombre";
+            textBoxNombre.Size = new Size(300, 27);
+            textBoxNombre.TabIndex = 18;
             // 
             // button1
             // 
@@ -280,16 +278,17 @@
             button1.TabIndex = 24;
             button1.Text = "Agregar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += Button1_Click;
             // 
             // AgregarCA
             // 
             BackColor = Color.Gainsboro;
             ClientSize = new Size(715, 384);
             Controls.Add(button1);
-            Controls.Add(textBox2);
+            Controls.Add(textBoxDomicilio);
             Controls.Add(label8);
             Controls.Add(label9);
-            Controls.Add(textBox3);
+            Controls.Add(textBoxNombre);
             Controls.Add(label7);
             Name = "AgregarCA";
             StartPosition = FormStartPosition.CenterScreen;
@@ -321,10 +320,10 @@
         private TextBox apellidoText;
         private ComboBox sexoCombo;
         private Label label7;
-        private TextBox textBox2;
+        private TextBox textBoxDomicilio;
         private Label label8;
         private Label label9;
-        private TextBox textBox3;
+        private TextBox textBoxNombre;
         private Button button1;
     }
 }

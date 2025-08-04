@@ -52,5 +52,10 @@ namespace WinForms
             ModificarPaciente form = new ModificarPaciente();
             form.ShowDialog();
         }
+
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+         
+        }
     }
 }

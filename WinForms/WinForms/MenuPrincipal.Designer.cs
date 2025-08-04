@@ -58,7 +58,7 @@
             guardarBtn.FlatStyle = FlatStyle.Flat;
             guardarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guardarBtn.ForeColor = SystemColors.ControlLightLight;
-            guardarBtn.Location = new Point(487, 236);
+            guardarBtn.Location = new Point(487, 227);
             guardarBtn.Name = "guardarBtn";
             guardarBtn.Size = new Size(152, 43);
             guardarBtn.TabIndex = 10;
@@ -76,7 +76,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(487, 331);
+            button1.Location = new Point(487, 304);
             button1.Name = "button1";
             button1.Size = new Size(152, 43);
             button1.TabIndex = 11;
@@ -112,7 +112,7 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = SystemColors.ControlLightLight;
-            button3.Location = new Point(114, 236);
+            button3.Location = new Point(114, 227);
             button3.Name = "button3";
             button3.Size = new Size(152, 43);
             button3.TabIndex = 13;
@@ -130,7 +130,7 @@
             button4.FlatStyle = FlatStyle.Flat;
             button4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button4.ForeColor = SystemColors.ControlLightLight;
-            button4.Location = new Point(114, 331);
+            button4.Location = new Point(114, 304);
             button4.Name = "button4";
             button4.Size = new Size(152, 43);
             button4.TabIndex = 14;
@@ -172,6 +172,7 @@
             Name = "MenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";
+            Load += MenuPrincipal_Load;
             ResumeLayout(false);
             PerformLayout();
         }

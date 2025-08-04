@@ -5,6 +5,9 @@
     <Compile Update="BorrarCA.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BorrarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

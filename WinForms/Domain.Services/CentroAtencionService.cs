@@ -6,24 +6,22 @@ namespace Application.Services
 {
     public class CentroAtencionService
     {
-        public CentroAtencionDTO Add(CentroAtencionDTO dto)
+        public static CentroAtencion Add(string nombre, string domicilio)
         {
-            if (CentroAtencionInMemory.Centros.Any(c => c.Nombre.Equals(dto.Nombre, StringComparison.OrdinalIgnoreCase)))
+            if (CentroAtencionInMemory.Centros.Any(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)))
             {
-                throw new ArgumentException($"Ya existe un centro de atención con el Nombre '{dto.Nombre}'.");
+                throw new ArgumentException($"Ya existe un centro de atención con el Nombre '{nombre}'.");
             }
             var id = GetNextId();
 
-            CentroAtencion centroAtencion = new CentroAtencion(id, dto.Nombre, dto.Domicilio);
+            CentroAtencion centroAtencion = new CentroAtencion(id, nombre, domicilio);
 
             CentroAtencionInMemory.Centros.Add(centroAtencion);
 
-            dto.Id = centroAtencion.Id;
-
-            return dto;
+            return centroAtencion;
         }
 
-        public bool Delete(int id)
+        public static bool Delete(int id)
         {
             CentroAtencion? centroAtencionToDelete = CentroAtencionInMemory.Centros.Find(c => c.Id == id);
 
@@ -39,7 +37,7 @@ namespace Application.Services
             }
         }
 
-        public CentroAtencionDTO Get(int id)
+        public static CentroAtencionDTO? Get(int id)
         {
             CentroAtencion? centroAtencion = CentroAtencionInMemory.Centros.Find(p => p.Id == id);
 
@@ -54,7 +52,7 @@ namespace Application.Services
             };
         }
 
-        public IEnumerable<CentroAtencionDTO> GetAll()
+        public static IEnumerable<CentroAtencionDTO> GetAll()
         {
             return CentroAtencionInMemory.Centros.Select(centroAtencion => new CentroAtencionDTO
             {
@@ -64,19 +62,19 @@ namespace Application.Services
                 }).ToList();
         }
 
-        public bool Update(CentroAtencionDTO dto)
+        public static bool Update(int id, string nombre, string domicilio)
         {
-            CentroAtencion? centroAtencionToUpdate = CentroAtencionInMemory.Centros.Find(c => c.Id == dto.Id);
+            CentroAtencion? centroAtencionToUpdate = CentroAtencionInMemory.Centros.Find(c => c.Id == id);
 
             if (centroAtencionToUpdate != null)
             {
-                if (CentroAtencionInMemory.Centros.Any(c => c.Id != dto.Id && c.Nombre.Equals(dto.Nombre, StringComparison.OrdinalIgnoreCase)))
+                if (CentroAtencionInMemory.Centros.Any(c => c.Id != id && c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)))
                 {
-                    throw new ArgumentException($"Ya existe otro paciente con el Email '{dto.Nombre}'.");
+                    throw new ArgumentException($"Ya existe otro centro con el Nombre '{nombre}'.");
                 }
 
-                centroAtencionToUpdate.SetNombre(dto.Nombre);
-                centroAtencionToUpdate.SetDomicilio(dto.Domicilio);
+                centroAtencionToUpdate.SetNombre(nombre);
+                centroAtencionToUpdate.SetDomicilio(domicilio);
 
                 return true;
             }

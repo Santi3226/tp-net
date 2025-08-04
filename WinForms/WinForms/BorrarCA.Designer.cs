@@ -28,22 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            sexoCombo = new ComboBox();
+            components = new System.ComponentModel.Container();
+            centroAtencionInMemoryBindingSource = new BindingSource(components);
             label1 = new Label();
             titulo = new Label();
             button1 = new Button();
+            pacienteInMemoryBindingSource = new BindingSource(components);
+            textBoxId = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)centroAtencionInMemoryBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pacienteInMemoryBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // sexoCombo
+            // centroAtencionInMemoryBindingSource
             // 
-            sexoCombo.DisplayMember = "-";
-            sexoCombo.FormattingEnabled = true;
-            sexoCombo.Items.AddRange(new object[] { "Sin Especificar", "Masculino", "Femenino" });
-            sexoCombo.Location = new Point(158, 191);
-            sexoCombo.Name = "sexoCombo";
-            sexoCombo.Size = new Size(300, 28);
-            sexoCombo.TabIndex = 24;
-            sexoCombo.Text = "-";
+            centroAtencionInMemoryBindingSource.DataSource = typeof(Data.CentroAtencionInMemory);
             // 
             // label1
             // 
@@ -51,9 +49,9 @@
             label1.Font = new Font("Segoe UI", 9F);
             label1.Location = new Point(158, 168);
             label1.Name = "label1";
-            label1.Size = new Size(70, 20);
+            label1.Size = new Size(154, 20);
             label1.TabIndex = 23;
-            label1.Text = "Id Centro";
+            label1.Text = "Id Centro de Atencion";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // titulo
@@ -84,6 +82,19 @@
             button1.TabIndex = 33;
             button1.Text = "Borrar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // pacienteInMemoryBindingSource
+            // 
+            pacienteInMemoryBindingSource.DataSource = typeof(Data.PacienteInMemory);
+            // 
+            // textBoxId
+            // 
+            textBoxId.BorderStyle = BorderStyle.FixedSingle;
+            textBoxId.Location = new Point(158, 191);
+            textBoxId.Name = "textBoxId";
+            textBoxId.Size = new Size(300, 27);
+            textBoxId.TabIndex = 34;
             // 
             // BorrarCA
             // 
@@ -91,22 +102,26 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(623, 388);
+            Controls.Add(textBoxId);
             Controls.Add(button1);
-            Controls.Add(sexoCombo);
             Controls.Add(label1);
             Controls.Add(titulo);
             Name = "BorrarCA";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
+            Load += BorrarCA_Load;
+            ((System.ComponentModel.ISupportInitialize)centroAtencionInMemoryBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pacienteInMemoryBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private ComboBox sexoCombo;
         private Label label1;
         private Label titulo;
         private Button button1;
+        private BindingSource centroAtencionInMemoryBindingSource;
+        private BindingSource pacienteInMemoryBindingSource;
+        private TextBox textBoxId;
     }
 }
