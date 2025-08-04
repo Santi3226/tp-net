@@ -27,7 +27,7 @@ namespace WinForms
         {
             string nombre = textBoxNombre.Text;
             string domicilio = textBoxDomicilio.Text;
-            int id = Convert.ToInt32(textBoxId.Text);
+            int id = Convert.ToInt32(comboId.Text);
             bool update = CentroAtencionService.Update(id, nombre, domicilio);
             if (update)
             {
@@ -38,6 +38,23 @@ namespace WinForms
                 MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.Close();
+        }
+
+        private void ModificarCA_Load(object sender, EventArgs e)
+        {
+            GetAllAndLoad();
+        }
+        private void GetAllAndLoad()
+        {
+            try
+            {
+                this.comboId.DataSource = null;
+                this.comboId.DataSource = CentroAtencionService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using Data;
 using Domain.Model;
+using DTOs;
 
 namespace WinForms
 {
@@ -13,15 +14,16 @@ namespace WinForms
 
         private void BorrarCA_Load(object sender, EventArgs e)
         {
-                    }
+            this.GetAllAndLoad();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(textBoxId.Text);
+            int id = Convert.ToInt32(comboId.Text);
             bool delete = CentroAtencionService.Delete(id);
             if (delete)
             {
-            MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -30,13 +32,17 @@ namespace WinForms
             this.Close();
         }
 
-        private void sexoCombo_SelectedIndexChanged(object sender, EventArgs e)
+        private void GetAllAndLoad()
         {
-
-        }
-
-        private void cargarDatos(object sender, EventArgs e)
-        {
+            try
+            {
+                this.comboId.DataSource = null;
+                this.comboId.DataSource = CentroAtencionService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -8,6 +8,12 @@
     <Compile Update="BorrarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MostrarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MostrarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
