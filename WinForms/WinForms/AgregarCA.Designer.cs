@@ -43,12 +43,12 @@
             domicilioText = new TextBox();
             apellidoText = new TextBox();
             sexoCombo = new ComboBox();
-            label7 = new Label();
+            crearCentroLabel = new Label();
             textBoxDomicilio = new TextBox();
-            label8 = new Label();
-            label9 = new Label();
+            domicilioLabel = new Label();
+            nombreLabel = new Label();
             textBoxNombre = new TextBox();
-            button1 = new Button();
+            agregarBtn = new Button();
             SuspendLayout();
             // 
             // monthCalendar1
@@ -62,7 +62,7 @@
             nombreText.BorderStyle = BorderStyle.FixedSingle;
             nombreText.Location = new Point(399, 185);
             nombreText.Name = "nombreText";
-            nombreText.Size = new Size(300, 27);
+            nombreText.Size = new Size(300, 23);
             nombreText.TabIndex = 1;
             // 
             // titulo
@@ -175,7 +175,7 @@
             emailText.BorderStyle = BorderStyle.FixedSingle;
             emailText.Location = new Point(399, 271);
             emailText.Name = "emailText";
-            emailText.Size = new Size(300, 27);
+            emailText.Size = new Size(300, 23);
             emailText.TabIndex = 16;
             // 
             // celularText
@@ -183,7 +183,7 @@
             celularText.BorderStyle = BorderStyle.FixedSingle;
             celularText.Location = new Point(399, 358);
             celularText.Name = "celularText";
-            celularText.Size = new Size(300, 27);
+            celularText.Size = new Size(300, 23);
             celularText.TabIndex = 17;
             // 
             // domicilioText
@@ -191,7 +191,7 @@
             domicilioText.BorderStyle = BorderStyle.FixedSingle;
             domicilioText.Location = new Point(737, 271);
             domicilioText.Name = "domicilioText";
-            domicilioText.Size = new Size(300, 27);
+            domicilioText.Size = new Size(300, 23);
             domicilioText.TabIndex = 19;
             // 
             // apellidoText
@@ -199,7 +199,7 @@
             apellidoText.BorderStyle = BorderStyle.FixedSingle;
             apellidoText.Location = new Point(737, 185);
             apellidoText.Name = "apellidoText";
-            apellidoText.Size = new Size(300, 27);
+            apellidoText.Size = new Size(300, 23);
             apellidoText.TabIndex = 20;
             // 
             // sexoCombo
@@ -209,87 +209,87 @@
             sexoCombo.Items.AddRange(new object[] { "Sin Especificar", "Masculino", "Femenino" });
             sexoCombo.Location = new Point(737, 357);
             sexoCombo.Name = "sexoCombo";
-            sexoCombo.Size = new Size(300, 28);
+            sexoCombo.Size = new Size(300, 23);
             sexoCombo.TabIndex = 21;
             sexoCombo.Text = "-";
             // 
-            // label7
+            // crearCentroLabel
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            label7.Location = new Point(166, 41);
-            label7.Name = "label7";
-            label7.Size = new Size(372, 41);
-            label7.TabIndex = 3;
-            label7.Text = "Crear Centro de Atencion";
-            label7.TextAlign = ContentAlignment.TopCenter;
+            crearCentroLabel.AutoSize = true;
+            crearCentroLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            crearCentroLabel.Location = new Point(197, 41);
+            crearCentroLabel.Name = "crearCentroLabel";
+            crearCentroLabel.Size = new Size(304, 32);
+            crearCentroLabel.TabIndex = 3;
+            crearCentroLabel.Text = "Crear Centro de Atencion";
+            crearCentroLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // textBoxDomicilio
             // 
             textBoxDomicilio.BorderStyle = BorderStyle.FixedSingle;
             textBoxDomicilio.Location = new Point(201, 229);
             textBoxDomicilio.Name = "textBoxDomicilio";
-            textBoxDomicilio.Size = new Size(300, 27);
+            textBoxDomicilio.Size = new Size(300, 23);
             textBoxDomicilio.TabIndex = 22;
             // 
-            // label8
+            // domicilioLabel
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 9F);
-            label8.Location = new Point(201, 206);
-            label8.Name = "label8";
-            label8.Size = new Size(74, 20);
-            label8.TabIndex = 21;
-            label8.Text = "Domicilio";
-            label8.TextAlign = ContentAlignment.TopCenter;
+            domicilioLabel.AutoSize = true;
+            domicilioLabel.Font = new Font("Segoe UI", 9F);
+            domicilioLabel.Location = new Point(199, 211);
+            domicilioLabel.Name = "domicilioLabel";
+            domicilioLabel.Size = new Size(58, 15);
+            domicilioLabel.TabIndex = 21;
+            domicilioLabel.Text = "Domicilio";
+            domicilioLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label9
+            // nombreLabel
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 9F);
-            label9.Location = new Point(201, 120);
-            label9.Name = "label9";
-            label9.Size = new Size(64, 20);
-            label9.TabIndex = 20;
-            label9.Text = "Nombre";
-            label9.TextAlign = ContentAlignment.TopCenter;
+            nombreLabel.AutoSize = true;
+            nombreLabel.Font = new Font("Segoe UI", 9F);
+            nombreLabel.Location = new Point(199, 125);
+            nombreLabel.Name = "nombreLabel";
+            nombreLabel.Size = new Size(51, 15);
+            nombreLabel.TabIndex = 20;
+            nombreLabel.Text = "Nombre";
+            nombreLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // textBoxNombre
             // 
             textBoxNombre.BorderStyle = BorderStyle.FixedSingle;
             textBoxNombre.Location = new Point(201, 143);
             textBoxNombre.Name = "textBoxNombre";
-            textBoxNombre.Size = new Size(300, 27);
+            textBoxNombre.Size = new Size(300, 23);
             textBoxNombre.TabIndex = 18;
             // 
-            // button1
+            // agregarBtn
             // 
-            button1.BackColor = Color.SteelBlue;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(283, 308);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 40);
-            button1.TabIndex = 24;
-            button1.Text = "Agregar";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += Button1_Click;
+            agregarBtn.BackColor = Color.SteelBlue;
+            agregarBtn.Cursor = Cursors.Hand;
+            agregarBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            agregarBtn.FlatAppearance.BorderSize = 0;
+            agregarBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            agregarBtn.FlatStyle = FlatStyle.Flat;
+            agregarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            agregarBtn.ForeColor = SystemColors.ControlLightLight;
+            agregarBtn.Location = new Point(283, 308);
+            agregarBtn.Name = "agregarBtn";
+            agregarBtn.Size = new Size(140, 40);
+            agregarBtn.TabIndex = 24;
+            agregarBtn.Text = "Agregar";
+            agregarBtn.UseVisualStyleBackColor = false;
+            agregarBtn.Click += agregarBtn_Click;
             // 
             // AgregarCA
             // 
             BackColor = Color.Gainsboro;
             ClientSize = new Size(715, 384);
-            Controls.Add(button1);
+            Controls.Add(agregarBtn);
             Controls.Add(textBoxDomicilio);
-            Controls.Add(label8);
-            Controls.Add(label9);
+            Controls.Add(domicilioLabel);
+            Controls.Add(nombreLabel);
             Controls.Add(textBoxNombre);
-            Controls.Add(label7);
+            Controls.Add(crearCentroLabel);
             Name = "AgregarCA";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -319,11 +319,11 @@
         private TextBox domicilioText;
         private TextBox apellidoText;
         private ComboBox sexoCombo;
-        private Label label7;
+        private Label crearCentroLabel;
         private TextBox textBoxDomicilio;
-        private Label label8;
-        private Label label9;
+        private Label domicilioLabel;
+        private Label nombreLabel;
         private TextBox textBoxNombre;
-        private Button button1;
+        private Button agregarBtn;
     }
 }

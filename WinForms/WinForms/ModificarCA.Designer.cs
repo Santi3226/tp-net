@@ -28,120 +28,124 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            guardarBtn = new Button();
             textBoxDomicilio = new TextBox();
-            label8 = new Label();
-            label9 = new Label();
+            domicilioLabel = new Label();
+            nombreLabel = new Label();
             textBoxNombre = new TextBox();
-            label7 = new Label();
-            label1 = new Label();
+            modificarLabel = new Label();
+            idLabel = new Label();
             comboId = new ComboBox();
             SuspendLayout();
             // 
-            // button1
+            // guardarBtn
             // 
-            button1.BackColor = Color.SteelBlue;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(223, 352);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 40);
-            button1.TabIndex = 32;
-            button1.Text = "Guardar";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            guardarBtn.BackColor = Color.SteelBlue;
+            guardarBtn.Cursor = Cursors.Hand;
+            guardarBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            guardarBtn.FlatAppearance.BorderSize = 0;
+            guardarBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            guardarBtn.FlatStyle = FlatStyle.Flat;
+            guardarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guardarBtn.ForeColor = SystemColors.ControlLightLight;
+            guardarBtn.Location = new Point(195, 264);
+            guardarBtn.Margin = new Padding(3, 2, 3, 2);
+            guardarBtn.Name = "guardarBtn";
+            guardarBtn.Size = new Size(122, 30);
+            guardarBtn.TabIndex = 32;
+            guardarBtn.Text = "Guardar";
+            guardarBtn.UseVisualStyleBackColor = false;
+            guardarBtn.Click += guardarBtn_Click;
             // 
             // textBoxDomicilio
             // 
             textBoxDomicilio.BorderStyle = BorderStyle.FixedSingle;
-            textBoxDomicilio.Location = new Point(144, 287);
+            textBoxDomicilio.Location = new Point(126, 215);
+            textBoxDomicilio.Margin = new Padding(3, 2, 3, 2);
             textBoxDomicilio.Name = "textBoxDomicilio";
-            textBoxDomicilio.Size = new Size(300, 27);
+            textBoxDomicilio.Size = new Size(263, 23);
             textBoxDomicilio.TabIndex = 30;
             // 
-            // label8
+            // domicilioLabel
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 9F);
-            label8.Location = new Point(144, 264);
-            label8.Name = "label8";
-            label8.Size = new Size(74, 20);
-            label8.TabIndex = 29;
-            label8.Text = "Domicilio";
-            label8.TextAlign = ContentAlignment.TopCenter;
+            domicilioLabel.AutoSize = true;
+            domicilioLabel.Font = new Font("Segoe UI", 9F);
+            domicilioLabel.Location = new Point(124, 198);
+            domicilioLabel.Name = "domicilioLabel";
+            domicilioLabel.Size = new Size(58, 15);
+            domicilioLabel.TabIndex = 29;
+            domicilioLabel.Text = "Domicilio";
+            domicilioLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label9
+            // nombreLabel
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 9F);
-            label9.Location = new Point(144, 178);
-            label9.Name = "label9";
-            label9.Size = new Size(64, 20);
-            label9.TabIndex = 28;
-            label9.Text = "Nombre";
-            label9.TextAlign = ContentAlignment.TopCenter;
+            nombreLabel.AutoSize = true;
+            nombreLabel.Font = new Font("Segoe UI", 9F);
+            nombreLabel.Location = new Point(124, 134);
+            nombreLabel.Name = "nombreLabel";
+            nombreLabel.Size = new Size(51, 15);
+            nombreLabel.TabIndex = 28;
+            nombreLabel.Text = "Nombre";
+            nombreLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // textBoxNombre
             // 
             textBoxNombre.BorderStyle = BorderStyle.FixedSingle;
-            textBoxNombre.Location = new Point(144, 201);
+            textBoxNombre.Location = new Point(126, 151);
+            textBoxNombre.Margin = new Padding(3, 2, 3, 2);
             textBoxNombre.Name = "textBoxNombre";
-            textBoxNombre.Size = new Size(300, 27);
+            textBoxNombre.Size = new Size(263, 23);
             textBoxNombre.TabIndex = 26;
             // 
-            // label7
+            // modificarLabel
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            label7.Location = new Point(83, 34);
-            label7.Name = "label7";
-            label7.Size = new Size(435, 41);
-            label7.TabIndex = 25;
-            label7.Text = "Modificar Centro de Atencion";
-            label7.TextAlign = ContentAlignment.TopCenter;
-            label7.Click += label7_Click;
+            modificarLabel.AutoSize = true;
+            modificarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            modificarLabel.Location = new Point(73, 26);
+            modificarLabel.Name = "modificarLabel";
+            modificarLabel.Size = new Size(354, 32);
+            modificarLabel.TabIndex = 25;
+            modificarLabel.Text = "Modificar Centro de Atencion";
+            modificarLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label1
+            // idLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(144, 109);
-            label1.Name = "label1";
-            label1.Size = new Size(22, 20);
-            label1.TabIndex = 34;
-            label1.Text = "Id";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            idLabel.AutoSize = true;
+            idLabel.Font = new Font("Segoe UI", 9F);
+            idLabel.Location = new Point(124, 82);
+            idLabel.Name = "idLabel";
+            idLabel.Size = new Size(17, 15);
+            idLabel.TabIndex = 34;
+            idLabel.Text = "Id";
+            idLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // comboId
             // 
             comboId.DisplayMember = "id";
             comboId.FormattingEnabled = true;
-            comboId.Location = new Point(144, 132);
+            comboId.Location = new Point(126, 99);
+            comboId.Margin = new Padding(3, 2, 3, 2);
             comboId.Name = "comboId";
-            comboId.Size = new Size(300, 28);
+            comboId.Size = new Size(263, 23);
             comboId.TabIndex = 36;
             comboId.Tag = "id";
             comboId.ValueMember = "id";
             // 
             // ModificarCA
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(612, 425);
+            ClientSize = new Size(536, 319);
             Controls.Add(comboId);
-            Controls.Add(label1);
-            Controls.Add(button1);
+            Controls.Add(idLabel);
+            Controls.Add(guardarBtn);
             Controls.Add(textBoxDomicilio);
-            Controls.Add(label8);
-            Controls.Add(label9);
+            Controls.Add(domicilioLabel);
+            Controls.Add(nombreLabel);
             Controls.Add(textBoxNombre);
-            Controls.Add(label7);
+            Controls.Add(modificarLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "ModificarCA";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -152,13 +156,13 @@
 
         #endregion
 
-        private Button button1;
+        private Button guardarBtn;
         private TextBox textBoxDomicilio;
-        private Label label8;
-        private Label label9;
+        private Label domicilioLabel;
+        private Label nombreLabel;
         private TextBox textBoxNombre;
-        private Label label7;
-        private Label label1;
+        private Label modificarLabel;
+        private Label idLabel;
         private ComboBox comboId;
     }
 }

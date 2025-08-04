@@ -28,85 +28,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            borrarBtn = new Button();
             sexoCombo = new ComboBox();
-            label1 = new Label();
-            titulo = new Label();
+            idCentroLabel = new Label();
+            borrarPacienteLabel = new Label();
             SuspendLayout();
             // 
-            // button1
+            // borrarBtn
             // 
-            button1.BackColor = Color.Crimson;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.DarkRed;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(230, 286);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 40);
-            button1.TabIndex = 37;
-            button1.Text = "Borrar";
-            button1.UseVisualStyleBackColor = false;
+            borrarBtn.BackColor = Color.Crimson;
+            borrarBtn.Cursor = Cursors.Hand;
+            borrarBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            borrarBtn.FlatAppearance.BorderSize = 0;
+            borrarBtn.FlatAppearance.MouseOverBackColor = Color.DarkRed;
+            borrarBtn.FlatStyle = FlatStyle.Flat;
+            borrarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            borrarBtn.ForeColor = SystemColors.ControlLightLight;
+            borrarBtn.Location = new Point(201, 214);
+            borrarBtn.Margin = new Padding(3, 2, 3, 2);
+            borrarBtn.Name = "borrarBtn";
+            borrarBtn.Size = new Size(122, 30);
+            borrarBtn.TabIndex = 37;
+            borrarBtn.Text = "Borrar";
+            borrarBtn.UseVisualStyleBackColor = false;
+            borrarBtn.Click += borrarBtn_Click;
             // 
             // sexoCombo
             // 
-            sexoCombo.DisplayMember = "-";
+            sexoCombo.DisplayMember = "id";
             sexoCombo.FormattingEnabled = true;
             sexoCombo.Items.AddRange(new object[] { "Sin Especificar", "Masculino", "Femenino" });
-            sexoCombo.Location = new Point(151, 187);
+            sexoCombo.Location = new Point(132, 140);
+            sexoCombo.Margin = new Padding(3, 2, 3, 2);
             sexoCombo.Name = "sexoCombo";
-            sexoCombo.Size = new Size(300, 28);
+            sexoCombo.Size = new Size(263, 23);
             sexoCombo.TabIndex = 36;
+            sexoCombo.Tag = "id";
             sexoCombo.Text = "-";
+            sexoCombo.ValueMember = "id";
             // 
-            // label1
+            // idCentroLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(151, 164);
-            label1.Name = "label1";
-            label1.Size = new Size(70, 20);
-            label1.TabIndex = 35;
-            label1.Text = "Id Centro";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            idCentroLabel.AutoSize = true;
+            idCentroLabel.Font = new Font("Segoe UI", 9F);
+            idCentroLabel.Location = new Point(130, 123);
+            idCentroLabel.Name = "idCentroLabel";
+            idCentroLabel.Size = new Size(65, 15);
+            idCentroLabel.TabIndex = 35;
+            idCentroLabel.Text = "Id Paciente";
+            idCentroLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // titulo
+            // borrarPacienteLabel
             // 
-            titulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            titulo.AutoSize = true;
-            titulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            titulo.Location = new Point(192, 65);
-            titulo.Name = "titulo";
-            titulo.Size = new Size(233, 41);
-            titulo.TabIndex = 34;
-            titulo.Text = "Borrar Paciente";
-            titulo.TextAlign = ContentAlignment.TopCenter;
+            borrarPacienteLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            borrarPacienteLabel.AutoSize = true;
+            borrarPacienteLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            borrarPacienteLabel.Location = new Point(168, 49);
+            borrarPacienteLabel.Name = "borrarPacienteLabel";
+            borrarPacienteLabel.Size = new Size(190, 32);
+            borrarPacienteLabel.TabIndex = 34;
+            borrarPacienteLabel.Text = "Borrar Paciente";
+            borrarPacienteLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // BorrarPaciente
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(623, 388);
-            Controls.Add(button1);
+            ClientSize = new Size(545, 291);
+            Controls.Add(borrarBtn);
             Controls.Add(sexoCombo);
-            Controls.Add(label1);
-            Controls.Add(titulo);
+            Controls.Add(idCentroLabel);
+            Controls.Add(borrarPacienteLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "BorrarPaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
+            Load += BorrarPaciente_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Button borrarBtn;
         private ComboBox sexoCombo;
-        private Label label1;
-        private Label titulo;
+        private Label idCentroLabel;
+        private Label borrarPacienteLabel;
     }
 }

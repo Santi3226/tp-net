@@ -30,9 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             centroAtencionInMemoryBindingSource = new BindingSource(components);
-            label1 = new Label();
-            titulo = new Label();
-            button1 = new Button();
+            idCentroLabel = new Label();
+            borrarCentroLabel = new Label();
+            borrarBtn = new Button();
             pacienteInMemoryBindingSource = new BindingSource(components);
             comboId = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)centroAtencionInMemoryBindingSource).BeginInit();
@@ -43,46 +43,47 @@
             // 
             centroAtencionInMemoryBindingSource.DataSource = typeof(Data.CentroAtencionInMemory);
             // 
-            // label1
+            // idCentroLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(158, 168);
-            label1.Name = "label1";
-            label1.Size = new Size(154, 20);
-            label1.TabIndex = 23;
-            label1.Text = "Id Centro de Atencion";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            idCentroLabel.AutoSize = true;
+            idCentroLabel.Font = new Font("Segoe UI", 9F);
+            idCentroLabel.Location = new Point(138, 126);
+            idCentroLabel.Name = "idCentroLabel";
+            idCentroLabel.Size = new Size(123, 15);
+            idCentroLabel.TabIndex = 23;
+            idCentroLabel.Text = "Id Centro de Atencion";
+            idCentroLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // titulo
+            // borrarCentroLabel
             // 
-            titulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            titulo.AutoSize = true;
-            titulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            titulo.Location = new Point(122, 71);
-            titulo.Name = "titulo";
-            titulo.Size = new Size(386, 41);
-            titulo.TabIndex = 22;
-            titulo.Text = "Borrar Centro de Atencion";
-            titulo.TextAlign = ContentAlignment.TopCenter;
+            borrarCentroLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            borrarCentroLabel.AutoSize = true;
+            borrarCentroLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            borrarCentroLabel.Location = new Point(121, 53);
+            borrarCentroLabel.Name = "borrarCentroLabel";
+            borrarCentroLabel.Size = new Size(316, 32);
+            borrarCentroLabel.TabIndex = 22;
+            borrarCentroLabel.Text = "Borrar Centro de Atencion";
+            borrarCentroLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // button1
+            // borrarBtn
             // 
-            button1.BackColor = Color.Crimson;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.DarkRed;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(249, 293);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 40);
-            button1.TabIndex = 33;
-            button1.Text = "Borrar";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            borrarBtn.BackColor = Color.Crimson;
+            borrarBtn.Cursor = Cursors.Hand;
+            borrarBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            borrarBtn.FlatAppearance.BorderSize = 0;
+            borrarBtn.FlatAppearance.MouseOverBackColor = Color.DarkRed;
+            borrarBtn.FlatStyle = FlatStyle.Flat;
+            borrarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            borrarBtn.ForeColor = SystemColors.ControlLightLight;
+            borrarBtn.Location = new Point(218, 220);
+            borrarBtn.Margin = new Padding(3, 2, 3, 2);
+            borrarBtn.Name = "borrarBtn";
+            borrarBtn.Size = new Size(122, 30);
+            borrarBtn.TabIndex = 33;
+            borrarBtn.Text = "Borrar";
+            borrarBtn.UseVisualStyleBackColor = false;
+            borrarBtn.Click += borrarBtn_Click;
             // 
             // pacienteInMemoryBindingSource
             // 
@@ -92,23 +93,25 @@
             // 
             comboId.DisplayMember = "id";
             comboId.FormattingEnabled = true;
-            comboId.Location = new Point(161, 191);
+            comboId.Location = new Point(141, 143);
+            comboId.Margin = new Padding(3, 2, 3, 2);
             comboId.Name = "comboId";
-            comboId.Size = new Size(317, 28);
+            comboId.Size = new Size(278, 23);
             comboId.TabIndex = 35;
             comboId.Tag = "id";
             comboId.ValueMember = "id";
             // 
             // BorrarCA
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(623, 388);
+            ClientSize = new Size(545, 291);
             Controls.Add(comboId);
-            Controls.Add(button1);
-            Controls.Add(label1);
-            Controls.Add(titulo);
+            Controls.Add(borrarBtn);
+            Controls.Add(idCentroLabel);
+            Controls.Add(borrarCentroLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "BorrarCA";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laboratorio";
@@ -120,9 +123,9 @@
         }
 
         #endregion
-        private Label label1;
-        private Label titulo;
-        private Button button1;
+        private Label idCentroLabel;
+        private Label borrarCentroLabel;
+        private Button borrarBtn;
         private BindingSource centroAtencionInMemoryBindingSource;
         private BindingSource pacienteInMemoryBindingSource;
         private TextBox textBoxId;

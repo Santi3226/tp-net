@@ -17,45 +17,57 @@ namespace WinForms
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void agregarCaBtn_Click(object sender, EventArgs e)
         {
             AgregarCA form = new AgregarCA();
             form.ShowDialog();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void borrarCaBtn_Click(object sender, EventArgs e)
         {
             BorrarCA form = new BorrarCA();
             form.ShowDialog();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void modificarCaBtn_Click(object sender, EventArgs e)
         {
             ModificarCA form = new ModificarCA();
             form.ShowDialog();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void mostrarCaBtn_Click(object sender, EventArgs e)
         {
-            /*AgregarPaciente form = new AgregarPaciente();
-            form.ShowDialog();*/
+            MostrarCA form = new MostrarCA();
+            form.ShowDialog();
         }
 
-        private void guardarBtn_Click(object sender, EventArgs e)
+        private void agregarPacienteBtn_Click(object sender, EventArgs e)
         {
-            /*BorrarPaciente form = new BorrarPaciente();
-            form.ShowDialog();*/
+            RegistroPaciente registroPaciente = new RegistroPaciente();
+            registroPaciente.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void borrarPacienteBtn_Click(object sender, EventArgs e)
+        {
+            BorrarPaciente form = new BorrarPaciente();
+            form.ShowDialog();
+        }
+
+        private void modificarPacienteBtn_Click(object sender, EventArgs e)
         {
             ModificarPaciente form = new ModificarPaciente();
             form.ShowDialog();
         }
 
-        private void MenuPrincipal_Load(object sender, EventArgs e)
+        private void mostrarPacienteBtn_Click(object sender, EventArgs e)
         {
-         
+            MostrarPaciente form = new MostrarPaciente();
+            form.ShowDialog();
         }
     }
 }

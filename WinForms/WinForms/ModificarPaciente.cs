@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Application.Services;
+using DTOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +18,52 @@ namespace WinForms
         public ModificarPaciente()
         {
             InitializeComponent();
+        }
+
+        private void ModificarCA_Load(object sender, EventArgs e)
+        {
+            GetAllAndLoad();
+        }
+        private void GetAllAndLoad()
+        {
+            try
+            {
+                this.comboId.DataSource = null;
+                this.comboId.DataSource = PacienteService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar la lista de Paciente: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void guardarBtn_Click(object sender, EventArgs e)
+        {
+            string nombre = nombreText.Text;
+            string apellido = apellidoText.Text;
+            string contraseña = contraseñaText.Text;
+            string domicilio = domicilioText.Text;
+            string email = emailText.Text;
+            string celular = celularText.Text;
+            string sexo = sexoCombo.Text;
+            DateTime fechaNacimientoCalendario = fechaNacimientoCalendario.
+            int id = Convert.ToInt32(comboId.Text);
+            PacienteDTO p = new PacienteDTO(id, nombre, apellido, contraseña, email, celular, sexo, fechaNacimientoCalendario)
+            bool update = PacienteService.Update(id, nombre, domicilio);
+            if (update)
+            {
+                MessageBox.Show("Centro de Atencion N°" + id + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Close();
+        }
+
+        private void ModificarPaciente_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

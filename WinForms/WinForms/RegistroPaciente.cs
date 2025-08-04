@@ -15,8 +15,6 @@ namespace WinForms
 {
     public partial class RegistroPaciente : Form
     {
-        PacienteService pacienteService = new PacienteService();
-
         private PacienteDTO paciente;
 
         public PacienteDTO Paciente
@@ -89,18 +87,15 @@ namespace WinForms
         {
             try
             {
-                paciente = new PacienteDTO
-                {
-                    Nombre = nombreTextBox.Text,
-                    Apellido = apellidoTextBox.Text,
-                    Dni = dniTextBox.Text,
-                    Telefono = telefonoTextBox.Text,
-                    Domicilio = direccionLabel.Text,
-                    Email = mailTextBox.Text,
-                    Contraseña = contraseñaTextBox.Text,
-                    FechaNacimiento = fechaNacimientoCalendario.SelectionStart,
-                };
-                pacienteService.Add(paciente);
+                string nombre = nombreTextBox.Text;
+                string apellido = apellidoTextBox.Text;
+                string dni = dniTextBox.Text;
+                string telefono = telefonoTextBox.Text;
+                string domicilio = direccionLabel.Text;
+                string email = mailTextBox.Text;
+                string contraseña = contraseñaTextBox.Text;
+                DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
+                PacienteService.Add(nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
                 MessageBox.Show("Paciente registrado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return true;
             }

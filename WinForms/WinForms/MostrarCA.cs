@@ -73,5 +73,10 @@ namespace WinForms
                 MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dataGridViewCA_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }   

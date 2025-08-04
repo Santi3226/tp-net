@@ -18,28 +18,6 @@ namespace WinForms
             InitializeComponent();
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string nombre = textBoxNombre.Text;
-            string domicilio = textBoxDomicilio.Text;
-            int id = Convert.ToInt32(comboId.Text);
-            bool update = CentroAtencionService.Update(id, nombre, domicilio);
-            if (update)
-            {
-                MessageBox.Show("Centro de Atencion N°" + id + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            this.Close();
-        }
-
         private void ModificarCA_Load(object sender, EventArgs e)
         {
             GetAllAndLoad();
@@ -55,6 +33,23 @@ namespace WinForms
             {
                 MessageBox.Show($"Error al cargar la lista de Centros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void guardarBtn_Click(object sender, EventArgs e)
+        {
+            string nombre = textBoxNombre.Text;
+            string domicilio = textBoxDomicilio.Text;
+            int id = Convert.ToInt32(comboId.Text);
+            bool update = CentroAtencionService.Update(id, nombre, domicilio);
+            if (update)
+            {
+                MessageBox.Show("Centro de Atencion N°" + id + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + id, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Close();
         }
     }
 }

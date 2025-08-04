@@ -28,147 +28,196 @@
         /// </summary>
         private void InitializeComponent()
         {
-            titulo = new Label();
-            guardarBtn = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
+            bienvenidoLabel = new Label();
+            borrarPacienteBtn = new Button();
+            modificarPacienteBtn = new Button();
+            agregarCaBtn = new Button();
+            borrarCaBtn = new Button();
+            modificarCaBtn = new Button();
+            agregarPacienteBtn = new Button();
+            mostrarCaBtn = new Button();
+            mostrarPacienteBtn = new Button();
             SuspendLayout();
             // 
-            // titulo
+            // bienvenidoLabel
             // 
-            titulo.AutoSize = true;
-            titulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            titulo.Location = new Point(45, 40);
-            titulo.Name = "titulo";
-            titulo.Size = new Size(685, 41);
-            titulo.TabIndex = 3;
-            titulo.Text = "Bienvenido al Sistema de Laboratorio Generico!";
-            titulo.TextAlign = ContentAlignment.TopCenter;
+            bienvenidoLabel.AutoSize = true;
+            bienvenidoLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            bienvenidoLabel.Location = new Point(61, 30);
+            bienvenidoLabel.Name = "bienvenidoLabel";
+            bienvenidoLabel.Size = new Size(557, 32);
+            bienvenidoLabel.TabIndex = 3;
+            bienvenidoLabel.Text = "Bienvenido al Sistema de Laboratorio Generico!";
+            bienvenidoLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // guardarBtn
+            // borrarPacienteBtn
             // 
-            guardarBtn.BackColor = Color.SteelBlue;
-            guardarBtn.Cursor = Cursors.Hand;
-            guardarBtn.FlatAppearance.BorderColor = Color.SteelBlue;
-            guardarBtn.FlatAppearance.BorderSize = 0;
-            guardarBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            guardarBtn.FlatStyle = FlatStyle.Flat;
-            guardarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guardarBtn.ForeColor = SystemColors.ControlLightLight;
-            guardarBtn.Location = new Point(487, 227);
-            guardarBtn.Name = "guardarBtn";
-            guardarBtn.Size = new Size(152, 43);
-            guardarBtn.TabIndex = 10;
-            guardarBtn.Text = "Borrar Paciente";
-            guardarBtn.UseVisualStyleBackColor = false;
-            guardarBtn.Click += guardarBtn_Click;
+            borrarPacienteBtn.BackColor = Color.SteelBlue;
+            borrarPacienteBtn.Cursor = Cursors.Hand;
+            borrarPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            borrarPacienteBtn.FlatAppearance.BorderSize = 0;
+            borrarPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            borrarPacienteBtn.FlatStyle = FlatStyle.Flat;
+            borrarPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            borrarPacienteBtn.ForeColor = SystemColors.ControlLightLight;
+            borrarPacienteBtn.Location = new Point(455, 170);
+            borrarPacienteBtn.Margin = new Padding(3, 2, 3, 2);
+            borrarPacienteBtn.Name = "borrarPacienteBtn";
+            borrarPacienteBtn.Size = new Size(133, 32);
+            borrarPacienteBtn.TabIndex = 10;
+            borrarPacienteBtn.Text = "Borrar Paciente";
+            borrarPacienteBtn.UseVisualStyleBackColor = false;
+            borrarPacienteBtn.Click += borrarPacienteBtn_Click;
             // 
-            // button1
+            // modificarPacienteBtn
             // 
-            button1.BackColor = Color.SteelBlue;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.SteelBlue;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(487, 304);
-            button1.Name = "button1";
-            button1.Size = new Size(152, 43);
-            button1.TabIndex = 11;
-            button1.Text = "Modificar Paciente";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            modificarPacienteBtn.BackColor = Color.SteelBlue;
+            modificarPacienteBtn.Cursor = Cursors.Hand;
+            modificarPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            modificarPacienteBtn.FlatAppearance.BorderSize = 0;
+            modificarPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            modificarPacienteBtn.FlatStyle = FlatStyle.Flat;
+            modificarPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            modificarPacienteBtn.ForeColor = SystemColors.ControlLightLight;
+            modificarPacienteBtn.Location = new Point(455, 228);
+            modificarPacienteBtn.Margin = new Padding(3, 2, 3, 2);
+            modificarPacienteBtn.Name = "modificarPacienteBtn";
+            modificarPacienteBtn.Size = new Size(133, 32);
+            modificarPacienteBtn.TabIndex = 11;
+            modificarPacienteBtn.Text = "Modificar Paciente";
+            modificarPacienteBtn.UseVisualStyleBackColor = false;
+            modificarPacienteBtn.Click += modificarPacienteBtn_Click;
             // 
-            // button2
+            // agregarCaBtn
             // 
-            button2.BackColor = Color.SteelBlue;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderColor = Color.SteelBlue;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.ControlLightLight;
-            button2.Location = new Point(114, 152);
-            button2.Name = "button2";
-            button2.Size = new Size(152, 43);
-            button2.TabIndex = 12;
-            button2.Text = "Agregar CA";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            agregarCaBtn.BackColor = Color.SteelBlue;
+            agregarCaBtn.Cursor = Cursors.Hand;
+            agregarCaBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            agregarCaBtn.FlatAppearance.BorderSize = 0;
+            agregarCaBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            agregarCaBtn.FlatStyle = FlatStyle.Flat;
+            agregarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            agregarCaBtn.ForeColor = SystemColors.ControlLightLight;
+            agregarCaBtn.Location = new Point(100, 114);
+            agregarCaBtn.Margin = new Padding(3, 2, 3, 2);
+            agregarCaBtn.Name = "agregarCaBtn";
+            agregarCaBtn.Size = new Size(133, 32);
+            agregarCaBtn.TabIndex = 12;
+            agregarCaBtn.Text = "Agregar CA";
+            agregarCaBtn.UseVisualStyleBackColor = false;
+            agregarCaBtn.Click += agregarCaBtn_Click;
             // 
-            // button3
+            // borrarCaBtn
             // 
-            button3.BackColor = Color.SteelBlue;
-            button3.Cursor = Cursors.Hand;
-            button3.FlatAppearance.BorderColor = Color.SteelBlue;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = SystemColors.ControlLightLight;
-            button3.Location = new Point(114, 227);
-            button3.Name = "button3";
-            button3.Size = new Size(152, 43);
-            button3.TabIndex = 13;
-            button3.Text = "Borrar CA";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+            borrarCaBtn.BackColor = Color.SteelBlue;
+            borrarCaBtn.Cursor = Cursors.Hand;
+            borrarCaBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            borrarCaBtn.FlatAppearance.BorderSize = 0;
+            borrarCaBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            borrarCaBtn.FlatStyle = FlatStyle.Flat;
+            borrarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            borrarCaBtn.ForeColor = SystemColors.ControlLightLight;
+            borrarCaBtn.Location = new Point(100, 170);
+            borrarCaBtn.Margin = new Padding(3, 2, 3, 2);
+            borrarCaBtn.Name = "borrarCaBtn";
+            borrarCaBtn.Size = new Size(133, 32);
+            borrarCaBtn.TabIndex = 13;
+            borrarCaBtn.Text = "Borrar CA";
+            borrarCaBtn.UseVisualStyleBackColor = false;
+            borrarCaBtn.Click += borrarCaBtn_Click;
             // 
-            // button4
+            // modificarCaBtn
             // 
-            button4.BackColor = Color.SteelBlue;
-            button4.Cursor = Cursors.Hand;
-            button4.FlatAppearance.BorderColor = Color.SteelBlue;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ControlLightLight;
-            button4.Location = new Point(114, 304);
-            button4.Name = "button4";
-            button4.Size = new Size(152, 43);
-            button4.TabIndex = 14;
-            button4.Text = "Modificar CA";
-            button4.UseVisualStyleBackColor = false;
-            button4.Click += button4_Click;
+            modificarCaBtn.BackColor = Color.SteelBlue;
+            modificarCaBtn.Cursor = Cursors.Hand;
+            modificarCaBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            modificarCaBtn.FlatAppearance.BorderSize = 0;
+            modificarCaBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            modificarCaBtn.FlatStyle = FlatStyle.Flat;
+            modificarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            modificarCaBtn.ForeColor = SystemColors.ControlLightLight;
+            modificarCaBtn.Location = new Point(100, 228);
+            modificarCaBtn.Margin = new Padding(3, 2, 3, 2);
+            modificarCaBtn.Name = "modificarCaBtn";
+            modificarCaBtn.Size = new Size(133, 32);
+            modificarCaBtn.TabIndex = 14;
+            modificarCaBtn.Text = "Modificar CA";
+            modificarCaBtn.UseVisualStyleBackColor = false;
+            modificarCaBtn.Click += modificarCaBtn_Click;
             // 
-            // button5
+            // agregarPacienteBtn
             // 
-            button5.BackColor = Color.SteelBlue;
-            button5.Cursor = Cursors.Hand;
-            button5.FlatAppearance.BorderColor = Color.SteelBlue;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.ForeColor = SystemColors.ControlLightLight;
-            button5.Location = new Point(487, 152);
-            button5.Name = "button5";
-            button5.Size = new Size(152, 43);
-            button5.TabIndex = 15;
-            button5.Text = "Agregar Paciente";
-            button5.UseVisualStyleBackColor = false;
-            button5.Click += button5_Click;
+            agregarPacienteBtn.BackColor = Color.SteelBlue;
+            agregarPacienteBtn.Cursor = Cursors.Hand;
+            agregarPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            agregarPacienteBtn.FlatAppearance.BorderSize = 0;
+            agregarPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            agregarPacienteBtn.FlatStyle = FlatStyle.Flat;
+            agregarPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            agregarPacienteBtn.ForeColor = SystemColors.ControlLightLight;
+            agregarPacienteBtn.Location = new Point(455, 114);
+            agregarPacienteBtn.Margin = new Padding(3, 2, 3, 2);
+            agregarPacienteBtn.Name = "agregarPacienteBtn";
+            agregarPacienteBtn.Size = new Size(133, 32);
+            agregarPacienteBtn.TabIndex = 15;
+            agregarPacienteBtn.Text = "Agregar Paciente";
+            agregarPacienteBtn.UseVisualStyleBackColor = false;
+            agregarPacienteBtn.Click += agregarPacienteBtn_Click;
+            // 
+            // mostrarCaBtn
+            // 
+            mostrarCaBtn.BackColor = Color.SteelBlue;
+            mostrarCaBtn.Cursor = Cursors.Hand;
+            mostrarCaBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            mostrarCaBtn.FlatAppearance.BorderSize = 0;
+            mostrarCaBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            mostrarCaBtn.FlatStyle = FlatStyle.Flat;
+            mostrarCaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            mostrarCaBtn.ForeColor = SystemColors.ControlLightLight;
+            mostrarCaBtn.Location = new Point(100, 281);
+            mostrarCaBtn.Margin = new Padding(3, 2, 3, 2);
+            mostrarCaBtn.Name = "mostrarCaBtn";
+            mostrarCaBtn.Size = new Size(133, 32);
+            mostrarCaBtn.TabIndex = 16;
+            mostrarCaBtn.Text = "Mostrar CA";
+            mostrarCaBtn.UseVisualStyleBackColor = false;
+            mostrarCaBtn.Click += mostrarCaBtn_Click;
+            // 
+            // mostrarPacienteBtn
+            // 
+            mostrarPacienteBtn.BackColor = Color.SteelBlue;
+            mostrarPacienteBtn.Cursor = Cursors.Hand;
+            mostrarPacienteBtn.FlatAppearance.BorderColor = Color.SteelBlue;
+            mostrarPacienteBtn.FlatAppearance.BorderSize = 0;
+            mostrarPacienteBtn.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
+            mostrarPacienteBtn.FlatStyle = FlatStyle.Flat;
+            mostrarPacienteBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            mostrarPacienteBtn.ForeColor = SystemColors.ControlLightLight;
+            mostrarPacienteBtn.Location = new Point(455, 281);
+            mostrarPacienteBtn.Margin = new Padding(3, 2, 3, 2);
+            mostrarPacienteBtn.Name = "mostrarPacienteBtn";
+            mostrarPacienteBtn.Size = new Size(133, 32);
+            mostrarPacienteBtn.TabIndex = 17;
+            mostrarPacienteBtn.Text = "Mostrar Paciente";
+            mostrarPacienteBtn.UseVisualStyleBackColor = false;
+            mostrarPacienteBtn.Click += mostrarPacienteBtn_Click;
             // 
             // MenuPrincipal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(guardarBtn);
-            Controls.Add(titulo);
+            ClientSize = new Size(700, 338);
+            Controls.Add(mostrarPacienteBtn);
+            Controls.Add(mostrarCaBtn);
+            Controls.Add(agregarPacienteBtn);
+            Controls.Add(modificarCaBtn);
+            Controls.Add(borrarCaBtn);
+            Controls.Add(agregarCaBtn);
+            Controls.Add(modificarPacienteBtn);
+            Controls.Add(borrarPacienteBtn);
+            Controls.Add(bienvenidoLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";
@@ -179,12 +228,14 @@
 
         #endregion
 
-        private Label titulo;
-        private Button guardarBtn;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
+        private Label bienvenidoLabel;
+        private Button borrarPacienteBtn;
+        private Button modificarPacienteBtn;
+        private Button agregarCaBtn;
+        private Button borrarCaBtn;
+        private Button modificarCaBtn;
+        private Button agregarPacienteBtn;
+        private Button mostrarCaBtn;
+        private Button mostrarPacienteBtn;
     }
 }

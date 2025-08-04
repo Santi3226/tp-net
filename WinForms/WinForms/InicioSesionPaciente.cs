@@ -31,6 +31,8 @@ namespace WinForms
                 if (this.ValidatePacienteAsync())
                 {
                     // acá iria la iniciacion del menu principal
+                    MessageBox.Show(Text = "Bienvenido " , "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 else
                 {
@@ -83,6 +85,8 @@ namespace WinForms
 
         private void registrarmeLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            emailTextBox.Clear();
+            contraseñaTextBox.Clear();
             RegistroPaciente registroPaciente = new RegistroPaciente();
             registroPaciente.ShowDialog();
         }

@@ -41,9 +41,9 @@
             titulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             titulo.AutoSize = true;
             titulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            titulo.Location = new Point(247, 28);
+            titulo.Location = new Point(216, 21);
             titulo.Name = "titulo";
-            titulo.Size = new Size(269, 41);
+            titulo.Size = new Size(219, 32);
             titulo.TabIndex = 44;
             titulo.Text = "Mostrar Pacientes";
             titulo.TextAlign = ContentAlignment.TopCenter;
@@ -58,12 +58,14 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = SystemColors.ControlLightLight;
-            button2.Location = new Point(629, 389);
+            button2.Location = new Point(550, 292);
+            button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
-            button2.Size = new Size(140, 40);
+            button2.Size = new Size(122, 30);
             button2.TabIndex = 43;
             button2.Text = "Mostrar Todos";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -75,20 +77,23 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(247, 389);
+            button1.Location = new Point(216, 292);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(140, 40);
+            button1.Size = new Size(122, 30);
             button1.TabIndex = 42;
             button1.Text = "Mostrar uno";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_1;
             // 
             // comboId
             // 
             comboId.DisplayMember = "id";
             comboId.FormattingEnabled = true;
-            comboId.Location = new Point(32, 396);
+            comboId.Location = new Point(28, 297);
+            comboId.Margin = new Padding(3, 2, 3, 2);
             comboId.Name = "comboId";
-            comboId.Size = new Size(198, 28);
+            comboId.Size = new Size(174, 23);
             comboId.TabIndex = 41;
             comboId.Tag = "id";
             comboId.Text = "Seleccionar Id";
@@ -101,23 +106,26 @@
             dataGridViewPac.BackgroundColor = Color.Gainsboro;
             dataGridViewPac.BorderStyle = BorderStyle.None;
             dataGridViewPac.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewPac.Location = new Point(12, 82);
+            dataGridViewPac.Location = new Point(10, 62);
+            dataGridViewPac.Margin = new Padding(3, 2, 3, 2);
             dataGridViewPac.Name = "dataGridViewPac";
             dataGridViewPac.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewPac.Size = new Size(776, 279);
+            dataGridViewPac.Size = new Size(679, 209);
             dataGridViewPac.TabIndex = 40;
+            dataGridViewPac.CellContentClick += dataGridViewPac_CellContentClick;
             // 
             // MostrarPaciente
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(titulo);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(comboId);
             Controls.Add(dataGridViewPac);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MostrarPaciente";
             Text = "Laboratorio";
             Load += MostrarPaciente_Load;

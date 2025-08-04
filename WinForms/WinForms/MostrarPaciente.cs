@@ -23,10 +23,6 @@ namespace WinForms
         {
             GetAllAndLoad();
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            GetAll();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -72,6 +68,22 @@ namespace WinForms
             {
                 MessageBox.Show($"Error al cargar la lista de Pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void dataGridViewPac_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(comboId.Text);
+            GetOneAndLoad(id);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            GetAll();
         }
     }
 }   
