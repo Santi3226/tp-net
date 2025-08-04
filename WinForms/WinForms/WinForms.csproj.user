@@ -1,8 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup>
-        <Compile Update="Form1.cs">
-            <SubType>Form</SubType>
-        </Compile>
-    </ItemGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="CentroAtencionForms\BorrarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\AgregarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\BorrarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\MostrarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CentroAtencionForms\MostrarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\InicioSesionPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CentroAtencionForms\ModificarCA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\ModificarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PacienteForms\RegistroPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>
