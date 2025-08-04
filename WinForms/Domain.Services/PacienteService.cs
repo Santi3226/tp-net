@@ -6,7 +6,7 @@ namespace Application.Services
 {
     public class PacienteService
     {
-        public PacienteDTO Add(PacienteDTO dto)
+        public static PacienteDTO Add(PacienteDTO dto)
         {
             if (PacienteInMemory.Pacientes.Any(p => p.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase)))
             {
@@ -28,7 +28,7 @@ namespace Application.Services
             return dto;
         }
 
-        public bool Delete(int id)
+        public static bool Delete(int id)
         {
             Paciente? pacienteToDelete = PacienteInMemory.Pacientes.Find(p => p.Id == id);
 
@@ -44,7 +44,7 @@ namespace Application.Services
             }
         }
 
-        public PacienteDTO? Get(int id)
+        public static PacienteDTO? Get(int id)
         {
             Paciente? paciente = PacienteInMemory.Pacientes.Find(p => p.Id == id);
 
@@ -64,7 +64,7 @@ namespace Application.Services
             };
         }
 
-        public IEnumerable<PacienteDTO> GetAll()
+        public static IEnumerable<PacienteDTO> GetAll()
         {
             return PacienteInMemory.Pacientes.Select(paciente => new PacienteDTO
             {
@@ -79,7 +79,7 @@ namespace Application.Services
             }).ToList();
         }
 
-        public bool Update(PacienteDTO dto)
+        public static bool Update(PacienteDTO dto)
         {
             Paciente? pacienteToUpdate = PacienteInMemory.Pacientes.Find(p => p.Id == dto.Id);
 
