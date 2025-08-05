@@ -24,11 +24,6 @@ namespace WinForms
             GetAllAndLoad();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int id = Convert.ToInt32(comboId.Text);
-            GetOneAndLoad(id);
-        }
         private void GetOneAndLoad(int id)
         {
             try
@@ -37,6 +32,10 @@ namespace WinForms
                 List<PacienteDTO> list = new List<PacienteDTO>();
                 list.Add(PacienteService.Get(id));
                 this.dataGridViewPac.DataSource = list;
+                if (dataGridViewPac.Columns.Contains("Contraseña"))
+                {
+                    dataGridViewPac.Columns["Contraseña"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -50,6 +49,10 @@ namespace WinForms
                 this.dataGridViewPac.DataSource = null;
                 this.dataGridViewPac.DataSource = PacienteService.GetAll();
                 this.dataGridViewPac.Columns[7].Visible = false;
+                if (dataGridViewPac.Columns.Contains("Contraseña"))
+                {
+                    dataGridViewPac.Columns["Contraseña"].Visible = false;
+                }
                 this.comboId.DataSource = null;
                 this.comboId.DataSource = PacienteService.GetAll();
             }
@@ -64,6 +67,10 @@ namespace WinForms
             {
                 this.dataGridViewPac.DataSource = null;
                 this.dataGridViewPac.DataSource = PacienteService.GetAll();
+                if (dataGridViewPac.Columns.Contains("Contraseña"))
+                {
+                    dataGridViewPac.Columns["Contraseña"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -88,6 +95,7 @@ namespace WinForms
                     if (delete)
                     {
                         MessageBox.Show("Paciente N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.comboId.DataSource = PacienteService.GetAll();
                     }
                     else
                     {
@@ -98,7 +106,30 @@ namespace WinForms
             }
         }
 
-        private void modificarCaBtn_Click(object sender, EventArgs e)
+        private void dataGridViewPac_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void mostrarUnoBtn_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(comboId.Text);
+            GetOneAndLoad(id);
+        }
+
+        private void mostrarTodosBtn_Click(object sender, EventArgs e)
+        {
+            GetAll();
+        }
+
+        private void agregarPacienteBtn_Click(object sender, EventArgs e)
+        {
+            AgregarPaciente form = new AgregarPaciente();
+            form.ShowDialog();
+            this.comboId.DataSource = PacienteService.GetAll();
+        }
+
+        private void modificarPacienteBtn_Click(object sender, EventArgs e)
         {
             if (dataGridViewPac.SelectedRows.Count == 0)
             {
@@ -110,22 +141,6 @@ namespace WinForms
                 ModificarPaciente form = new ModificarPaciente(ca);
                 form.ShowDialog();
             }
-        }
-
-        private void agregarCaBtn_Click(object sender, EventArgs e)
-        {
-            AgregarPaciente form = new AgregarPaciente();
-            form.ShowDialog();
-        }
-
-        private void dataGridViewPac_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            GetAll();
         }
     }
 }
