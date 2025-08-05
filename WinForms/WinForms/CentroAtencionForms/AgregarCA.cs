@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.Model;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WinForms
 {
@@ -18,9 +19,17 @@ namespace WinForms
         {
             string nombre = this.textBoxNombre.Text;
             string domicilio = this.textBoxDomicilio.Text;
-            Domain.Model.CentroAtencion ca = CentroAtencionService.Add(nombre, domicilio);
-            MessageBox.Show("Centro de Atencion " + ca.Nombre + " N°" + ca.Id + " registrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio))
+            {
+                MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else
+            {
+                Domain.Model.CentroAtencion ca = CentroAtencionService.Add(nombre, domicilio);
+                MessageBox.Show("Centro de Atencion " + ca.Nombre + " N°" + ca.Id + " registrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
         }
     }
 }

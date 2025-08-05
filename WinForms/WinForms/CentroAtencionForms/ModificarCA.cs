@@ -31,8 +31,13 @@ namespace WinForms
         {
             string nombre = textBoxNombre.Text;
             string domicilio = textBoxDomicilio.Text;
-       
-            bool update = CentroAtencionService.Update(Convert.ToInt32(textId.Text),nombre, domicilio);
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio))
+            {
+                MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else { 
+            bool update = CentroAtencionService.Update(Convert.ToInt32(textId.Text), nombre, domicilio);
             if (update)
             {
                 MessageBox.Show("Centro de Atencion N°" + textId.Text + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -42,6 +47,7 @@ namespace WinForms
                 MessageBox.Show("No se pudo modificar el Centro de Atencion N°" + textId.Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.Close();
+            }
         }
     }
 }
