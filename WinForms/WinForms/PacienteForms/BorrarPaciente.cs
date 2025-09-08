@@ -25,8 +25,9 @@ namespace WinForms
 
         private void borrarBtn_Click(object sender, EventArgs e)
         {
+            PacienteService pacienteService = new PacienteService();
             int id = Convert.ToInt32(sexoCombo.Text);
-            bool delete = PacienteService.Delete(id);
+            bool delete = pacienteService.Delete(id);
             if (delete)
             {
                 MessageBox.Show("Paciente N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -40,10 +41,11 @@ namespace WinForms
 
         private void GetAllAndLoad()
         {
+            PacienteService pacienteService = new PacienteService();
             try
             {
                 this.sexoCombo.DataSource = null;
-                this.sexoCombo.DataSource = PacienteService.GetAll();
+                this.sexoCombo.DataSource = pacienteService.GetAll();
             }
             catch (Exception ex)
             {

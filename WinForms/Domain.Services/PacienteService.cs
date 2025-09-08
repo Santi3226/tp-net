@@ -1,129 +1,110 @@
 ﻿using Domain.Model;
 using Data;
 using DTOs;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
 
 namespace Application.Services
 {
     public class PacienteService
     {
-        public static Paciente Add(string nombre, string apellido, string dni, string telefono, string domicilio, string email, string contraseña, DateTime fechaNacimiento)
+        public PacienteDTO Add(PacienteDTO dto)
         {
-            if (PacienteInMemory.Pacientes.Any(p => p.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
+            var pacienteRepository = new PacienteRepository();
+
+            // Validar que el email no esté duplicado
+            if (pacienteRepository.EmailExists(dto.Email))
             {
-                throw new ArgumentException($"Ya existe un paciente con el Email '{email}'.");
+                throw new ArgumentException($"Ya existe un cliente con el Email '{dto.Email}'.");
             }
-            if (PacienteInMemory.Pacientes.Any(p => p.Dni.Equals(dni, StringComparison.OrdinalIgnoreCase)))
-            {
-                throw new ArgumentException($"Ya existe un paciente con el Dni '{dni}'.");
-            }
+            Paciente paciente = new Paciente(0, dto.Nombre, dto.Apellido, dto.Dni, 
+            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento);
+            pacienteRepository.Add(paciente);
 
-            var id = GetNextId();
+            dto.Id = paciente.Id;
 
-            Paciente paciente = new Paciente(id, nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
-
-            PacienteInMemory.Pacientes.Add(paciente);
-
-            return paciente;
+            return dto;
         }
 
-        public static bool Delete(int id)
+        public bool Delete(int id)
         {
-            Paciente? pacienteToDelete = PacienteInMemory.Pacientes.Find(p => p.Id == id);
-
-            if (pacienteToDelete != null)
-            {
-                PacienteInMemory.Pacientes.Remove(pacienteToDelete);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var pacienteRepository = new PacienteRepository();
+            return pacienteRepository.Delete(id);
         }
 
-        public static PacienteDTO? Get(int id)
+        public PacienteDTO Get(int id)
         {
-            Paciente? paciente = PacienteInMemory.Pacientes.Find(p => p.Id == id);
+            var pacienteRepository = new PacienteRepository();
+            Paciente? p = pacienteRepository.Get(id);
 
-            if (paciente == null)
+            if (p == null)
                 return null;
 
             return new PacienteDTO
             {
-                Id = paciente.Id,
-                Nombre = paciente.Nombre,
-                Apellido = paciente.Apellido,
-                Email = paciente.Email,
-                Telefono = paciente.Telefono,
-                Dni = paciente.Dni,
-                Domicilio = paciente.Domicilio,
-                FechaNacimiento = paciente.FechaNacimiento
+                Id = p.Id,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                Email = p.Email,
+                Telefono = p.Telefono,
+                Domicilio = p.Domicilio,
+                Dni = p.Dni,
+                Contraseña = p.Contraseña,
+                FechaNacimiento = p.FechaNacimiento
             };
         }
 
-        public static IEnumerable<PacienteDTO> GetAll()
+        public IEnumerable<PacienteDTO> GetAll()
         {
-            return PacienteInMemory.Pacientes.Select(paciente => new PacienteDTO
+            var pacienteRepository = new PacienteRepository();
+            return pacienteRepository.GetAll().Select(p => new PacienteDTO
             {
-                Id = paciente.Id,
-                Nombre = paciente.Nombre,
-                Apellido = paciente.Apellido,
-                Email = paciente.Email,
-                Telefono = paciente.Telefono,
-                Dni = paciente.Dni,
-                Domicilio = paciente.Domicilio,
-                Contraseña = paciente.Contraseña,
-                FechaNacimiento = paciente.FechaNacimiento
+                Id = p.Id,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                Email = p.Email,
+                Telefono = p.Telefono,
+                Domicilio = p.Domicilio,
+                Dni = p.Dni,
+                Contraseña = p.Contraseña,
+                FechaNacimiento = p.FechaNacimiento
             }).ToList();
         }
 
-        public static bool Update(Paciente dto)
+        public bool Update(PacienteDTO dto)
         {
-            Paciente? pacienteToUpdate = PacienteInMemory.Pacientes.Find(p => p.Id == dto.Id);
+            var pacienteRepository = new PacienteRepository();
 
-            if (pacienteToUpdate != null)
+            // Validar que el email no esté duplicado (excluyendo el cliente actual)
+            if (pacienteRepository.EmailExists(dto.Email, dto.Id))
             {
-                if (PacienteInMemory.Pacientes.Any(p => p.Id != dto.Id && p.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase)))
-                {
-                    throw new ArgumentException($"Ya existe otro paciente con el Email '{dto.Email}'.");
-                }
-                if (PacienteInMemory.Pacientes.Any(p => p.Id != dto.Id && p.Dni.Equals(dto.Dni, StringComparison.OrdinalIgnoreCase)))
-                {
-                    throw new ArgumentException($"Ya existe otro paciente con el Dni '{dto.Dni}'.");
-                }
-
-                pacienteToUpdate.SetNombre(dto.Nombre);
-                pacienteToUpdate.SetApellido(dto.Apellido);
-                pacienteToUpdate.SetEmail(dto.Email);
-                pacienteToUpdate.SetContraseña(dto.Contraseña);
-                pacienteToUpdate.SetTelefono(dto.Telefono);
-                pacienteToUpdate.SetDomicilio(dto.Domicilio);
-                pacienteToUpdate.SetDni(dto.Dni);
-                pacienteToUpdate.SetNombre(dto.Nombre);
-                pacienteToUpdate.SetFechaNacimiento(dto.FechaNacimiento);
-
-                return true;
+                throw new ArgumentException($"Ya existe otro cliente con el Email '{dto.Email}'.");
             }
-            else
-            {
-                return false;
-            }
+
+            Paciente paciente = new Paciente(dto.Id, dto.Nombre, dto.Apellido, dto.Dni,
+            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento);
+            return pacienteRepository.Update(paciente);
         }
-        private static int GetNextId()
+        /*
+        public IEnumerable<PacienteDTO> GetByCriteria(ClienteCriteriaDTO criteriaDTO)
         {
-            int nextId;
+            var clienteRepository = new ClienteRepository();
 
-            if (PacienteInMemory.Pacientes.Count > 0)
-            {
-                nextId = PacienteInMemory.Pacientes.Max(x => x.Id) + 1;
-            }
-            else
-            {
-                nextId = 1;
-            }
+            // Mapear DTO a Domain Model
+            var criteria = new ClienteCriteria(criteriaDTO.Texto);
 
-            return nextId;
-        }
+            // Llamar al repositorio
+            var clientes = clienteRepository.GetByCriteria(criteria);
+
+            // Mapear Domain Model a DTO
+            return clientes.Select(c => new ClienteDTO
+            {
+                Id = c.Id,
+                Nombre = c.Nombre,
+                Apellido = c.Apellido,
+                Email = c.Email,
+                FechaAlta = c.FechaAlta
+            });
+        }*/
     }
 }

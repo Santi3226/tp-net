@@ -37,6 +37,7 @@ namespace WinForms
 
         private void guardarBtn_Click(object sender, EventArgs e)
         {
+            PacienteService pacienteService = new PacienteService();
             if (string.IsNullOrWhiteSpace(nombreText.Text) || string.IsNullOrWhiteSpace(apellidoText.Text) ||
                 string.IsNullOrWhiteSpace(dniText.Text) || string.IsNullOrWhiteSpace(celularText.Text) ||
                 string.IsNullOrWhiteSpace(domicilioText.Text) || string.IsNullOrWhiteSpace(contraseñaText.Text) ||
@@ -44,7 +45,8 @@ namespace WinForms
             {
                 MessageBox.Show("Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else { 
+            else {
+            int id = Convert.ToInt16(textId.Text);
             string nombre = nombreText.Text;
             string dni = dniText.Text;
             string apellido = apellidoText.Text;
@@ -53,8 +55,19 @@ namespace WinForms
             string email = emailText.Text;
             string celular = celularText.Text;
             DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
-            Paciente p = new Paciente(Convert.ToInt32(textId.Text), nombre, apellido, dni, celular, domicilio, email, contraseña, fechaNacimiento);
-            bool update = PacienteService.Update(p);
+            PacienteDTO paciente = new PacienteDTO
+            {
+                Id = id,
+                Nombre = nombre,
+                Apellido = apellido,
+                Dni = dni,
+                Telefono = celular,
+                Domicilio = domicilio,
+                Email = email,
+                Contraseña = contraseña,
+                FechaNacimiento = fechaNacimiento
+            }; 
+            bool update = pacienteService.Update(paciente);
             if (update)
             {
                 MessageBox.Show("Paciente N°" + textId.Text + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);

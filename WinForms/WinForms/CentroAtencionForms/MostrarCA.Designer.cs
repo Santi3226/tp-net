@@ -54,6 +54,7 @@
             dataGridViewCA.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridViewCA.Size = new Size(809, 204);
             dataGridViewCA.TabIndex = 0;
+            dataGridViewCA.CellContentClick += dataGridViewCA_CellContentClick;
             // 
             // comboId
             // 

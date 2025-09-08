@@ -18,8 +18,9 @@ namespace WinForms
 
         private void borrarBtn_Click(object sender, EventArgs e)
         {
+            CentroAtencionService centroAtencionService = new CentroAtencionService();
             int id = Convert.ToInt32(comboId.Text);
-            bool delete = CentroAtencionService.Delete(id);
+            bool delete = centroAtencionService.Delete(id);
             if (delete)
             {
                 MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
