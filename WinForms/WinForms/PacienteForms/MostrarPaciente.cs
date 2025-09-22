@@ -28,9 +28,10 @@ namespace WinForms
         {
             try
             {
+                PacienteService pacienteService = new PacienteService();
                 this.dataGridViewPac.DataSource = null;
                 List<PacienteDTO> list = new List<PacienteDTO>();
-                list.Add(PacienteService.Get(id));
+                list.Add(pacienteService.Get(id));
                 this.dataGridViewPac.DataSource = list;
                 if (dataGridViewPac.Columns.Contains("Contraseña"))
                 {
@@ -46,15 +47,16 @@ namespace WinForms
         {
             try
             {
+                PacienteService pacienteService = new PacienteService();
                 this.dataGridViewPac.DataSource = null;
-                this.dataGridViewPac.DataSource = PacienteService.GetAll();
+                this.dataGridViewPac.DataSource = pacienteService.GetAll();
                 this.dataGridViewPac.Columns[7].Visible = false;
                 if (dataGridViewPac.Columns.Contains("Contraseña"))
                 {
                     dataGridViewPac.Columns["Contraseña"].Visible = false;
                 }
                 this.comboId.DataSource = null;
-                this.comboId.DataSource = PacienteService.GetAll();
+                this.comboId.DataSource = pacienteService.GetAll();
             }
             catch (Exception ex)
             {
@@ -65,8 +67,9 @@ namespace WinForms
         {
             try
             {
+                PacienteService pacienteService = new PacienteService();
                 this.dataGridViewPac.DataSource = null;
-                this.dataGridViewPac.DataSource = PacienteService.GetAll();
+                this.dataGridViewPac.DataSource = pacienteService.GetAll();
                 if (dataGridViewPac.Columns.Contains("Contraseña"))
                 {
                     dataGridViewPac.Columns["Contraseña"].Visible = false;
@@ -80,6 +83,7 @@ namespace WinForms
 
         private void borrarBtn_Click(object sender, EventArgs e)
         {
+            PacienteService pacienteService = new PacienteService();
             if (dataGridViewPac.SelectedRows.Count == 0)
             {
                 MessageBox.Show($"Seleccionar un Paciente para Borrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -91,11 +95,11 @@ namespace WinForms
                 if (dec == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(p.Id);
-                    bool delete = PacienteService.Delete(id);
+                    bool delete = pacienteService.Delete(id);
                     if (delete)
                     {
                         MessageBox.Show("Paciente N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.comboId.DataSource = PacienteService.GetAll();
+                        this.comboId.DataSource = pacienteService.GetAll();
                     }
                     else
                     {
@@ -104,11 +108,6 @@ namespace WinForms
                 }
 
             }
-        }
-
-        private void dataGridViewPac_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void mostrarUnoBtn_Click(object sender, EventArgs e)
@@ -124,9 +123,10 @@ namespace WinForms
 
         private void agregarPacienteBtn_Click(object sender, EventArgs e)
         {
+            PacienteService pacienteService = new PacienteService();
             AgregarPaciente form = new AgregarPaciente();
             form.ShowDialog();
-            this.comboId.DataSource = PacienteService.GetAll();
+            this.comboId.DataSource = pacienteService.GetAll();
         }
 
         private void modificarPacienteBtn_Click(object sender, EventArgs e)

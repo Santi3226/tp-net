@@ -1,6 +1,7 @@
 ﻿using Application.Services;
 using Data;
 using Domain.Model;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,6 +81,7 @@ namespace WinForms
         {
             try
             {
+                PacienteService pacienteService = new PacienteService();
                 string nombre = nombreTextBox.Text;
                 string apellido = apellidoTextBox.Text;
                 string dni = dniTextBox.Text;
@@ -88,7 +90,10 @@ namespace WinForms
                 string email = mailTextBox.Text;
                 string contraseña = contraseñaTextBox.Text;
                 DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
-                PacienteService.Add(nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
+                PacienteDTO paciente = new PacienteDTO{Id= 0, Nombre= nombre, Apellido= apellido, Dni=dni,
+                Telefono= telefono, Domicilio= domicilio, Email= email, Contraseña= contraseña, 
+                    FechaNacimiento= fechaNacimiento};
+                pacienteService.Add(paciente);
                 return true;
             }
             catch (ArgumentException ex)

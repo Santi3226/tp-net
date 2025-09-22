@@ -9,6 +9,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(o => { });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorWasm",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7170", "http://localhost:5076")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build(); 
 
 if (app.Environment.IsDevelopment())
@@ -19,7 +30,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
- 
+
+// Use CORS
+app.UseCors("AllowBlazorWasm");
+
 app.MapGet("/Pacientes/{id}", (int id) =>
 {
     PacienteService pacienteService = new PacienteService();
@@ -113,6 +127,25 @@ app.MapDelete("/pacientes/{id}", (int id) =>
 .Produces(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
+
+/*
+ * app.MapGet("/clientes/criteria", (string texto) =>
+{
+    try
+    {
+        ClienteService clienteService = new ClienteService();
+        var criteria = new ClienteCriteriaDTO { Texto = texto };
+        var clientes = clienteService.GetByCriteria(criteria);
+        return Results.Ok(clientes);
+    }
+    catch (Exception ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("GetClientesByCriteria")
+.WithOpenApi();
+*/
 
 app.MapGet("/centrosAtencion/{id}", (int id) =>
 {
