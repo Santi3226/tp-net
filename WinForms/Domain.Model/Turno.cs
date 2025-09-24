@@ -10,16 +10,8 @@
         public DateTime? FechaHoraExtraccion { get; private set; }
         public DateTime FechaHoraReserva { get; private set; }
         public int PacienteId { get; private set; }
+        public virtual Paciente Paciente { get; private set; }
 
-        public Paciente paciente;
-        public Paciente Pacient
-        {
-            get { return paciente; }
-            set
-            {
-                paciente = value; 
-            }
-        }
         protected Turno() { }
 
         public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, Paciente paciente)
@@ -61,12 +53,13 @@
                 throw new ArgumentException("La receta no puede ser nulo o vacío.", nameof(receta));
             Receta = receta;
         }
-        public void SetPaciente(Paciente p)
+        public void SetPaciente(Paciente paciente)
         {
-            if (p == null)
-                throw new ArgumentException("El paciente no puede ser nulo o vacío.", nameof(p));
-            Pacient = p;
-            PacienteId = p.Id; // set FK
+            if (paciente == null)
+                throw new ArgumentNullException(nameof(paciente), "El paciente no puede ser nulo.");
+
+            Paciente = paciente;
+            PacienteId = paciente.Id;
         }
         public void SetRecibeMail(bool rm)
         {

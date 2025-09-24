@@ -60,8 +60,6 @@ namespace Data
                 entity.Property(e => e.FechaNacimiento)
                     .IsRequired();
             });
-
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CentroAtencion>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -75,28 +73,21 @@ namespace Data
                 entity.Property(e => e.Domicilio)
                     .IsRequired();
             });
-
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Turno>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd();
-                entity.Property(e => e.RecibeMail)
-                    .IsRequired();
-                entity.Property(e => e.Estado)
-                    .IsRequired().HasMaxLength(20);
-                entity.Property(e => e.Receta)
-                    .IsRequired().HasMaxLength(255);
-                entity.Property(e => e.Observaciones)
-                    .HasMaxLength(255) ;
-                entity.Property(e => e.FechaHoraReserva)
-                    .IsRequired();
-                entity.HasOne(e => e.Pacient)  
-                .WithMany() 
-                .HasForeignKey(e => e.PacienteId); 
-                entity.Property(e => e.FechaHoraExtraccion);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
+                entity.Property(e => e.RecibeMail).IsRequired();
+                entity.Property(e => e.Estado).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.Receta).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.Observaciones).HasMaxLength(255);
+                entity.Property(e => e.FechaHoraReserva).IsRequired();
+                entity.Property(e => e.FechaHoraExtraccion);
+                entity.HasOne(t => t.Paciente)
+                      .WithMany()
+                      .HasForeignKey(t => t.PacienteId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

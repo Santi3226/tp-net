@@ -15,6 +15,7 @@ namespace Data
         public void Add(Turno t)
         {
             using var context = CreateContext();
+            context.Pacientes.Attach(t.Paciente); //Importante para q se guarde bien el paciente
             context.Turnos.Add(t);
             context.SaveChanges();
         }
@@ -35,13 +36,15 @@ namespace Data
         public Turno? Get(int id)
         {
             using var context = CreateContext();
-            return context.Turnos.Find(id);
+            return context.Turnos
+                              .Include(t => t.Paciente)  // Esto los vincula
+                              .FirstOrDefault(t => t.Id == id);
         }
 
         public IEnumerable<Turno> GetAll()
         {
             using var context = CreateContext();
-            return context.Turnos.ToList();
+            return context.Turnos.Include(t => t.Paciente).ToList();
         }
 
         public bool Update(Turno t)
@@ -50,13 +53,14 @@ namespace Data
             var existingTurno = context.Turnos.Find(t.Id);
             if (existingTurno != null)
             {
+                context.Pacientes.Attach(t.Paciente);
                 existingTurno.SetReceta(t.Receta);
                 existingTurno.SetEstado(t.Estado);
                 existingTurno.SetRecibeMail(t.RecibeMail);
-                existingTurno.SetReceta(t.Receta);
+                existingTurno.SetObservaciones(t.Observaciones);
                 existingTurno.SetFechaHoraReserva(t.FechaHoraReserva);
                 existingTurno.SetFechaHoraExtraccion(t.FechaHoraExtraccion);
-                existingTurno.SetPaciente(t.Pacient);
+                existingTurno.SetPaciente(t.Paciente);
                 context.SaveChanges();
                 return true;
             }

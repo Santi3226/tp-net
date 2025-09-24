@@ -46,7 +46,7 @@ namespace Application.Services
                 Observaciones = t.Observaciones,
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
-                IdPaciente = t.Pacient.Id 
+                IdPaciente = t.Paciente?.Id ?? 0
             };
         }
 
@@ -62,7 +62,7 @@ namespace Application.Services
                 Observaciones = t.Observaciones,
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
-                IdPaciente = t.Pacient.Id
+                IdPaciente = t.Paciente?.Id ?? 0
             }).ToList();
         }
 
@@ -71,7 +71,7 @@ namespace Application.Services
             var turnoRepository = new TurnoRepository();
             var pacienteRepository = new PacienteRepository();
             Paciente? p = pacienteRepository.Get(dto.IdPaciente);
-
+            //Aca encuentra bien el paciente
             Turno turno = new Turno(dto.Id, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
             dto.FechaHoraReserva, dto.FechaHoraExtraccion, p);
             return turnoRepository.Update(turno);

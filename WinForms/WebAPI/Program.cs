@@ -2,6 +2,7 @@ using Application.Services;
 using Domain.Model;
 using DTOs;
 using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args); 
 
@@ -14,7 +15,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowBlazorWasm",
         policy =>
         {
-            policy.WithOrigins("https://localhost:7170", "http://localhost:5076", "http://localhost:5183")
+            policy.WithOrigins("https://localhost:7170", "http://localhost:5076")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -30,6 +31,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRewriter(new RewriteOptions()
+    .AddRedirect("^$", "/swagger/index.html") // Redirect root to home/index
+);
 
 // Use CORS
 app.UseCors("AllowBlazorWasm");
