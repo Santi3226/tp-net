@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Application.Services;
 using Data;
 using DTOs;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WinForms
 {
@@ -85,6 +86,7 @@ namespace WinForms
 
         private bool AsignPaciente()
         {
+            PacienteService pacienteService = new PacienteService();
             try
             {
                 string nombre = nombreTextBox.Text;
@@ -95,7 +97,18 @@ namespace WinForms
                 string email = mailTextBox.Text;
                 string contraseña = contraseñaTextBox.Text;
                 DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
-                PacienteService.Add(nombre, apellido, dni, telefono, domicilio, email, contraseña, fechaNacimiento);
+                PacienteDTO paciente = new PacienteDTO
+                {
+                    Id = 0,
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    Dni = dni,
+                    Telefono = telefono,
+                    Domicilio = domicilio,
+                    Email = email,
+                    Contraseña = contraseña,
+                    FechaNacimiento = fechaNacimiento
+                }; pacienteService.Add(paciente);
                 MessageBox.Show("Paciente registrado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }

@@ -9,6 +9,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(o => { });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorWasm",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7170", "http://localhost:5076", "http://localhost:5183")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build(); 
 
 if (app.Environment.IsDevelopment())
@@ -19,7 +30,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
- 
+
+// Use CORS
+app.UseCors("AllowBlazorWasm");
+
 app.MapGet("/Pacientes/{id}", (int id) =>
 {
     PacienteService pacienteService = new PacienteService();
@@ -114,6 +128,25 @@ app.MapDelete("/pacientes/{id}", (int id) =>
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
 
+/*
+ * app.MapGet("/clientes/criteria", (string texto) =>
+{
+    try
+    {
+        ClienteService clienteService = new ClienteService();
+        var criteria = new ClienteCriteriaDTO { Texto = texto };
+        var clientes = clienteService.GetByCriteria(criteria);
+        return Results.Ok(clientes);
+    }
+    catch (Exception ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("GetClientesByCriteria")
+.WithOpenApi();
+*/
+
 app.MapGet("/centrosAtencion/{id}", (int id) =>
 {
     CentroAtencionService centroAtencionService = new CentroAtencionService();
@@ -204,6 +237,102 @@ app.MapDelete("/centrosAtencion/{id}", (int id) =>
 
 })
 .WithName("DeleteCentroAtencion")
+.Produces(StatusCodes.Status204NoContent)
+.Produces(StatusCodes.Status404NotFound)
+.WithOpenApi();
+
+// ------------
+
+app.MapGet("/turnos/{id}", (int id) =>
+{
+    TurnoService turnoService = new TurnoService();
+
+    TurnoDTO dto = turnoService.Get(id);
+
+    if (dto == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(dto);
+})
+.WithName("GetTurno")
+.Produces<TurnoDTO>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound).
+WithOpenApi();
+
+app.MapGet("/turnos", () =>
+{
+    TurnoService turnoService = new TurnoService();
+
+    var dtos = turnoService.GetAll();
+
+    return Results.Ok(dtos);
+})
+.WithName("GetAllTurnos")
+.Produces<List<TurnoDTO>>(StatusCodes.Status200OK)
+.WithOpenApi();
+
+app.MapPost("/turnos", (TurnoDTO dto) =>
+{
+    try
+    {
+        TurnoService turnoService = new TurnoService();
+
+        TurnoDTO turnoDTO = turnoService.Add(dto);
+
+        return Results.Created($"/turnos/{turnoDTO.Id}", turnoDTO);
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("AddTurnos")
+.Produces<TurnoDTO>(StatusCodes.Status201Created)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapPut("/turnos", (TurnoDTO dto) =>
+{
+    try
+    {
+        TurnoService turnoService = new TurnoService();
+
+        var found = turnoService.Update(dto);
+
+        if (!found)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.NoContent();
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("UpdateTurno")
+.Produces(StatusCodes.Status404NotFound)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapDelete("/turnos/{id}", (int id) =>
+{
+    TurnoService turnoService = new TurnoService();
+
+    var deleted = turnoService.Delete(id);
+
+    if (!deleted)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.NoContent();
+
+})
+.WithName("DeleteTurno")
 .Produces(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();

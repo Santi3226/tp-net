@@ -81,7 +81,6 @@
             dataGridViewPac.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPac.Size = new Size(781, 212);
             dataGridViewPac.TabIndex = 40;
-            dataGridViewPac.CellContentClick += dataGridViewPac_CellContentClick;
             // 
             // modificarPacienteBtn
             // 

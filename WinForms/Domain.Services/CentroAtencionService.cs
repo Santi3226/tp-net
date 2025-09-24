@@ -1,102 +1,96 @@
 ﻿using Domain.Model;
 using Data;
 using DTOs;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
+using System.Xml;
 
 namespace Application.Services
 {
     public class CentroAtencionService
     {
-        public static CentroAtencion Add(string nombre, string domicilio)
+        public CentroAtencionDTO Add(CentroAtencionDTO dto)
         {
-            if (CentroAtencionInMemory.Centros.Any(c => c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)))
+            var centroRepository = new CentroRepository();
+
+            // Validar que el nombre no esté duplicado
+            if (centroRepository.NombreExists(dto.Nombre))
             {
-                throw new ArgumentException($"Ya existe un centro de atención con el Nombre '{nombre}'.");
+                throw new ArgumentException($"Ya existe un centro de atención con el Nombre '{dto.Nombre}'.");
             }
-            var id = GetNextId();
+            CentroAtencion centro = new CentroAtencion(0, dto.Nombre, dto.Domicilio);
+            centroRepository.Add(centro);
 
-            CentroAtencion centroAtencion = new CentroAtencion(id, nombre, domicilio);
+            dto.Id = centro.Id;
 
-            CentroAtencionInMemory.Centros.Add(centroAtencion);
-
-            return centroAtencion;
+            return dto;
         }
 
-        public static bool Delete(int id)
+        public bool Delete(int id)
         {
-            CentroAtencion? centroAtencionToDelete = CentroAtencionInMemory.Centros.Find(c => c.Id == id);
-
-            if (centroAtencionToDelete != null)
-            {
-                CentroAtencionInMemory.Centros.Remove(centroAtencionToDelete);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var centroRepository = new CentroRepository();
+            return centroRepository.Delete(id);
         }
 
-        public static CentroAtencionDTO? Get(int id)
+        public CentroAtencionDTO Get(int id)
         {
-            CentroAtencion? centroAtencion = CentroAtencionInMemory.Centros.Find(p => p.Id == id);
+            var centroRepository = new CentroRepository();
+            CentroAtencion? c = centroRepository.Get(id);
 
-            if (centroAtencion == null)
+            if (c == null)
                 return null;
 
             return new CentroAtencionDTO
             {
-                Id = centroAtencion.Id,
-                Nombre = centroAtencion.Nombre,
-                Domicilio = centroAtencion.Domicilio,
+                Id = c.Id,
+                Nombre = c.Nombre,
+                Domicilio = c.Domicilio,
             };
         }
 
-        public static IEnumerable<CentroAtencionDTO> GetAll()
+        public IEnumerable<CentroAtencionDTO> GetAll()
         {
-            return CentroAtencionInMemory.Centros.Select(centroAtencion => new CentroAtencionDTO
+            var centroRepository = new CentroRepository();
+            return centroRepository.GetAll().Select(c => new CentroAtencionDTO
             {
-                Id = centroAtencion.Id,
-                Nombre = centroAtencion.Nombre,
-                Domicilio = centroAtencion.Domicilio,
-                }).ToList();
+                Id = c.Id,
+                Nombre = c.Nombre,
+                Domicilio = c.Domicilio,
+            }).ToList();
         }
 
-        public static bool Update(int id, string nombre, string domicilio)
+        public bool Update(CentroAtencionDTO dto)
         {
-            CentroAtencion? centroAtencionToUpdate = CentroAtencionInMemory.Centros.Find(c => c.Id == id);
+            var centroRepository = new CentroRepository();
 
-            if (centroAtencionToUpdate != null)
+            // Validar que el email no esté duplicado (excluyendo el cliente actual)
+            if (centroRepository.NombreExists(dto.Nombre, dto.Id))
             {
-                if (CentroAtencionInMemory.Centros.Any(c => c.Id != id && c.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase)))
-                {
-                    throw new ArgumentException($"Ya existe otro centro con el Nombre '{nombre}'.");
-                }
-
-                centroAtencionToUpdate.SetNombre(nombre);
-                centroAtencionToUpdate.SetDomicilio(domicilio);
-
-                return true;
+                throw new ArgumentException($"Ya existe otro centro de atención con el Nombre '{dto.Nombre}'.");
             }
-            else
-            {
-                return false;
-            }
+            CentroAtencion centro = new CentroAtencion((int)dto.Id, dto.Nombre, dto.Domicilio);
+            return centroRepository.Update(centro);
         }
-        private static int GetNextId()
+        /*
+        public IEnumerable<PacienteDTO> GetByCriteria(ClienteCriteriaDTO criteriaDTO)
         {
-            int nextId;
+            var clienteRepository = new ClienteRepository();
 
-            if (CentroAtencionInMemory.Centros.Count > 0)
-            {
-                nextId = CentroAtencionInMemory.Centros.Max(x => x.Id) + 1;
-            }
-            else
-            {
-                nextId = 1;
-            }
+            // Mapear DTO a Domain Model
+            var criteria = new ClienteCriteria(criteriaDTO.Texto);
 
-            return nextId;
-        }
+            // Llamar al repositorio
+            var clientes = clienteRepository.GetByCriteria(criteria);
+
+            // Mapear Domain Model a DTO
+            return clientes.Select(c => new ClienteDTO
+            {
+                Id = c.Id,
+                Nombre = c.Nombre,
+                Apellido = c.Apellido,
+                Email = c.Email,
+                FechaAlta = c.FechaAlta
+            });
+        }*/
     }
 }

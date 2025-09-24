@@ -29,15 +29,23 @@ namespace WinForms
 
         private void guardarBtn_Click(object sender, EventArgs e)
         {
-            string nombre = textBoxNombre.Text;
-            string domicilio = textBoxDomicilio.Text;
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio))
+            CentroAtencionService centroAtencionService = new CentroAtencionService();
+            if (string.IsNullOrWhiteSpace(textBoxNombre.Text) || string.IsNullOrWhiteSpace(textBoxDomicilio.Text))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
-            else { 
-            bool update = CentroAtencionService.Update(Convert.ToInt32(textId.Text), nombre, domicilio);
+            else {
+            string nombre = textBoxNombre.Text;
+            string domicilio = textBoxDomicilio.Text;
+            int id = Convert.ToInt16(textId.Text);
+            CentroAtencionDTO centro = new CentroAtencionDTO
+            {
+                Id = id, 
+                Nombre= nombre, 
+                Domicilio=domicilio 
+            };
+            bool update = centroAtencionService.Update(centro);
             if (update)
             {
                 MessageBox.Show("Centro de Atencion N°" + textId.Text + " modificado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);

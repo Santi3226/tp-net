@@ -29,9 +29,10 @@ namespace WinForms
         {
             try
             {
+                CentroAtencionService centroAtencionService = new CentroAtencionService();
                 this.dataGridViewCA.DataSource = null;
                 List<CentroAtencionDTO> list = new List<CentroAtencionDTO>();
-                list.Add(CentroAtencionService.Get(id));
+                list.Add(centroAtencionService.Get(id));
                 this.dataGridViewCA.DataSource = list;
             }
             catch (Exception ex)
@@ -43,10 +44,11 @@ namespace WinForms
         {
             try
             {
+                CentroAtencionService centroAtencionService = new CentroAtencionService();
                 this.dataGridViewCA.DataSource = null;
-                this.dataGridViewCA.DataSource = CentroAtencionService.GetAll();
+                this.dataGridViewCA.DataSource = centroAtencionService.GetAll();
                 this.comboId.DataSource = null;
-                this.comboId.DataSource = CentroAtencionService.GetAll();
+                this.comboId.DataSource = centroAtencionService.GetAll();
             }
             catch (Exception ex)
             {
@@ -57,8 +59,9 @@ namespace WinForms
         {
             try
             {
+                CentroAtencionService centroAtencionService = new CentroAtencionService();
                 this.dataGridViewCA.DataSource = null;
-                this.dataGridViewCA.DataSource = CentroAtencionService.GetAll();
+                this.dataGridViewCA.DataSource = centroAtencionService.GetAll();
             }
             catch (Exception ex)
             {
@@ -68,6 +71,7 @@ namespace WinForms
 
         private void borrarBtn_Click(object sender, EventArgs e)
         {
+            CentroAtencionService centroAtencionService = new CentroAtencionService();
             if (dataGridViewCA.SelectedRows.Count == 0)
             {
                 MessageBox.Show($"Seleccionar un Centro para Borrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -79,11 +83,11 @@ namespace WinForms
                 if (dec == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(ca.Id);
-                    bool delete = CentroAtencionService.Delete(id);
+                    bool delete = centroAtencionService.Delete(id);
                     if (delete)
                     {
                         MessageBox.Show("Centro de Atencion N°" + id + " borrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.comboId.DataSource = CentroAtencionService.GetAll();
+                        this.comboId.DataSource = centroAtencionService.GetAll();
                     }
                     else
                     {
@@ -110,9 +114,10 @@ namespace WinForms
 
         private void agregarCaBtn_Click(object sender, EventArgs e)
         {
+            CentroAtencionService centroAtencionService = new CentroAtencionService();
             AgregarCA agregarCA = new AgregarCA();
             agregarCA.ShowDialog();
-            this.comboId.DataSource = CentroAtencionService.GetAll();
+            this.comboId.DataSource = centroAtencionService.GetAll();
         }
 
         private void mostrarUnoBtn_Click(object sender, EventArgs e)
@@ -124,6 +129,11 @@ namespace WinForms
         private void mostrarTodosBtn_Click(object sender, EventArgs e)
         {
             GetAll();
+        }
+
+        private void dataGridViewCA_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }   
