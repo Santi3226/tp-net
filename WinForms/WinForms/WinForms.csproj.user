@@ -5,6 +5,9 @@
     <Compile Update="CentroAtencionForms\BorrarCA.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HomePaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PacienteForms\AgregarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -20,7 +23,7 @@
     <Compile Update="MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PacienteForms\InicioSesionPaciente.cs">
+    <Compile Update="InicioSesionPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="CentroAtencionForms\ModificarCA.cs">
@@ -29,7 +32,7 @@
     <Compile Update="PacienteForms\ModificarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PacienteForms\RegistroPaciente.cs">
+    <Compile Update="RegistroPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

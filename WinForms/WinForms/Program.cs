@@ -12,9 +12,14 @@ namespace WinForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //InicioSesionPaciente form = new InicioSesionPaciente();
-            MenuPrincipal form = new MenuPrincipal();
+            InicioSesionPaciente formInicio = new InicioSesionPaciente();
+            formInicio.ShowDialog();
+            
+            HomePaciente form = new HomePaciente();
             form.ShowDialog();
 
+            RegistroPaciente formRegistro = new RegistroPaciente();
+            formRegistro.ShowDialog();
         }
     }
 }
