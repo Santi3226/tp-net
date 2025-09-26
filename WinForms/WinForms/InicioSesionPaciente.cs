@@ -1,6 +1,7 @@
-using System.Windows.Forms;
-using DTOs;
 using Data;
+using Domain.Model;
+using DTOs;
+using System.Windows.Forms;
 using WinForms;
 
 namespace WinForms
@@ -33,9 +34,9 @@ namespace WinForms
                 {
                     // acá iria la iniciacion del menu principal
                     MessageBox.Show(Text = "Bienvenido!", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    HomePaciente form = new HomePaciente();
                     this.Hide();
-                    menuPrincipal.ShowDialog();
+                    form.ShowDialog();
                 }
                 else
                 {
@@ -67,7 +68,8 @@ namespace WinForms
 
         private bool ValidatePacienteAsync()
         {
-            var pacientes = PacienteInMemory.Pacientes;
+            var pacienteRepository = new PacienteRepository();
+            var pacientes = pacienteRepository.GetAll();
             string email = this.emailTextBox.Text.Trim();
             string contraseña = this.contraseñaTextBox.Text.Trim();
 

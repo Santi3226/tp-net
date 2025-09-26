@@ -14,12 +14,6 @@ namespace WinForms
             //InicioSesionPaciente form = new InicioSesionPaciente();
             InicioSesionPaciente formInicio = new InicioSesionPaciente();
             formInicio.ShowDialog();
-            
-            HomePaciente form = new HomePaciente();
-            form.ShowDialog();
-
-            RegistroPaciente formRegistro = new RegistroPaciente();
-            formRegistro.ShowDialog();
         }
     }
 }
