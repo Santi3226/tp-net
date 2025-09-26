@@ -96,7 +96,7 @@ namespace WinForms
                 string domicilio = direccionLabel.Text;
                 string email = mailTextBox.Text;
                 string contraseña = contraseñaTextBox.Text;
-                DateTime fechaNacimiento = fechaNacimientoCalendario.SelectionStart;
+                DateTime fechaNacimiento = fechaNacimientoCalendario.MaxDate;
                 PacienteDTO paciente = new PacienteDTO
                 {
                     Id = 0,

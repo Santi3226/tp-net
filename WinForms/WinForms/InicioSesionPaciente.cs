@@ -93,10 +93,5 @@ namespace WinForms
             RegistroPaciente registroPaciente = new RegistroPaciente();
             registroPaciente.ShowDialog();
         }
-
-        private void emailTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
