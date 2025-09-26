@@ -9,6 +9,8 @@ namespace Data
         public DbSet<Paciente> Pacientes{ get; set; }
         public DbSet<CentroAtencion> Centros { get; set; }
         public DbSet<Turno> Turnos { get; set; }
+        public DbSet<TipoAnalisis> TiposAnalisis { get; set; }
+
 
         internal TPIContext()
         {
@@ -88,6 +90,13 @@ namespace Data
                       .WithMany()
                       .HasForeignKey(t => t.PacienteId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<TipoAnalisis>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Nombre).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.Importe).IsRequired();
             });
         }
     }

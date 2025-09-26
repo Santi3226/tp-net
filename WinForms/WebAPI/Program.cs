@@ -341,5 +341,101 @@ app.MapDelete("/turnos/{id}", (int id) =>
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
 
+// ------------
+
+app.MapGet("/tiposAnalisis/{id}", (int id) =>
+{
+    TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
+    TipoAnalisisDTO dto = tipoAnalisisService.Get(id);
+
+    if (dto == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(dto);
+})
+.WithName("GetTipoAnalisis")
+.Produces<TipoAnalisisDTO>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound).
+WithOpenApi();
+
+app.MapGet("/tiposAnalisis", () =>
+{
+    TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
+    var dtos = tipoAnalisisService.GetAll();
+
+    return Results.Ok(dtos);
+})
+.WithName("GetAllTiposAnalisis")
+.Produces<List<TipoAnalisisDTO>>(StatusCodes.Status200OK)
+.WithOpenApi();
+
+app.MapPost("/tiposAnalisis", (TipoAnalisisDTO dto) =>
+{
+    try
+    {
+        TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
+        TipoAnalisisDTO tipoAnalisisDTO = tipoAnalisisService.Add(dto);
+
+        return Results.Created($"/tiposAnalisis/{tipoAnalisisDTO.Id}", tipoAnalisisDTO);
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("AddTipoAnalisis")
+.Produces<TipoAnalisisDTO>(StatusCodes.Status201Created)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapPut("/tiposAnalisis", (TipoAnalisisDTO dto) =>
+{
+    try
+    {
+        TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
+        var found = tipoAnalisisService.Update(dto);
+
+        if (!found)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.NoContent();
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("UpdateTipoAnalisis")
+.Produces(StatusCodes.Status404NotFound)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapDelete("/tiposAnalisis/{id}", (int id) =>
+{
+    TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
+    var deleted = tipoAnalisisService.Delete(id);
+
+    if (!deleted)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.NoContent();
+
+})
+.WithName("DeleteTipoAnalisis")
+.Produces(StatusCodes.Status204NoContent)
+.Produces(StatusCodes.Status404NotFound)
+.WithOpenApi();
+
 app.Run();
 
