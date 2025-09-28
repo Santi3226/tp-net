@@ -11,10 +11,12 @@
         public DateTime FechaHoraReserva { get; private set; }
         public int PacienteId { get; private set; }
         public virtual Paciente Paciente { get; private set; }
+        public int TipoAnalisisId { get; private set; }
+        public virtual TipoAnalisis TipoAnalisis { get; private set; }
 
         protected Turno() { }
 
-        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, Paciente paciente)
+        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, Paciente paciente, TipoAnalisis tipoAnalisis)
         {
             SetId(id);
             SetRecibeMail(recibeMail);
@@ -23,8 +25,9 @@
             SetObservaciones(observaciones);
             SetFechaHoraReserva(fechaHoraReserva);
             SetPaciente(paciente);
+            SetTipoAnalisis(tipoAnalisis);
         }
-        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, DateTime? fechaHoraExtraccion, Paciente paciente)
+        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, DateTime? fechaHoraExtraccion, Paciente paciente, TipoAnalisis tipoAnalisis)
         {
             SetId(id);
             SetRecibeMail(recibeMail);
@@ -34,6 +37,7 @@
             SetFechaHoraReserva(fechaHoraReserva);
             SetFechaHoraExtraccion(fechaHoraExtraccion);
             SetPaciente(paciente);
+            SetTipoAnalisis(tipoAnalisis);
         }
         public void SetId(int id)
         {
@@ -60,6 +64,13 @@
 
             Paciente = paciente;
             PacienteId = paciente.Id;
+        }
+        public void SetTipoAnalisis(TipoAnalisis tipoAnalisis)
+        {
+            if (tipoAnalisis == null)
+                throw new ArgumentNullException(nameof(tipoAnalisis), "El tipo de análisis no puede ser nulo.");
+            TipoAnalisis = tipoAnalisis;
+            TipoAnalisisId = tipoAnalisis.Id;
         }
         public void SetRecibeMail(bool rm)
         {

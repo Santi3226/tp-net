@@ -90,6 +90,11 @@ namespace Data
                       .WithMany()
                       .HasForeignKey(t => t.PacienteId)
                       .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(t => t.TipoAnalisis)
+                      .WithMany()
+                      .HasForeignKey(t => t.TipoAnalisisId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                
             });
             modelBuilder.Entity<TipoAnalisis>(entity =>
             {

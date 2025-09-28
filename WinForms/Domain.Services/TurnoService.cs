@@ -12,10 +12,12 @@ namespace Application.Services
         {
             var turnoRepository = new TurnoRepository();
             var pacienteRepository = new PacienteRepository();
+            var tipoAnalisisRepository = new TipoAnalisisRepository();
             Paciente? p = pacienteRepository.Get(dto.IdPaciente);
+            TipoAnalisis? ta = tipoAnalisisRepository.Get(dto.IdTipoAnalisis);
             
             Turno t = new Turno(0, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
-            dto.FechaHoraReserva, p);
+            dto.FechaHoraReserva, p, ta);
             turnoRepository.Add(t);
 
             dto.Id = t.Id;
@@ -46,7 +48,8 @@ namespace Application.Services
                 Observaciones = t.Observaciones,
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
-                IdPaciente = t.Paciente?.Id ?? 0
+                IdPaciente = t.Paciente?.Id ?? 0,
+                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0
             };
         }
 
@@ -62,7 +65,8 @@ namespace Application.Services
                 Observaciones = t.Observaciones,
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
-                IdPaciente = t.Paciente?.Id ?? 0
+                IdPaciente = t.Paciente?.Id ?? 0,
+                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0
             }).ToList();
         }
 
@@ -70,10 +74,12 @@ namespace Application.Services
         {
             var turnoRepository = new TurnoRepository();
             var pacienteRepository = new PacienteRepository();
+            var tipoAnalisisRepository = new TipoAnalisisRepository();
             Paciente? p = pacienteRepository.Get(dto.IdPaciente);
+            TipoAnalisis? ta = tipoAnalisisRepository.Get(dto.IdTipoAnalisis);
             //Aca encuentra bien el paciente
             Turno turno = new Turno(dto.Id, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
-            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p);
+            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta);
             return turnoRepository.Update(turno);
         }
         /*
