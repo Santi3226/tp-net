@@ -62,7 +62,7 @@ namespace Data
                 entity.Property(e => e.FechaNacimiento)
                     .IsRequired();
                 entity.Property(e => e.Tipo)
-                    .IsRequired();
+                    ;
             });
             modelBuilder.Entity<CentroAtencion>(entity =>
             {
@@ -96,7 +96,11 @@ namespace Data
                       .WithMany()
                       .HasForeignKey(t => t.TipoAnalisisId)
                       .OnDelete(DeleteBehavior.Restrict);
-                
+                entity.HasOne(t => t.CentroAtencion)
+                      .WithMany()
+                      .HasForeignKey(t => t.CentroAtencionId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
             });
             modelBuilder.Entity<TipoAnalisis>(entity =>
             {

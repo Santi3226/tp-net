@@ -17,6 +17,7 @@ namespace Data
             using var context = CreateContext();
             context.Pacientes.Attach(t.Paciente);//Importante para q se guarde bien el paciente
             context.TiposAnalisis.Attach(t.TipoAnalisis);
+            context.Centros.Attach(t.CentroAtencion);
             context.Turnos.Add(t);
             context.SaveChanges();
         }
@@ -40,6 +41,7 @@ namespace Data
             return context.Turnos
                               .Include(t => t.Paciente)  // Esto los vincula
                               .Include(t => t.TipoAnalisis)
+                              .Include(t => t.CentroAtencion)
                               .FirstOrDefault(t => t.Id == id);
         }
 
@@ -57,6 +59,7 @@ namespace Data
             {
                 context.Pacientes.Attach(t.Paciente);
                 context.TiposAnalisis.Attach(t.TipoAnalisis);
+                context.Centros.Attach(t.CentroAtencion);
                 existingTurno.SetReceta(t.Receta);
                 existingTurno.SetEstado(t.Estado);
                 existingTurno.SetRecibeMail(t.RecibeMail);
@@ -64,6 +67,8 @@ namespace Data
                 existingTurno.SetFechaHoraReserva(t.FechaHoraReserva);
                 existingTurno.SetFechaHoraExtraccion(t.FechaHoraExtraccion);
                 existingTurno.SetPaciente(t.Paciente);
+                existingTurno.SetTipoAnalisis(t.TipoAnalisis);
+                existingTurno.SetCentroAtencion(t.CentroAtencion);
                 context.SaveChanges();
                 return true;
             }
@@ -74,8 +79,8 @@ namespace Data
         {
             using var context = CreateContext();
             List<Turno> turnosDelPaciente = new List<Turno>();
-            var turnos = from t in context.Turnos.Include(t => t.TipoAnalisis).Include(t => t.Paciente)
-                         where t.PacienteId == pacienteId && t.Estado == "Reservado"
+            var turnos = from t in context.Turnos.Include(t => t.TipoAnalisis).Include(t => t.Paciente).Include(t => t.CentroAtencion)
+                         where t.PacienteId == pacienteId
                          select t;
             foreach(Turno t in turnos)
             {

@@ -50,7 +50,8 @@ namespace WinForms
                     FechaHoraExtraccion = turno.FechaHoraExtraccion,
                     FechaHoraReserva = turno.FechaHoraReserva,
                     IdPaciente = turno.IdPaciente,
-                    IdTipoAnalisis = turno.IdTipoAnalisis
+                    IdTipoAnalisis = turno.IdTipoAnalisis,
+                    IdCentroAtencion = turno.IdCentroAtencion
                 };
                 TurnoService turnoService = new TurnoService();
                 bool aceptado = turnoService.Update(turnoAceptado);

@@ -13,10 +13,12 @@
         public virtual Paciente Paciente { get; private set; }
         public int TipoAnalisisId { get; private set; }
         public virtual TipoAnalisis TipoAnalisis { get; private set; }
+        public int CentroAtencionId { get; private set; }
+        public virtual CentroAtencion CentroAtencion { get; private set; }
 
         protected Turno() { }
 
-        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, DateTime? fechaHoraExtraccion, Paciente paciente, TipoAnalisis tipoAnalisis)
+        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, DateTime? fechaHoraExtraccion, Paciente paciente, TipoAnalisis tipoAnalisis, CentroAtencion centroAtencion)
         {
             SetId(id);
             SetRecibeMail(recibeMail);
@@ -27,6 +29,7 @@
             SetFechaHoraExtraccion(fechaHoraExtraccion);
             SetPaciente(paciente);
             SetTipoAnalisis(tipoAnalisis);
+            SetCentroAtencion(centroAtencion);
         }
         public void SetId(int id)
         {
@@ -60,6 +63,13 @@
                 throw new ArgumentNullException(nameof(tipoAnalisis), "El tipo de análisis no puede ser nulo.");
             TipoAnalisis = tipoAnalisis;
             TipoAnalisisId = tipoAnalisis.Id;
+        }
+        public void SetCentroAtencion(CentroAtencion centroAtencion)
+        {
+            if (centroAtencion == null)
+                throw new ArgumentNullException(nameof(centroAtencion), "El tipo de análisis no puede ser nulo.");
+            CentroAtencion = centroAtencion;
+            CentroAtencionId = centroAtencion.Id;
         }
         public void SetRecibeMail(bool rm)
         {

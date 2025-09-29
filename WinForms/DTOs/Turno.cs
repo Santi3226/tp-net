@@ -10,6 +10,7 @@
         public DateTime? FechaHoraExtraccion { get; set; }
         public DateTime FechaHoraReserva { get; set; }
         public int IdPaciente { get; set; }
-        public int IdTipoAnalisis { get; set; }
+        public int IdTipoAnalisis { get; set; } 
+        public int IdCentroAtencion { get; set; }
     }
 }

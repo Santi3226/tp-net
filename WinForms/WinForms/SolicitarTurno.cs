@@ -31,6 +31,12 @@ namespace WinForms
             tipoAnalisisCombo.DataSource = tiposAnalisis.ToList();
             tipoAnalisisCombo.DisplayMember = "Nombre";
             tipoAnalisisCombo.ValueMember = "Id";
+            CentroRepository centroRepository= new CentroRepository();
+            var centros = centroRepository.GetAll();
+            centroAtencionCombo.Items.Clear();
+            centroAtencionCombo.DataSource = centros.ToList();
+            centroAtencionCombo.DisplayMember = "Nombre";
+            centroAtencionCombo.ValueMember = "Id";
         }
 
         private void solicitarBtn_Click(object sender, EventArgs e)
@@ -51,7 +57,8 @@ namespace WinForms
                     FechaHoraExtraccion = fechaTurnoCalendario.Value,
                     Observaciones = "",
                     IdPaciente = paciente.Id,
-                    IdTipoAnalisis = (int)tipoAnalisisCombo.SelectedValue
+                    IdTipoAnalisis = (int)tipoAnalisisCombo.SelectedValue,
+                    IdCentroAtencion = (int)centroAtencionCombo.SelectedValue
                 };
                 TurnoService turnoService = new TurnoService();
                 turnoService.Add(turnoACrear);

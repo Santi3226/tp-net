@@ -58,6 +58,7 @@ namespace Data
                 existingPaciente.SetDni(p.Dni);
                 existingPaciente.SetTelefono(p.Telefono);
                 existingPaciente.SetFechaNacimiento(p.FechaNacimiento);
+                existingPaciente.SetTipo(p.Tipo);
 
                 context.SaveChanges();
                 return true;

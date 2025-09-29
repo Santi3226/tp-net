@@ -13,11 +13,13 @@ namespace Application.Services
             var turnoRepository = new TurnoRepository();
             var pacienteRepository = new PacienteRepository();
             var tipoAnalisisRepository = new TipoAnalisisRepository();
+            var centroAtencionRepository = new CentroRepository();
             Paciente? p = pacienteRepository.Get(dto.IdPaciente);
             TipoAnalisis? ta = tipoAnalisisRepository.Get(dto.IdTipoAnalisis);
-            
+            CentroAtencion? ca = centroAtencionRepository.Get(dto.IdCentroAtencion);
+
             Turno t = new Turno(0, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
-            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta);
+            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta,ca);
             turnoRepository.Add(t);
 
             dto.Id = t.Id;
@@ -49,7 +51,8 @@ namespace Application.Services
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
                 IdPaciente = t.Paciente?.Id ?? 0,
-                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0
+                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0,
+                IdCentroAtencion = t.CentroAtencion?.Id ?? 0
             };
         }
 
@@ -66,7 +69,8 @@ namespace Application.Services
                 FechaHoraReserva = t.FechaHoraReserva,
                 FechaHoraExtraccion = t.FechaHoraExtraccion,
                 IdPaciente = t.Paciente?.Id ?? 0,
-                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0
+                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0,
+                IdCentroAtencion = t.CentroAtencion?.Id ?? 0
             }).ToList();
         }
 
@@ -75,11 +79,13 @@ namespace Application.Services
             var turnoRepository = new TurnoRepository();
             var pacienteRepository = new PacienteRepository();
             var tipoAnalisisRepository = new TipoAnalisisRepository();
+            var centroAtencionRepository = new CentroRepository();
             Paciente? p = pacienteRepository.Get(dto.IdPaciente);
             TipoAnalisis? ta = tipoAnalisisRepository.Get(dto.IdTipoAnalisis);
+            CentroAtencion? ca = centroAtencionRepository.Get(dto.IdCentroAtencion);
             //Aca encuentra bien el paciente
             Turno turno = new Turno(dto.Id, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
-            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta);
+            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta,ca);
             return turnoRepository.Update(turno);
         }
         /*

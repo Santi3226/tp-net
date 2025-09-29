@@ -49,7 +49,6 @@ namespace WinForms
                 proximosTurnosPacienteDGV.Visible = true;
 
                 TurnoRepository turnoRepository = new TurnoRepository();
-                TipoAnalisisRepository tipoAnalisisRepository = new TipoAnalisisRepository();
                 var turnosDelPaciente = turnoRepository.GetByPacienteId(paciente.Id);
 
                 var turnosVista = turnosDelPaciente.Select(t => new
@@ -60,11 +59,14 @@ namespace WinForms
                     t.Observaciones,
                     t.FechaHoraExtraccion,
                     t.FechaHoraReserva,
-                    TipoDeAnalisis = t.TipoAnalisis.Nombre
+                    t.CentroAtencionId,
+                    t.TipoAnalisisId,
+                    t.PacienteId
                 }).ToList();
 
                 proximosTurnosPacienteDGV.DataSource = turnosVista;
-            } else if (paciente.Tipo == "Administrador")
+            }
+            else if (paciente.Tipo == "Administrador")
             {
                 pacienteMenuStrip.Items.Clear();
 
@@ -211,7 +213,6 @@ namespace WinForms
         private void ListarProximosTurnos_Click(object sender, EventArgs e)
         {
             TurnoRepository turnoRepository = new TurnoRepository();
-            TipoAnalisisRepository tipoAnalisisRepository = new TipoAnalisisRepository();
             var proximosTurnos = turnoRepository.GetReservados();
 
             var turnosVista = proximosTurnos.Select(t => new
@@ -221,8 +222,9 @@ namespace WinForms
                 t.Receta,
                 t.Observaciones,
                 t.FechaHoraExtraccion,
-                t.FechaHoraReserva,
-                TipoDeAnalisis = t.TipoAnalisis.Nombre,
+                t.FechaHoraReserva, 
+                t.TipoAnalisisId,
+                t.CentroAtencionId,
                 t.PacienteId
             }).ToList();
 
@@ -237,7 +239,6 @@ namespace WinForms
         private void ListarTurnosPendientes_Click(object sender, EventArgs e)
         {
             TurnoRepository turnoRepository = new TurnoRepository();
-            TipoAnalisisRepository tipoAnalisisRepository = new TipoAnalisisRepository();
             var turnosPendientes = turnoRepository.GetPendientes();
 
             var turnosVista = turnosPendientes.Select(t => new
@@ -246,7 +247,8 @@ namespace WinForms
                 t.Estado,
                 t.FechaHoraExtraccion,
                 t.FechaHoraReserva,
-                TipoDeAnalisis = t.TipoAnalisis.Nombre,
+                t.TipoAnalisisId,
+                t.CentroAtencionId,
                 t.PacienteId
             }).ToList();
 
@@ -274,7 +276,8 @@ namespace WinForms
                 FechaHoraExtraccion = turnoAAceptar.FechaHoraExtraccion,
                 FechaHoraReserva = turnoAAceptar.FechaHoraReserva,
                 IdPaciente = turnoAAceptar.PacienteId,
-                IdTipoAnalisis = turnoAAceptar.TipoAnalisisId
+                IdTipoAnalisis = turnoAAceptar.TipoAnalisisId,
+                IdCentroAtencion = turnoAAceptar.CentroAtencionId
             };
             AceptarTurno aceptar = new AceptarTurno(turno);
             aceptar.ShowDialog();
@@ -502,6 +505,11 @@ namespace WinForms
             {
                 MessageBox.Show("Debe seleccionar un tipo de análisis para poder eliminarlo.");
             }
+        }
+
+        private void proximosTurnosAdministradorDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -40,9 +40,11 @@
             // proximosTurnosPacienteDGV
             // 
             proximosTurnosPacienteDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            proximosTurnosPacienteDGV.Location = new Point(28, 101);
+            proximosTurnosPacienteDGV.Location = new Point(32, 135);
+            proximosTurnosPacienteDGV.Margin = new Padding(3, 4, 3, 4);
             proximosTurnosPacienteDGV.Name = "proximosTurnosPacienteDGV";
-            proximosTurnosPacienteDGV.Size = new Size(744, 295);
+            proximosTurnosPacienteDGV.RowHeadersWidth = 51;
+            proximosTurnosPacienteDGV.Size = new Size(850, 393);
             proximosTurnosPacienteDGV.TabIndex = 4;
             proximosTurnosPacienteDGV.Visible = false;
             // 
@@ -54,9 +56,10 @@
             cerrarSesionBtn.FlatStyle = FlatStyle.Flat;
             cerrarSesionBtn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             cerrarSesionBtn.ForeColor = Color.White;
-            cerrarSesionBtn.Location = new Point(653, 431);
+            cerrarSesionBtn.Location = new Point(746, 575);
+            cerrarSesionBtn.Margin = new Padding(3, 4, 3, 4);
             cerrarSesionBtn.Name = "cerrarSesionBtn";
-            cerrarSesionBtn.Size = new Size(117, 30);
+            cerrarSesionBtn.Size = new Size(134, 40);
             cerrarSesionBtn.TabIndex = 5;
             cerrarSesionBtn.Text = "Cerrar sesión";
             cerrarSesionBtn.UseVisualStyleBackColor = false;
@@ -66,9 +69,9 @@
             // 
             labelMisProximosTurnos.AutoSize = true;
             labelMisProximosTurnos.Font = new Font("Segoe UI", 12F);
-            labelMisProximosTurnos.Location = new Point(24, 67);
+            labelMisProximosTurnos.Location = new Point(27, 89);
             labelMisProximosTurnos.Name = "labelMisProximosTurnos";
-            labelMisProximosTurnos.Size = new Size(156, 21);
+            labelMisProximosTurnos.Size = new Size(195, 28);
             labelMisProximosTurnos.TabIndex = 6;
             labelMisProximosTurnos.Text = "Mis próximos turnos:";
             labelMisProximosTurnos.Visible = false;
@@ -78,27 +81,32 @@
             pacienteMenuStrip.BackColor = Color.DarkGray;
             pacienteMenuStrip.Font = new Font("Segoe UI", 11F);
             pacienteMenuStrip.GripStyle = ToolStripGripStyle.Visible;
+            pacienteMenuStrip.ImageScalingSize = new Size(20, 20);
             pacienteMenuStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             pacienteMenuStrip.Location = new Point(0, 0);
             pacienteMenuStrip.Name = "pacienteMenuStrip";
-            pacienteMenuStrip.Size = new Size(801, 24);
+            pacienteMenuStrip.Padding = new Padding(3, 3, 0, 3);
+            pacienteMenuStrip.Size = new Size(915, 24);
             pacienteMenuStrip.TabIndex = 7;
             // 
             // proximosTurnosAdministradorDGV
             // 
             proximosTurnosAdministradorDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            proximosTurnosAdministradorDGV.Location = new Point(28, 101);
+            proximosTurnosAdministradorDGV.Location = new Point(32, 135);
+            proximosTurnosAdministradorDGV.Margin = new Padding(3, 4, 3, 4);
             proximosTurnosAdministradorDGV.Name = "proximosTurnosAdministradorDGV";
-            proximosTurnosAdministradorDGV.Size = new Size(744, 295);
+            proximosTurnosAdministradorDGV.RowHeadersWidth = 51;
+            proximosTurnosAdministradorDGV.Size = new Size(850, 393);
             proximosTurnosAdministradorDGV.TabIndex = 8;
             proximosTurnosAdministradorDGV.Visible = false;
+            proximosTurnosAdministradorDGV.CellContentClick += proximosTurnosAdministradorDGV_CellContentClick;
             // 
             // HomePaciente
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(801, 478);
+            ClientSize = new Size(915, 637);
             Controls.Add(proximosTurnosAdministradorDGV);
             Controls.Add(cerrarSesionBtn);
             Controls.Add(proximosTurnosPacienteDGV);
@@ -106,6 +114,7 @@
             Controls.Add(labelMisProximosTurnos);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MainMenuStrip = pacienteMenuStrip;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "HomePaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
