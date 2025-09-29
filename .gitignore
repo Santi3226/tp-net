@@ -48,10 +48,14 @@ bld/
 [Ll]ogs/
 
 # Build results on 'Bin' directories
+
+# Uncomment if you have tasks that rely on *.refresh files to move binaries
 **/[Bb]in/*
 # Uncomment if you have tasks that rely on *.refresh files to move binaries
 #!**/[Bb]in/*.refresh
-!*/TPILaboratorio/WinForms/bin/Debug/net8.0-windows/appsettings.json
+
+# Excepcion para bd
+!TPILaboratorio/WinForms/bin/Debug/net8.0-windows/appsettings.json
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -427,5 +431,3 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-#Excepcion para bd
-!*/TPILaboratorio/WinForms/bin/Debug/net8.0-windows/appsettings.json
