@@ -91,15 +91,15 @@ namespace Data
                 entity.HasOne(t => t.Paciente)
                       .WithMany()
                       .HasForeignKey(t => t.PacienteId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(t => t.TipoAnalisis)
                       .WithMany()
                       .HasForeignKey(t => t.TipoAnalisisId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(t => t.CentroAtencion)
                       .WithMany()
                       .HasForeignKey(t => t.CentroAtencionId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
 
             });
             modelBuilder.Entity<TipoAnalisis>(entity =>
