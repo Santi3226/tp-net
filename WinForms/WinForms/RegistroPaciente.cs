@@ -45,7 +45,6 @@ namespace WinForms
             {
                 if (AsignPaciente())
                 {
-                    var pac = PacienteInMemory.Pacientes;
                     this.Close();
                 }
             }
@@ -96,7 +95,7 @@ namespace WinForms
                 string domicilio = direccionLabel.Text;
                 string email = mailTextBox.Text;
                 string contraseña = contraseñaTextBox.Text;
-                DateTime fechaNacimiento = fechaNacimientoCalendario.MaxDate;
+                DateTime fechaNacimiento = fechaNacimientoCalendario.Value;
                 PacienteDTO paciente = new PacienteDTO
                 {
                     Id = 0,
@@ -107,7 +106,8 @@ namespace WinForms
                     Domicilio = domicilio,
                     Email = email,
                     Contraseña = contraseña,
-                    FechaNacimiento = fechaNacimiento
+                    FechaNacimiento = fechaNacimiento,
+                    Tipo = "Paciente"
                 }; pacienteService.Add(paciente);
                 MessageBox.Show("Paciente registrado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;

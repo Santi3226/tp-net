@@ -70,44 +70,87 @@ namespace Data
             return false;
         }
 
-/*
-        public IEnumerable<Paciente> GetByCriteria(ClienteCriteria criteria)
+        public List<Turno> GetByPacienteId(int pacienteId)
         {
-            const string sql = @"
-                SELECT Id, Nombre, Apellido, Email, FechaAlta 
-                FROM Clientes 
-                WHERE Nombre LIKE @SearchTerm 
-                   OR Apellido LIKE @SearchTerm 
-                   OR Email LIKE @SearchTerm
-                ORDER BY Nombre, Apellido";
-
-            var clientes = new List<Cliente>();
-            string connectionString = new TPIContext().Database.GetConnectionString();
-            string searchPattern = $"%{criteria.Texto}%";
-
-            using var connection = new SqlConnection(connectionString);
-            using var command = new SqlCommand(sql, connection);
-            
-            command.Parameters.AddWithValue("@SearchTerm", searchPattern);
-
-            connection.Open();
-            using var reader = command.ExecuteReader();
-            
-            while (reader.Read())
+            using var context = CreateContext();
+            List<Turno> turnosDelPaciente = new List<Turno>();
+            var turnos = from t in context.Turnos.Include(t => t.TipoAnalisis).Include(t => t.Paciente)
+                         where t.PacienteId == pacienteId && t.Estado == "Reservado"
+                         select t;
+            foreach(Turno t in turnos)
             {
-                var cliente = new Cliente(
-                    reader.GetInt32(0),    // Id
-                    reader.GetString(1),   // Nombre
-                    reader.GetString(2),   // Apellido
-                    reader.GetString(3),   // Email
-                    reader.GetDateTime(4)  // FechaAlta
-                );
-                
-                clientes.Add(cliente);
+                turnosDelPaciente.Add(t);
             }
-
-            return clientes;
+            return turnosDelPaciente;
         }
 
-    */}
+        public List<Turno> GetReservados()
+        {
+            using var context = CreateContext();
+            List<Turno> turnosProximos = new List<Turno>();
+            var turnos = from t in context.Turnos.Include(t => t.TipoAnalisis).Include(t => t.Paciente)
+                         where t.Estado == "Reservado" 
+                         select t;
+            foreach (Turno t in turnos)
+            {
+                turnosProximos.Add(t);
+            }
+            return turnosProximos;
+        }
+
+        public List<Turno> GetPendientes()
+        {
+            using var context = CreateContext();
+            List<Turno> turnosProximos = new List<Turno>();
+            var turnos = from t in context.Turnos.Include(t => t.TipoAnalisis).Include(t => t.Paciente)
+                         where t.Estado == "Pendiente"
+                         select t;
+            foreach (Turno t in turnos)
+            {
+                turnosProximos.Add(t);
+            }
+            return turnosProximos;
+        }
+
+        /*
+                public IEnumerable<Paciente> GetByCriteria(ClienteCriteria criteria)
+                {
+                    const string sql = @"
+                        SELECT Id, Nombre, Apellido, Email, FechaAlta 
+                        FROM Clientes 
+                        WHERE Nombre LIKE @SearchTerm 
+                           OR Apellido LIKE @SearchTerm 
+                           OR Email LIKE @SearchTerm
+                        ORDER BY Nombre, Apellido";
+
+                    var clientes = new List<Cliente>();
+                    string connectionString = new TPIContext().Database.GetConnectionString();
+                    string searchPattern = $"%{criteria.Texto}%";
+
+                    using var connection = new SqlConnection(connectionString);
+                    using var command = new SqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@SearchTerm", searchPattern);
+
+                    connection.Open();
+                    using var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var cliente = new Cliente(
+                            reader.GetInt32(0),    // Id
+                            reader.GetString(1),   // Nombre
+                            reader.GetString(2),   // Apellido
+                            reader.GetString(3),   // Email
+                            reader.GetDateTime(4)  // FechaAlta
+                        );
+
+                        clientes.Add(cliente);
+                    }
+
+                    return clientes;
+                }
+
+            */
+    }
 }

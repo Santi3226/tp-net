@@ -17,7 +17,7 @@ namespace Application.Services
             TipoAnalisis? ta = tipoAnalisisRepository.Get(dto.IdTipoAnalisis);
             
             Turno t = new Turno(0, dto.RecibeMail, dto.Estado, dto.Receta, dto.Observaciones,
-            dto.FechaHoraReserva, p, ta);
+            dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta);
             turnoRepository.Add(t);
 
             dto.Id = t.Id;

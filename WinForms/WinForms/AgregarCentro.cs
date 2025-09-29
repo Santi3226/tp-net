@@ -1,26 +1,34 @@
-﻿using Application.Services;
-using Domain.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Application.Services;
 using DTOs;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WinForms
 {
-    public partial class AgregarCA : Form
+    public partial class AgregarCentro : Form
     {
-        public AgregarCA()
+        public AgregarCentro()
         {
             InitializeComponent();
         }
 
-        private void AgregarCA_Load(object sender, EventArgs e)
+        private void cancelarBtn_Click(object sender, EventArgs e)
         {
+            this.Close();
         }
 
         private void agregarBtn_Click(object sender, EventArgs e)
         {
             CentroAtencionService centroAtencionService = new CentroAtencionService();
-            string nombre = this.textBoxNombre.Text;
-            string domicilio = this.textBoxDomicilio.Text;
+            string nombre = this.nombreTextBox.Text;
+            string domicilio = this.direccionTextBox.Text;
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -31,7 +39,7 @@ namespace WinForms
                 CentroAtencionDTO centro = new CentroAtencionDTO
                 { Nombre = nombre, Domicilio = domicilio };
                 CentroAtencionDTO ca = centroAtencionService.Add(centro);
-                MessageBox.Show("Centro de Atencion " + ca.Nombre + " N°" + ca.Id + " registrado!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Centro de Atencion registrado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }

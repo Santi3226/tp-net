@@ -16,17 +16,6 @@
 
         protected Turno() { }
 
-        public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, Paciente paciente, TipoAnalisis tipoAnalisis)
-        {
-            SetId(id);
-            SetRecibeMail(recibeMail);
-            SetReceta(receta);
-            SetEstado(estado);
-            SetObservaciones(observaciones);
-            SetFechaHoraReserva(fechaHoraReserva);
-            SetPaciente(paciente);
-            SetTipoAnalisis(tipoAnalisis);
-        }
         public Turno(int id, bool recibeMail, string estado, string receta, string observaciones, DateTime fechaHoraReserva, DateTime? fechaHoraExtraccion, Paciente paciente, TipoAnalisis tipoAnalisis)
         {
             SetId(id);

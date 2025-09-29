@@ -26,15 +26,17 @@ namespace WinForms
 
         private void iniciarSesionBtn_Click(object sender, EventArgs e)
         {
-            PacienteApiClient client = new PacienteApiClient();
-
             if (this.ValidateEntry())
             {
-                if (this.ValidatePacienteAsync())
+                PacienteDTO? pacienteLogueado = this.ValidatePacienteAsync();
+                if (pacienteLogueado != null)
                 {
-                    // acá iria la iniciacion del menu principal
                     MessageBox.Show(Text = "Bienvenido!", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    HomePaciente form = new HomePaciente();
+                    emailTextBox.Clear();
+                    contraseñaTextBox.Clear();
+                    emailTextBox.Focus();
+                    HomePaciente form = new HomePaciente(pacienteLogueado);
+                    form.FormClosed += (s, args) => this.Show();
                     this.Hide();
                     form.ShowDialog();
                 }
@@ -66,7 +68,7 @@ namespace WinForms
             return isValid;
         }
 
-        private bool ValidatePacienteAsync()
+        private PacienteDTO? ValidatePacienteAsync()
         {
             var pacienteRepository = new PacienteRepository();
             var pacientes = pacienteRepository.GetAll();
@@ -77,10 +79,22 @@ namespace WinForms
             {
                 if (p.Email == email && p.Contraseña == contraseña)
                 {
-                    return true;
+                    return new PacienteDTO
+                    {
+                        Id = p.Id,
+                        Nombre = p.Nombre,
+                        Apellido = p.Apellido,
+                        Dni = p.Dni,
+                        Telefono = p.Telefono,
+                        Domicilio = p.Domicilio,
+                        Email = p.Email,
+                        FechaNacimiento = p.FechaNacimiento,
+                        Tipo = p.Tipo,
+                        Contraseña = p.Contraseña
+                    };
                 }
             }
-            return false;
+            return null;
         }
 
         private void InicioSesionPaciente_Load(object sender, EventArgs e)

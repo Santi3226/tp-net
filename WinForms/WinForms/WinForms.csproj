@@ -18,9 +18,6 @@
     <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" />
     <ProjectReference Include="..\Domain.Services\Application.Services.csproj" />
     <ProjectReference Include="..\DTOs\DTOs.csproj" />
-    <Compile Update="CentroAtencionForms\AgregarCA.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>

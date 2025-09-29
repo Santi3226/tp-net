@@ -61,6 +61,8 @@ namespace Data
                     .IsRequired();
                 entity.Property(e => e.FechaNacimiento)
                     .IsRequired();
+                entity.Property(e => e.Tipo)
+                    .IsRequired();
             });
             modelBuilder.Entity<CentroAtencion>(entity =>
             {

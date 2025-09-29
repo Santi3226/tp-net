@@ -14,7 +14,8 @@ namespace Domain.Model
         public string Email { get; private set; }
         public string Contraseña { get; private set; }
         public DateTime FechaNacimiento { get; private set; }
-        public Paciente(int id, string nombre, string apellido, string dni, string telefono, string domicilio, string email, string contraseña, DateTime fechaNacimiento)
+        public string Tipo { get; private set; }
+        public Paciente(int id, string nombre, string apellido, string dni, string telefono, string domicilio, string email, string contraseña, DateTime fechaNacimiento, string tipo)
         {
             SetId(id);
             SetNombre(nombre);
@@ -25,6 +26,7 @@ namespace Domain.Model
             SetEmail(email);
             SetContraseña(contraseña);
             SetFechaNacimiento(fechaNacimiento);
+            SetTipo(tipo);
         }
 
         public void SetId(int id)
@@ -89,5 +91,11 @@ namespace Domain.Model
                 throw new ArgumentException("La fecha de nacimiento no puede ser nula.", nameof(fechaNacimiento));
             FechaNacimiento = fechaNacimiento;
         }
+
+        public void SetTipo(string tipo)
+        {
+            Tipo = tipo;
+        }
+
     }
 }

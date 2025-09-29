@@ -18,7 +18,7 @@ namespace Application.Services
                 throw new ArgumentException($"Ya existe un cliente con el Email '{dto.Email}'.");
             }
             Paciente paciente = new Paciente(0, dto.Nombre, dto.Apellido, dto.Dni, 
-            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento);
+            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento, dto.Tipo);
             pacienteRepository.Add(paciente);
 
             dto.Id = paciente.Id;
@@ -50,7 +50,8 @@ namespace Application.Services
                 Domicilio = p.Domicilio,
                 Dni = p.Dni,
                 Contraseña = p.Contraseña,
-                FechaNacimiento = p.FechaNacimiento
+                FechaNacimiento = p.FechaNacimiento,
+                Tipo = p.Tipo
             };
         }
 
@@ -67,7 +68,8 @@ namespace Application.Services
                 Domicilio = p.Domicilio,
                 Dni = p.Dni,
                 Contraseña = p.Contraseña,
-                FechaNacimiento = p.FechaNacimiento
+                FechaNacimiento = p.FechaNacimiento,
+                Tipo = p.Tipo
             }).ToList();
         }
 
@@ -82,7 +84,7 @@ namespace Application.Services
             }
 
             Paciente paciente = new Paciente(dto.Id, dto.Nombre, dto.Apellido, dto.Dni,
-            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento);
+            dto.Telefono, dto.Domicilio, dto.Email, dto.Contraseña, dto.FechaNacimiento, dto.Tipo);
             return pacienteRepository.Update(paciente);
         }
         /*

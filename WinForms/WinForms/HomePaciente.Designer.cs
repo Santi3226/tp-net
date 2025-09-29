@@ -32,13 +32,9 @@
             cerrarSesionBtn = new Button();
             labelMisProximosTurnos = new Label();
             pacienteMenuStrip = new MenuStrip();
-            solicitarTurnoToolStripMenuItem = new ToolStripMenuItem();
-            modificarTurnoToolStripMenuItem = new ToolStripMenuItem();
-            cancelarTurnoToolStripMenuItem = new ToolStripMenuItem();
-            modificarDatosToolStripMenuItem = new ToolStripMenuItem();
-            modificarMisDatosToolStripMenuItem = new ToolStripMenuItem();
+            proximosTurnosAdministradorDGV = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)proximosTurnosPacienteDGV).BeginInit();
-            pacienteMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)proximosTurnosAdministradorDGV).BeginInit();
             SuspendLayout();
             // 
             // proximosTurnosPacienteDGV
@@ -48,6 +44,7 @@
             proximosTurnosPacienteDGV.Name = "proximosTurnosPacienteDGV";
             proximosTurnosPacienteDGV.Size = new Size(744, 295);
             proximosTurnosPacienteDGV.TabIndex = 4;
+            proximosTurnosPacienteDGV.Visible = false;
             // 
             // cerrarSesionBtn
             // 
@@ -63,6 +60,7 @@
             cerrarSesionBtn.TabIndex = 5;
             cerrarSesionBtn.Text = "Cerrar sesión";
             cerrarSesionBtn.UseVisualStyleBackColor = false;
+            cerrarSesionBtn.Click += cerrarSesionBtn_Click;
             // 
             // labelMisProximosTurnos
             // 
@@ -73,48 +71,27 @@
             labelMisProximosTurnos.Size = new Size(156, 21);
             labelMisProximosTurnos.TabIndex = 6;
             labelMisProximosTurnos.Text = "Mis próximos turnos:";
+            labelMisProximosTurnos.Visible = false;
             // 
             // pacienteMenuStrip
             // 
             pacienteMenuStrip.BackColor = Color.DarkGray;
             pacienteMenuStrip.Font = new Font("Segoe UI", 11F);
             pacienteMenuStrip.GripStyle = ToolStripGripStyle.Visible;
-            pacienteMenuStrip.Items.AddRange(new ToolStripItem[] { solicitarTurnoToolStripMenuItem, modificarTurnoToolStripMenuItem, cancelarTurnoToolStripMenuItem, modificarDatosToolStripMenuItem, modificarMisDatosToolStripMenuItem });
             pacienteMenuStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             pacienteMenuStrip.Location = new Point(0, 0);
             pacienteMenuStrip.Name = "pacienteMenuStrip";
-            pacienteMenuStrip.Size = new Size(801, 28);
+            pacienteMenuStrip.Size = new Size(801, 24);
             pacienteMenuStrip.TabIndex = 7;
             // 
-            // solicitarTurnoToolStripMenuItem
+            // proximosTurnosAdministradorDGV
             // 
-            solicitarTurnoToolStripMenuItem.Name = "solicitarTurnoToolStripMenuItem";
-            solicitarTurnoToolStripMenuItem.Size = new Size(114, 24);
-            solicitarTurnoToolStripMenuItem.Text = "Solicitar turno";
-            // 
-            // modificarTurnoToolStripMenuItem
-            // 
-            modificarTurnoToolStripMenuItem.Name = "modificarTurnoToolStripMenuItem";
-            modificarTurnoToolStripMenuItem.Size = new Size(124, 24);
-            modificarTurnoToolStripMenuItem.Text = "Datos del turno";
-            // 
-            // cancelarTurnoToolStripMenuItem
-            // 
-            cancelarTurnoToolStripMenuItem.Name = "cancelarTurnoToolStripMenuItem";
-            cancelarTurnoToolStripMenuItem.Size = new Size(117, 24);
-            cancelarTurnoToolStripMenuItem.Text = "Cancelar turno";
-            // 
-            // modificarDatosToolStripMenuItem
-            // 
-            modificarDatosToolStripMenuItem.Name = "modificarDatosToolStripMenuItem";
-            modificarDatosToolStripMenuItem.Size = new Size(124, 24);
-            modificarDatosToolStripMenuItem.Text = "Modificar turno";
-            // 
-            // modificarMisDatosToolStripMenuItem
-            // 
-            modificarMisDatosToolStripMenuItem.Name = "modificarMisDatosToolStripMenuItem";
-            modificarMisDatosToolStripMenuItem.Size = new Size(153, 24);
-            modificarMisDatosToolStripMenuItem.Text = "Modificar mis datos";
+            proximosTurnosAdministradorDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            proximosTurnosAdministradorDGV.Location = new Point(28, 101);
+            proximosTurnosAdministradorDGV.Name = "proximosTurnosAdministradorDGV";
+            proximosTurnosAdministradorDGV.Size = new Size(744, 295);
+            proximosTurnosAdministradorDGV.TabIndex = 8;
+            proximosTurnosAdministradorDGV.Visible = false;
             // 
             // HomePaciente
             // 
@@ -122,18 +99,19 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(801, 478);
-            Controls.Add(labelMisProximosTurnos);
+            Controls.Add(proximosTurnosAdministradorDGV);
             Controls.Add(cerrarSesionBtn);
             Controls.Add(proximosTurnosPacienteDGV);
             Controls.Add(pacienteMenuStrip);
+            Controls.Add(labelMisProximosTurnos);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MainMenuStrip = pacienteMenuStrip;
             Name = "HomePaciente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
+            Load += HomePaciente_Load;
             ((System.ComponentModel.ISupportInitialize)proximosTurnosPacienteDGV).EndInit();
-            pacienteMenuStrip.ResumeLayout(false);
-            pacienteMenuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)proximosTurnosAdministradorDGV).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -143,10 +121,6 @@
         private Button cerrarSesionBtn;
         private Label labelMisProximosTurnos;
         private MenuStrip pacienteMenuStrip;
-        private ToolStripMenuItem solicitarTurnoToolStripMenuItem;
-        private ToolStripMenuItem modificarTurnoToolStripMenuItem;
-        private ToolStripMenuItem cancelarTurnoToolStripMenuItem;
-        private ToolStripMenuItem modificarDatosToolStripMenuItem;
-        private ToolStripMenuItem modificarMisDatosToolStripMenuItem;
+        private DataGridView proximosTurnosAdministradorDGV;
     }
 }
