@@ -191,7 +191,6 @@
         private Button solicitarBtn;
         private Button cancelarBtn;
         private ComboBox tipoAnalisisCombo;
-        private ComboBox comboBox1;
         private Label label2;
         private ComboBox centroAtencionCombo;
     }
