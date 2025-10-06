@@ -38,12 +38,14 @@ namespace Data
             return context.Centros
                                .Include(t => t.Localidad)
                                .FirstOrDefault(t => t.Id == id);
+            return context.Centros.Find(id);
         }
 
         public IEnumerable<CentroAtencion> GetAll()
         {
             using var context = CreateContext();
             return context.Centros.Include(t => t.Localidad).ToList();
+            return context.Centros.ToList();
         }
 
         public bool Update(CentroAtencion c)

@@ -11,7 +11,10 @@ namespace Application.Services
         public TipoAnalisisDTO Add(TipoAnalisisDTO dto)
         {
             var tipoAnalisisRepository = new TipoAnalisisRepository();
-            TipoAnalisis ta = new TipoAnalisis(0, dto.Nombre, dto.Importe);
+            var plantillaAnalisisRepository = new PlantillaAnalisisRepository();
+            PlantillaAnalisis? pa = plantillaAnalisisRepository.Get(dto.IdPlantillaAnalisis);
+
+            TipoAnalisis ta = new TipoAnalisis(0, dto.Nombre, dto.Importe, pa);
             tipoAnalisisRepository.Add(ta);
 
             dto.Id = ta.Id;
@@ -38,6 +41,7 @@ namespace Application.Services
                 Id = ta.Id,
                 Nombre = ta.Nombre,
                 Importe = ta.Importe,
+                IdPlantillaAnalisis = ta.PlantillaAnalisis?.Id ?? 0,
             };
         }
 
@@ -48,14 +52,17 @@ namespace Application.Services
             {
                 Id = ta.Id,
                 Nombre = ta.Nombre,
-                Importe = ta.Importe,          
+                Importe = ta.Importe,
+                IdPlantillaAnalisis = ta.PlantillaAnalisis?.Id ?? 0,
             }).ToList();
         }
 
         public bool Update(TipoAnalisisDTO dto)
         {
             var tipoAnalisisRepository = new TipoAnalisisRepository();
-            TipoAnalisis tipoAnalisis = new TipoAnalisis(dto.Id, dto.Nombre, dto.Importe);
+            var plantillaAnalisisRepository = new PlantillaAnalisisRepository();
+            PlantillaAnalisis? pa = plantillaAnalisisRepository.Get(dto.IdPlantillaAnalisis);
+            TipoAnalisis tipoAnalisis = new TipoAnalisis(dto.Id, dto.Nombre, dto.Importe, pa);
             return tipoAnalisisRepository.Update(tipoAnalisis);
         }
     }

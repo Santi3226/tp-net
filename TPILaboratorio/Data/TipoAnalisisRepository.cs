@@ -15,6 +15,7 @@ namespace Data
         public void Add(TipoAnalisis ta)
         {
             using var context = CreateContext();
+            context.PlantillasAnalisis.Attach(ta.PlantillaAnalisis);
             context.TiposAnalisis.Add(ta);
             context.SaveChanges();
         }
@@ -36,12 +37,15 @@ namespace Data
         {
             using var context = CreateContext();
             return context.TiposAnalisis.FirstOrDefault(ta => ta.Id == id);
+            return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis). 
+                FirstOrDefault(ta => ta.Id == id);
         }
 
         public IEnumerable<TipoAnalisis> GetAll()
         {
             using var context = CreateContext();
             return context.TiposAnalisis.ToList();
+            return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis).ToList();
         }
 
         public bool Update(TipoAnalisis ta)
@@ -50,6 +54,7 @@ namespace Data
             var existingTipo = context.TiposAnalisis.Find(ta.Id);
             if (existingTipo != null)
             {
+                context.PlantillasAnalisis.Attach(ta.PlantillaAnalisis);
                 existingTipo.SetNombre(ta.Nombre);
                 existingTipo.SetImporte(ta.Importe);
                 context.SaveChanges();
