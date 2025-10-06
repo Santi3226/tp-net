@@ -124,10 +124,6 @@ namespace Data
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.CodigoPostal).IsRequired();
-                entity.HasOne(t => t.PlantillaAnalisis)
-                      .WithMany()
-                      .HasForeignKey(t => t.PlantillaAnalisisId)
-                      .OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<PlantillaAnalisis>(entity =>
             {
