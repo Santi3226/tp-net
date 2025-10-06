@@ -5,56 +5,54 @@ using System.Data.SqlClient;
 
 namespace Data
 {
-    public class TipoAnalisisRepository
+    public class PlantillaAnalisisRepository
     {
         private TPIContext CreateContext()
         {
             return new TPIContext();
         }
 
-        public void Add(TipoAnalisis ta)
+        public void Add(PlantillaAnalisis pa)
         {
             using var context = CreateContext();
-            context.PlantillasAnalisis.Attach(ta.PlantillaAnalisis);
-            context.TiposAnalisis.Add(ta);
+            context.PlantillasAnalisis.Add(pa);
             context.SaveChanges();
         }
 
         public bool Delete(int id)
         {
             using var context = CreateContext();
-            var ta = context.TiposAnalisis.Find(id);
-            if (ta != null)
+            var pa = context.PlantillasAnalisis.Find(id);
+            if (pa != null)
             {
-                context.TiposAnalisis.Remove(ta);
+                context.PlantillasAnalisis.Remove(pa);
                 context.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public TipoAnalisis? Get(int id)
+        public PlantillaAnalisis? Get(int id)
         {
             using var context = CreateContext();
-            return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis). 
-                FirstOrDefault(ta => ta.Id == id);
+            return context.PlantillasAnalisis.FirstOrDefault(ta => ta.Id == id);
         }
 
-        public IEnumerable<TipoAnalisis> GetAll()
+        public IEnumerable<PlantillaAnalisis> GetAll()
         {
             using var context = CreateContext();
-            return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis).ToList();
+            return context.PlantillasAnalisis.ToList();
         }
 
-        public bool Update(TipoAnalisis ta)
+        public bool Update(PlantillaAnalisis ta)
         {
             using var context = CreateContext();
-            var existingTipo = context.TiposAnalisis.Find(ta.Id);
+            var existingTipo = context.PlantillasAnalisis.Find(ta.Id);
             if (existingTipo != null)
             {
-                context.PlantillasAnalisis.Attach(ta.PlantillaAnalisis);
-                existingTipo.SetNombre(ta.Nombre);
-                existingTipo.SetImporte(ta.Importe);
+                existingTipo.SetHsAyuno(ta.HsAyuno);
+                existingTipo.SetPreparacion(ta.Preparacion);
+                existingTipo.SetDiasPrevistos(ta.DiasPrevistos);
                 context.SaveChanges();
                 return true;
             }
