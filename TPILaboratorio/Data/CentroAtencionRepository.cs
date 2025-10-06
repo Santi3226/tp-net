@@ -14,6 +14,7 @@ namespace Data
         public void Add(CentroAtencion c)
         {
             using var context = CreateContext();
+            context.Localidades.Attach(c.Localidad);
             context.Centros.Add(c);
             context.SaveChanges();
         }
@@ -34,12 +35,16 @@ namespace Data
         public CentroAtencion? Get(int id)
         {
             using var context = CreateContext();
+            return context.Centros
+                               .Include(t => t.Localidad)
+                               .FirstOrDefault(t => t.Id == id);
             return context.Centros.Find(id);
         }
 
         public IEnumerable<CentroAtencion> GetAll()
         {
             using var context = CreateContext();
+            return context.Centros.Include(t => t.Localidad).ToList();
             return context.Centros.ToList();
         }
 
@@ -49,6 +54,7 @@ namespace Data
             var existingCentro = context.Centros.Find(c.Id);
             if (existingCentro != null)
             {
+                context.Localidades.Attach(c.Localidad);
                 existingCentro.SetNombre(c.Nombre);
                 existingCentro.SetDomicilio(c.Domicilio);
                 context.SaveChanges();

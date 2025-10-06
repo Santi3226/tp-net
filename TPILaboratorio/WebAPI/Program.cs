@@ -436,7 +436,105 @@ app.MapDelete("/tiposAnalisis/{id}", (int id) =>
 .Produces(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
+
 // ------------
+
+app.MapGet("/localidades/{id}", (int id) =>
+{
+    LocalidadService localidadService = new LocalidadService();
+
+    LocalidadDTO dto = localidadService.Get(id);
+
+    if (dto == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(dto);
+})
+.WithName("GetLocalidad")
+.Produces<LocalidadDTO>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound).
+WithOpenApi();
+
+app.MapGet("/localidades", () =>
+{
+    LocalidadService localidadService = new LocalidadService();
+
+    var dtos = localidadService.GetAll();
+
+    return Results.Ok(dtos);
+})
+.WithName("GetAllLocalidades")
+.Produces<List<LocalidadDTO>>(StatusCodes.Status200OK)
+.WithOpenApi();
+
+app.MapPost("/localidades", (LocalidadDTO dto) =>
+{
+    try
+    {
+        LocalidadService localidadService = new LocalidadService();
+
+        LocalidadDTO localidadDTO = localidadService.Add(dto);
+
+        return Results.Created($"/localidades/{localidadDTO.Id}", localidadDTO);
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("AddLocalidad")
+.Produces<LocalidadDTO>(StatusCodes.Status201Created)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapPut("/localidades", (LocalidadDTO dto) =>
+{
+    try
+    {
+        LocalidadService localidadService = new LocalidadService();
+
+        var found = localidadService.Update(dto);
+
+        if (!found)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.NoContent();
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("UpdateLocalidad")
+.Produces(StatusCodes.Status404NotFound)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapDelete("/localidades/{id}", (int id) =>
+{
+    LocalidadService localidadService = new LocalidadService();
+
+    var deleted = localidadService.Delete(id);
+
+    if (!deleted)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.NoContent();
+
+})
+.WithName("DeleteLocalidad")
+.Produces(StatusCodes.Status204NoContent)
+.Produces(StatusCodes.Status404NotFound)
+.WithOpenApi();
+
+// ------------
+
 app.MapGet("/plantillasAnalisis/{id}", (int id) =>
 {
     PlantillaAnalisisService plantillaAnalisisService = new PlantillaAnalisisService();
@@ -451,7 +549,7 @@ app.MapGet("/plantillasAnalisis/{id}", (int id) =>
     return Results.Ok(dto);
 })
 .WithName("GetPlantillaAnalisis")
-.Produces<TipoAnalisisDTO>(StatusCodes.Status200OK)
+.Produces<PlantillaAnalisisDTO>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status404NotFound).
 WithOpenApi();
 
@@ -463,7 +561,7 @@ app.MapGet("/plantillasAnalisis", () =>
 
     return Results.Ok(dtos);
 })
-.WithName("GetAllPlantillaAnalisis")
+.WithName("GetAllPlantillas")
 .Produces<List<PlantillaAnalisisDTO>>(StatusCodes.Status200OK)
 .WithOpenApi();
 
@@ -530,6 +628,5 @@ app.MapDelete("/plantillasAnalisis/{id}", (int id) =>
 .Produces(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
-
 app.Run();
 

@@ -12,13 +12,15 @@ namespace Application.Services
         public CentroAtencionDTO Add(CentroAtencionDTO dto)
         {
             var centroRepository = new CentroRepository();
+            var localidadRepository = new LocalidadRepository();
 
             // Validar que el nombre no esté duplicado
             if (centroRepository.NombreExists(dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe un centro de atención con el Nombre '{dto.Nombre}'.");
             }
-            CentroAtencion centro = new CentroAtencion(0, dto.Nombre, dto.Domicilio);
+            Localidad? l = localidadRepository.Get(dto.IdLocalidad);
+            CentroAtencion centro = new CentroAtencion(0, dto.Nombre, dto.Domicilio, l);
             centroRepository.Add(centro);
 
             dto.Id = centro.Id;
@@ -45,6 +47,7 @@ namespace Application.Services
                 Id = c.Id,
                 Nombre = c.Nombre,
                 Domicilio = c.Domicilio,
+                IdLocalidad = c.Localidad?.Id ?? 0
             };
         }
 
@@ -56,19 +59,22 @@ namespace Application.Services
                 Id = c.Id,
                 Nombre = c.Nombre,
                 Domicilio = c.Domicilio,
+                IdLocalidad = c.Localidad?.Id ?? 0
             }).ToList();
         }
 
         public bool Update(CentroAtencionDTO dto)
         {
             var centroRepository = new CentroRepository();
+            var localidadRepository = new LocalidadRepository();
 
             // Validar que el email no esté duplicado (excluyendo el cliente actual)
             if (centroRepository.NombreExists(dto.Nombre, dto.Id))
             {
                 throw new ArgumentException($"Ya existe otro centro de atención con el Nombre '{dto.Nombre}'.");
             }
-            CentroAtencion centro = new CentroAtencion((int)dto.Id, dto.Nombre, dto.Domicilio);
+            Localidad? l = localidadRepository.Get(dto.IdLocalidad);
+            CentroAtencion centro = new CentroAtencion((int)dto.Id, dto.Nombre, dto.Domicilio, l);
             return centroRepository.Update(centro);
         }
         /*

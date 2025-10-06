@@ -36,6 +36,7 @@ namespace Data
         public TipoAnalisis? Get(int id)
         {
             using var context = CreateContext();
+            return context.TiposAnalisis.FirstOrDefault(ta => ta.Id == id);
             return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis). 
                 FirstOrDefault(ta => ta.Id == id);
         }
@@ -43,6 +44,7 @@ namespace Data
         public IEnumerable<TipoAnalisis> GetAll()
         {
             using var context = CreateContext();
+            return context.TiposAnalisis.ToList();
             return context.TiposAnalisis.Include(ta => ta.PlantillaAnalisis).ToList();
         }
 

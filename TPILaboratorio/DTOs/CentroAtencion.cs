@@ -6,5 +6,6 @@
         public string? Nombre { get; set; }
         public string? Domicilio { get; set; }
         public string Text { get; }
+        public int IdLocalidad { get; set; }
     }
 }

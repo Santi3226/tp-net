@@ -10,6 +10,7 @@ namespace Data
         public DbSet<CentroAtencion> Centros { get; set; }
         public DbSet<Turno> Turnos { get; set; }
         public DbSet<TipoAnalisis> TiposAnalisis { get; set; }
+        public DbSet<Localidad> Localidades { get; set; }
         public DbSet<PlantillaAnalisis> PlantillasAnalisis { get; set; }
 
         internal TPIContext()
@@ -76,6 +77,10 @@ namespace Data
                     .IsUnique();
                 entity.Property(e => e.Domicilio)
                     .IsRequired();
+                entity.HasOne(t => t.Localidad)
+                      .WithMany()
+                      .HasForeignKey(t => t.LocalidadId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Turno>(entity =>
             {
@@ -105,9 +110,20 @@ namespace Data
             modelBuilder.Entity<TipoAnalisis>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.HasOne(t => t.PlantillaAnalisis)
+                      .WithMany()
+                      .HasForeignKey(t => t.PlantillaAnalisisId)
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Importe).IsRequired();
+            });
+            modelBuilder.Entity<Localidad>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Nombre).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.CodigoPostal).IsRequired();
                 entity.HasOne(t => t.PlantillaAnalisis)
                       .WithMany()
                       .HasForeignKey(t => t.PlantillaAnalisisId)
