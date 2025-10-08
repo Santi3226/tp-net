@@ -8,6 +8,8 @@
         public int LocalidadId { get; private set; }
         public virtual Localidad Localidad { get; private set; }
 
+        public CentroAtencion() { }
+
         public CentroAtencion(int id, string nombre, string domicilio, Localidad localidad)
         {
             SetId(id);

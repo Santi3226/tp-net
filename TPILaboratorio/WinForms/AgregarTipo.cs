@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application.Services;
+using Data;
 using DTOs;
 
 namespace WinForms
@@ -35,7 +36,7 @@ namespace WinForms
             else
             {
                 TipoAnalisisDTO tipoAnalisis = new TipoAnalisisDTO
-                { Nombre = nombreTextBox.Text, Importe = float.Parse(importeTextBox.Text)};
+                { Nombre = nombreTextBox.Text, Importe = float.Parse(importeTextBox.Text), IdPlantillaAnalisis = (int)this.plantillaCombo.SelectedValue };
                 TipoAnalisisDTO ta = tipoAnalisisService.Add(tipoAnalisis);
                 MessageBox.Show("Centro de Atencion registrado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
@@ -46,8 +47,18 @@ namespace WinForms
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
+        }
+
+        private void AgregarTipo_Load(object sender, EventArgs e)
+        {
+            PlantillaAnalisisRepository plantillaRepository = new PlantillaAnalisisRepository();
+            var plantillas = plantillaRepository.GetAll();
+            plantillaCombo.Items.Clear();
+            plantillaCombo.DataSource = plantillas.ToList();
+            plantillaCombo.DisplayMember = "Preparacion";
+            plantillaCombo.ValueMember = "Id";
         }
     }
 }

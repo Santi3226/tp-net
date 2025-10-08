@@ -1,6 +1,6 @@
 ﻿namespace WinForms
 {
-    partial class AgregarTipo
+    partial class AgregarLocalidad
     {
         /// <summary>
         /// Required designer variable.
@@ -31,63 +31,60 @@
             agregarLabel = new Label();
             importeLabel = new Label();
             nombreLabel = new Label();
-            importeTextBox = new TextBox();
+            codigoPostalTextBox = new TextBox();
             nombreTextBox = new TextBox();
             cancelarBtn = new Button();
             agregarBtn = new Button();
-            plantillaCombo = new ComboBox();
-            plantillaLabel = new Label();
             SuspendLayout();
             // 
             // agregarLabel
             // 
             agregarLabel.AutoSize = true;
             agregarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            agregarLabel.Location = new Point(306, 29);
+            agregarLabel.Location = new Point(284, 42);
             agregarLabel.Name = "agregarLabel";
-            agregarLabel.Size = new Size(160, 32);
-            agregarLabel.TabIndex = 26;
-            agregarLabel.Text = "Agregar tipo";
+            agregarLabel.Size = new Size(218, 32);
+            agregarLabel.TabIndex = 27;
+            agregarLabel.Text = "Agregar localidad";
             agregarLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // importeLabel
             // 
             importeLabel.AutoSize = true;
             importeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importeLabel.Location = new Point(245, 203);
+            importeLabel.Location = new Point(248, 245);
             importeLabel.Name = "importeLabel";
-            importeLabel.Size = new Size(54, 17);
-            importeLabel.TabIndex = 33;
-            importeLabel.Text = "Importe";
+            importeLabel.Size = new Size(91, 17);
+            importeLabel.TabIndex = 37;
+            importeLabel.Text = "Código postal";
             // 
             // nombreLabel
             // 
             nombreLabel.AutoSize = true;
             nombreLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreLabel.Location = new Point(245, 117);
+            nombreLabel.Location = new Point(248, 159);
             nombreLabel.Name = "nombreLabel";
             nombreLabel.Size = new Size(57, 17);
-            nombreLabel.TabIndex = 32;
+            nombreLabel.TabIndex = 36;
             nombreLabel.Text = "Nombre";
             // 
-            // importeTextBox
+            // codigoPostalTextBox
             // 
-            importeTextBox.BorderStyle = BorderStyle.FixedSingle;
-            importeTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importeTextBox.Location = new Point(247, 223);
-            importeTextBox.Name = "importeTextBox";
-            importeTextBox.Size = new Size(281, 33);
-            importeTextBox.TabIndex = 31;
-            importeTextBox.KeyPress += importeTextBox_KeyPress;
+            codigoPostalTextBox.BorderStyle = BorderStyle.FixedSingle;
+            codigoPostalTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codigoPostalTextBox.Location = new Point(250, 265);
+            codigoPostalTextBox.Name = "codigoPostalTextBox";
+            codigoPostalTextBox.Size = new Size(281, 33);
+            codigoPostalTextBox.TabIndex = 35;
             // 
             // nombreTextBox
             // 
             nombreTextBox.BorderStyle = BorderStyle.FixedSingle;
             nombreTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreTextBox.Location = new Point(247, 137);
+            nombreTextBox.Location = new Point(250, 179);
             nombreTextBox.Name = "nombreTextBox";
             nombreTextBox.Size = new Size(281, 33);
-            nombreTextBox.TabIndex = 30;
+            nombreTextBox.TabIndex = 34;
             // 
             // cancelarBtn
             // 
@@ -99,10 +96,10 @@
             cancelarBtn.FlatStyle = FlatStyle.Flat;
             cancelarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelarBtn.ForeColor = Color.Black;
-            cancelarBtn.Location = new Point(413, 387);
+            cancelarBtn.Location = new Point(412, 389);
             cancelarBtn.Name = "cancelarBtn";
             cancelarBtn.Size = new Size(171, 33);
-            cancelarBtn.TabIndex = 35;
+            cancelarBtn.TabIndex = 39;
             cancelarBtn.Text = "Cancelar";
             cancelarBtn.UseVisualStyleBackColor = false;
             cancelarBtn.Click += cancelarBtn_Click;
@@ -117,51 +114,31 @@
             agregarBtn.FlatStyle = FlatStyle.Flat;
             agregarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             agregarBtn.ForeColor = Color.White;
-            agregarBtn.Location = new Point(199, 387);
+            agregarBtn.Location = new Point(198, 389);
             agregarBtn.Name = "agregarBtn";
             agregarBtn.Size = new Size(173, 33);
-            agregarBtn.TabIndex = 34;
+            agregarBtn.TabIndex = 38;
             agregarBtn.Text = "Agregar";
             agregarBtn.UseVisualStyleBackColor = false;
             agregarBtn.Click += agregarBtn_Click;
             // 
-            // plantillaCombo
-            // 
-            plantillaCombo.FormattingEnabled = true;
-            plantillaCombo.Location = new Point(247, 304);
-            plantillaCombo.Name = "plantillaCombo";
-            plantillaCombo.Size = new Size(281, 23);
-            plantillaCombo.TabIndex = 40;
-            // 
-            // plantillaLabel
-            // 
-            plantillaLabel.AutoSize = true;
-            plantillaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            plantillaLabel.Location = new Point(243, 285);
-            plantillaLabel.Name = "plantillaLabel";
-            plantillaLabel.Size = new Size(52, 17);
-            plantillaLabel.TabIndex = 39;
-            plantillaLabel.Text = "Plantilla";
-            // 
-            // AgregarTipo
+            // AgregarLocalidad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(801, 478);
-            Controls.Add(plantillaCombo);
-            Controls.Add(plantillaLabel);
             Controls.Add(cancelarBtn);
             Controls.Add(agregarBtn);
             Controls.Add(importeLabel);
             Controls.Add(nombreLabel);
-            Controls.Add(importeTextBox);
+            Controls.Add(codigoPostalTextBox);
             Controls.Add(nombreTextBox);
             Controls.Add(agregarLabel);
-            Name = "AgregarTipo";
+            Name = "AgregarLocalidad";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Agregar Tipo";
-            Load += AgregarTipo_Load;
+            Text = "Agregar Localidad";
+            Load += AgregarLocalidad_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -171,11 +148,9 @@
         private Label agregarLabel;
         private Label importeLabel;
         private Label nombreLabel;
-        private TextBox importeTextBox;
+        private TextBox codigoPostalTextBox;
         private TextBox nombreTextBox;
         private Button cancelarBtn;
         private Button agregarBtn;
-        private ComboBox plantillaCombo;
-        private Label plantillaLabel;
     }
 }

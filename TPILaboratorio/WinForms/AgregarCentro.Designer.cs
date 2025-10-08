@@ -35,6 +35,8 @@
             direccionLabel = new Label();
             agregarBtn = new Button();
             cancelarBtn = new Button();
+            localidadCombo = new ComboBox();
+            localidadLabel = new Label();
             SuspendLayout();
             // 
             // agregarLabel
@@ -61,7 +63,7 @@
             // 
             direccionTextBox.BorderStyle = BorderStyle.FixedSingle;
             direccionTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionTextBox.Location = new Point(247, 267);
+            direccionTextBox.Location = new Point(247, 232);
             direccionTextBox.Name = "direccionTextBox";
             direccionTextBox.Size = new Size(281, 33);
             direccionTextBox.TabIndex = 27;
@@ -80,7 +82,7 @@
             // 
             direccionLabel.AutoSize = true;
             direccionLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionLabel.Location = new Point(245, 247);
+            direccionLabel.Location = new Point(245, 212);
             direccionLabel.Name = "direccionLabel";
             direccionLabel.Size = new Size(62, 17);
             direccionLabel.TabIndex = 29;
@@ -122,12 +124,32 @@
             cancelarBtn.UseVisualStyleBackColor = false;
             cancelarBtn.Click += cancelarBtn_Click;
             // 
+            // localidadCombo
+            // 
+            localidadCombo.FormattingEnabled = true;
+            localidadCombo.Location = new Point(247, 320);
+            localidadCombo.Name = "localidadCombo";
+            localidadCombo.Size = new Size(281, 23);
+            localidadCombo.TabIndex = 38;
+            // 
+            // localidadLabel
+            // 
+            localidadLabel.AutoSize = true;
+            localidadLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            localidadLabel.Location = new Point(243, 301);
+            localidadLabel.Name = "localidadLabel";
+            localidadLabel.Size = new Size(64, 17);
+            localidadLabel.TabIndex = 37;
+            localidadLabel.Text = "Localidad";
+            // 
             // AgregarCentro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(801, 478);
+            Controls.Add(localidadCombo);
+            Controls.Add(localidadLabel);
             Controls.Add(cancelarBtn);
             Controls.Add(agregarBtn);
             Controls.Add(direccionLabel);
@@ -138,6 +160,7 @@
             Name = "AgregarCentro";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Agregar Centro";
+            Load += AgregarCentro_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -151,5 +174,7 @@
         private Label direccionLabel;
         private Button agregarBtn;
         private Button cancelarBtn;
+        private ComboBox localidadCombo;
+        private Label localidadLabel;
     }
 }

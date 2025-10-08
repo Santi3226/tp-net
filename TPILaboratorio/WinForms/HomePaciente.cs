@@ -133,7 +133,7 @@ namespace WinForms
                 menuItems["modificarCentro"] = modificarCentro;
                 menuItems["eliminarCentro"] = eliminarCentro;
                 modificarCentro.Enabled = false;
-                eliminarCentro.Enabled = true;
+                eliminarCentro.Enabled = false;
 
                 ToolStripMenuItem tiposAnalisisMenu = new ToolStripMenuItem("Tipo de análisis");
 
@@ -158,10 +158,58 @@ namespace WinForms
                 modificarTipo.Enabled = false;
                 eliminarTipo.Enabled = false;
 
+                ToolStripMenuItem localidadesMenu = new ToolStripMenuItem("Localidades");
+
+                ToolStripMenuItem listarLocalidades = new ToolStripMenuItem("Listar localidades");
+                listarLocalidades.Click += ListarLocalidades_Click;
+
+                ToolStripMenuItem anadirLocalidad = new ToolStripMenuItem("Añadir localidad");
+                anadirLocalidad.Click += AnadirLocalidad_Click;
+
+                ToolStripMenuItem modificarLocalidad = new ToolStripMenuItem("Modificar localidad");
+                modificarLocalidad.Click += ModificarLocalidad_Click;
+
+                ToolStripMenuItem eliminarLocalidad = new ToolStripMenuItem("Eliminar localidad");
+                eliminarLocalidad.Click += EliminarLocalidad_Click;
+
+                localidadesMenu.DropDownItems.Add(listarLocalidades);
+                localidadesMenu.DropDownItems.Add(anadirLocalidad);
+                localidadesMenu.DropDownItems.Add(modificarLocalidad);
+                localidadesMenu.DropDownItems.Add(eliminarLocalidad);
+                menuItems["modificarLocalidad"] = modificarLocalidad;
+                menuItems["eliminarLocalidad"] = eliminarLocalidad;
+                modificarLocalidad.Enabled = false;
+                eliminarLocalidad.Enabled = false;
+
+                ToolStripMenuItem plantillasMenu = new ToolStripMenuItem("Plantillas");
+
+                ToolStripMenuItem listarPlantillas = new ToolStripMenuItem("Listar plantillas");
+                listarPlantillas.Click += ListarPlantillas_Click;
+
+                ToolStripMenuItem anadirPlantilla = new ToolStripMenuItem("Añadir plantilla");
+                anadirPlantilla.Click += AnadirPlantilla_Click;
+
+                ToolStripMenuItem modificarPlantilla = new ToolStripMenuItem("Modificar plantilla");
+                modificarPlantilla.Click += ModificarPlantilla_Click;
+
+                ToolStripMenuItem eliminarPlantilla = new ToolStripMenuItem("Eliminar plantilla");
+                eliminarPlantilla.Click += EliminarPlantilla_Click;
+
+                plantillasMenu.DropDownItems.Add(listarPlantillas);
+                plantillasMenu.DropDownItems.Add(anadirPlantilla);
+                plantillasMenu.DropDownItems.Add(modificarPlantilla);
+                plantillasMenu.DropDownItems.Add(eliminarPlantilla);
+                menuItems["modificarPlantilla"] = modificarPlantilla;
+                menuItems["eliminarPlantilla"] = eliminarPlantilla;
+                modificarPlantilla.Enabled = false;
+                eliminarPlantilla.Enabled = false;
+
                 pacienteMenuStrip.Items.Add(turnosMenu);
                 pacienteMenuStrip.Items.Add(usuariosMenu);
                 pacienteMenuStrip.Items.Add(centrosMenu);
                 pacienteMenuStrip.Items.Add(tiposAnalisisMenu);
+                pacienteMenuStrip.Items.Add(localidadesMenu);
+                pacienteMenuStrip.Items.Add(plantillasMenu);
 
                 proximosTurnosAdministradorDGV.Visible = true;
             }
@@ -391,7 +439,14 @@ namespace WinForms
         {
             CentroRepository centroRepository = new CentroRepository();
             var centros = centroRepository.GetAll();
-            proximosTurnosAdministradorDGV.DataSource = centros;
+            var centrosVista = centros.Select(c => new
+            {
+                c.Id,
+                c.Nombre,
+                c.Domicilio,
+                c.LocalidadId,
+            }).ToList();
+            proximosTurnosAdministradorDGV.DataSource = centrosVista;
             menuItems["modificarCentro"].Enabled = true;
             menuItems["eliminarCentro"].Enabled = true;
             proximosTurnosAdministradorDGV.DataSourceChanged += (sender, e) =>
@@ -451,7 +506,14 @@ namespace WinForms
         {
             TipoAnalisisRepository tipoAnalisisRepository = new TipoAnalisisRepository();
             var tipos = tipoAnalisisRepository.GetAll();
-            proximosTurnosAdministradorDGV.DataSource = tipos;
+            var tiposVista = tipos.Select(t => new
+            {
+                t.Id,
+                t.Nombre,
+                t.Importe,
+                t.PlantillaAnalisisId
+            }).ToList();
+            proximosTurnosAdministradorDGV.DataSource = tiposVista;
             menuItems["modificarTipo"].Enabled = true;
             menuItems["eliminarTipo"].Enabled = true;
             proximosTurnosAdministradorDGV.DataSourceChanged += (sender, e) =>
@@ -510,6 +572,123 @@ namespace WinForms
         private void proximosTurnosAdministradorDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void ListarLocalidades_Click(object sender, EventArgs e)
+        {
+            LocalidadRepository localidadRepository = new LocalidadRepository();
+            var localidades = localidadRepository.GetAll();
+
+            proximosTurnosAdministradorDGV.DataSource = localidades;
+            menuItems["modificarLocalidad"].Enabled = true;
+            menuItems["eliminarLocalidad"].Enabled = true;
+
+            proximosTurnosAdministradorDGV.DataSourceChanged += (sender2, e2) =>
+            {
+                menuItems["modificarLocalidad"].Enabled = false;
+                menuItems["eliminarLocalidad"].Enabled = false;
+            };
+        }
+
+        private void AnadirLocalidad_Click(object sender, EventArgs e)
+        {
+            AgregarLocalidad agregarLocalidad = new AgregarLocalidad();
+            agregarLocalidad.ShowDialog();
+        }
+
+        private void ModificarLocalidad_Click(object sender, EventArgs e)
+        {
+            LocalidadRepository localidadRepository = new LocalidadRepository();
+            Localidad localidadAModificar = localidadRepository.Get((int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value);
+            LocalidadDTO localidad = new LocalidadDTO
+            {
+                Id = localidadAModificar.Id,
+                Nombre = localidadAModificar.Nombre,
+                CodigoPostal = localidadAModificar.CodigoPostal
+            };
+            ModificarLocalidad modificar = new ModificarLocalidad(localidad);
+            modificar.ShowDialog();
+        }
+
+        private void EliminarLocalidad_Click(object sender, EventArgs e)
+        {
+            LocalidadService localidadService = new LocalidadService();
+            if (proximosTurnosAdministradorDGV.CurrentCell != null)
+            {
+                DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar la localidad seleccionada?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
+                    bool eliminado = localidadService.Delete(idABorrar);
+                    if (eliminado)
+                        MessageBox.Show("Localidad eliminada exitosamente.");
+                    else
+                        MessageBox.Show("No se pudo eliminar la localidad.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una localidad para poder eliminarla.");
+            }
+        }
+
+        private void ListarPlantillas_Click(object sender, EventArgs e)
+        {
+            PlantillaAnalisisRepository plantillaRepository = new PlantillaAnalisisRepository();
+            var plantillas = plantillaRepository.GetAll();
+
+            proximosTurnosAdministradorDGV.DataSource = plantillas;
+            menuItems["modificarPlantilla"].Enabled = true;
+            menuItems["eliminarPlantilla"].Enabled = true;
+
+            proximosTurnosAdministradorDGV.DataSourceChanged += (sender2, e2) =>
+            {
+                menuItems["modificarPlantilla"].Enabled = false;
+                menuItems["eliminarPlantilla"].Enabled = false;
+            };
+        }
+
+        private void AnadirPlantilla_Click(object sender, EventArgs e)
+        {
+            AgregarPlantilla agregar = new AgregarPlantilla();
+            agregar.ShowDialog();
+        }
+
+        private void ModificarPlantilla_Click(object sender, EventArgs e)
+        {
+            PlantillaAnalisisRepository plantillaRepository = new PlantillaAnalisisRepository();
+            PlantillaAnalisis plantillaAModificar = plantillaRepository.Get((int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value);
+            PlantillaAnalisisDTO plantilla = new PlantillaAnalisisDTO
+            {
+                Id = plantillaAModificar.Id,
+                HsAyuno = plantillaAModificar.HsAyuno,
+                Preparacion = plantillaAModificar.Preparacion,
+                DiasPrevistos = plantillaAModificar.DiasPrevistos
+            };
+            ModificarPlantilla modificar = new ModificarPlantilla(plantilla);
+            modificar.ShowDialog();
+        }
+
+        private void EliminarPlantilla_Click(object sender, EventArgs e)
+        {
+            PlantillaAnalisisService plantillaService = new PlantillaAnalisisService();
+            if (proximosTurnosAdministradorDGV.CurrentCell != null)
+            {
+                DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar la plantilla seleccionada?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
+                    bool eliminado = plantillaService.Delete(idABorrar);
+                    if (eliminado)
+                        MessageBox.Show("Plantilla eliminada exitosamente.");
+                    else
+                        MessageBox.Show("No se pudo eliminar la plantilla.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una plantilla para poder eliminarla.");
+            }
         }
     }
 }

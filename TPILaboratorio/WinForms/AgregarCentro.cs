@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application.Services;
+using Data;
 using DTOs;
 
 namespace WinForms
@@ -29,7 +30,8 @@ namespace WinForms
             CentroAtencionService centroAtencionService = new CentroAtencionService();
             string nombre = this.nombreTextBox.Text;
             string domicilio = this.direccionTextBox.Text;
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio))
+            int localidadId = (int)this.localidadCombo.SelectedValue;
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(domicilio) || string.IsNullOrEmpty(localidadId.ToString()))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -37,11 +39,21 @@ namespace WinForms
             else
             {
                 CentroAtencionDTO centro = new CentroAtencionDTO
-                { Nombre = nombre, Domicilio = domicilio };
+                { Nombre = nombre, Domicilio = domicilio, IdLocalidad = localidadId};
                 CentroAtencionDTO ca = centroAtencionService.Add(centro);
                 MessageBox.Show("Centro de Atencion registrado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
+        }
+
+        private void AgregarCentro_Load(object sender, EventArgs e)
+        {
+            LocalidadRepository localidadRepository = new LocalidadRepository();
+            var localidades = localidadRepository.GetAll();
+            localidadCombo.Items.Clear();
+            localidadCombo.DataSource = localidades.ToList();
+            localidadCombo.DisplayMember = "Nombre";
+            localidadCombo.ValueMember = "Id";
         }
     }
 }
