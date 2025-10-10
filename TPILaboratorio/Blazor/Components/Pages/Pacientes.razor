@@ -1,0 +1,55 @@
+﻿@page "/pacientes"
+@using DTOs
+@using API.Clients
+@inject IJSRuntime JSRuntime
+@attribute [StreamRendering]
+
+<PageTitle>Pacientes</PageTitle>
+
+<h1>Pacientes</h1>
+
+<p>Listado de pacientes.</p>
+
+@if (pacientes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Fecha Nac.</th>
+            </tr>
+        </thead>
+        <tbody>
+    @if (pacientes != null && pacientes.Any())
+    {
+            @foreach (var p in pacientes)
+            {
+                <tr>
+                    <td>@p.Nombre + @p.Apellido</td>
+                    <td>@p.Dni</td>
+                    <td>@p.Telefono</td>
+                    <td>@p.Email</td>
+                    <td>@p.Tipo</td>
+                    <td>@p.FechaNacimiento</td>
+                </tr>
+            }
+    }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<PacienteDTO> pacientes;
+    protected override async Task OnInitializedAsync()
+    {
+        var pacientes = (await PacienteApiClient.GetAllAsync())?.ToList();
+    }
+}
