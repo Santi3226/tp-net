@@ -4,21 +4,13 @@ using System.Net.Http.Json;
 
 namespace API.Clients
 {
-    public class PacienteApiClient
+    public class PacienteApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static PacienteApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5068/"); 
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<PacienteDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("pacientes/" + id);
 
                 if (response.IsSuccessStatusCode)
@@ -45,6 +37,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("pacientes");
 
                 if (response.IsSuccessStatusCode)
@@ -71,6 +64,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("pacientes", paciente);
 
                 if (!response.IsSuccessStatusCode)
@@ -93,6 +87,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("pacientes/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -115,6 +110,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("pacientes", paciente);
 
                 if (!response.IsSuccessStatusCode)

@@ -13,10 +13,18 @@ namespace Data
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<PlantillaAnalisis> PlantillasAnalisis { get; set; }
 
+        public TPIContext(DbContextOptions<TPIContext> options) : base(options)
+        {
+            this.Database.EnsureCreated();
+            //SeedInitialData();
+        }
+
         internal TPIContext()
         {
             this.Database.EnsureCreated();
+            //SeedInitialData();
         }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -133,6 +141,8 @@ namespace Data
                 entity.Property(e => e.Preparacion).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.DiasPrevistos).IsRequired();
             });
+
         }
+
     }
 }

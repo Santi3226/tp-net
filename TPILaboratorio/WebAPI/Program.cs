@@ -1,42 +1,122 @@
-using Application.Services;
-using Domain.Model;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
 using DTOs;
-using Microsoft.AspNetCore.OpenApi;
-using Microsoft.AspNetCore.Rewrite;
+using Application.Services;
+using Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-var builder = WebApplication.CreateBuilder(args); 
+var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(o => { });
 
+// Add Entity Framework Context
+builder.Services.AddDbContext<TPIContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=(localdb)\\mssqllocaldb;Database=TPILaboratorio;Trusted_Connection=True;MultipleActiveResultSets=true")));
+
+/*
+// Add Dependency Injection
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+*/
+// Add JWT Authentication
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = jwtSettings["SecretKey"];
+var issuer = jwtSettings["Issuer"];
+var audience = jwtSettings["Audience"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+{
+options.TokenValidationParameters = new TokenValidationParameters
+{
+ValidateIssuer = true,
+ValidIssuer = issuer,
+ValidateAudience = true,
+ValidAudience = audience,
+ValidateLifetime = true,
+ValidateIssuerSigningKey = true,
+IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
+ClockSkew = TimeSpan.Zero
+};
+});
+
+// Add Authorization Policies
+builder.Services.AddAuthorization(options =>
+{
+    // Políticas para CentroAtencion
+    options.AddPolicy("CentroAtencion", policy => policy.RequireClaim("permission", "CentroAtencion"));
+    options.AddPolicy("CentroAtencionAgregar", policy => policy.RequireClaim("permission", "CentroAtencion.agregar"));
+    options.AddPolicy("CentroAtencionActualizar", policy => policy.RequireClaim("permission", "CentroAtencion.actualizar"));
+    options.AddPolicy("CentroAtencionEliminar", policy => policy.RequireClaim("permission", "CentroAtencion.eliminar"));
+
+    // Políticas para Localidad
+    options.AddPolicy("Localidad", policy => policy.RequireClaim("permission", "Localidad"));
+    options.AddPolicy("LocalidadAgregar", policy => policy.RequireClaim("permission", "Localidad.agregar"));
+    options.AddPolicy("LocalidadActualizar", policy => policy.RequireClaim("permission", "Localidad.actualizar"));
+    options.AddPolicy("LocalidadEliminar", policy => policy.RequireClaim("permission", "Localidad.eliminar"));
+
+    // Políticas para Paciente
+    options.AddPolicy("Paciente", policy => policy.RequireClaim("permission", "Paciente"));
+    options.AddPolicy("PacienteAgregar", policy => policy.RequireClaim("permission", "Paciente.agregar"));
+    options.AddPolicy("PacienteActualizar", policy => policy.RequireClaim("permission", "Paciente.actualizar"));
+    options.AddPolicy("PacienteEliminar", policy => policy.RequireClaim("permission", "Paciente.eliminar"));
+
+    // Políticas para PlantillaAnalisis
+    options.AddPolicy("PlantillaAnalisis", policy => policy.RequireClaim("permission", "PlantillaAnalisis"));
+    options.AddPolicy("PlantillaAnalisisAgregar", policy => policy.RequireClaim("permission", "PlantillaAnalisis.agregar"));
+    options.AddPolicy("PlantillaAnalisisActualizar", policy => policy.RequireClaim("permission", "PlantillaAnalisis.actualizar"));
+    options.AddPolicy("PlantillaAnalisisEliminar", policy => policy.RequireClaim("permission", "PlantillaAnalisis.eliminar"));
+
+    // Políticas para TipoAnalisis
+    options.AddPolicy("TipoAnalisis", policy => policy.RequireClaim("permission", "TipoAnalisis"));
+    options.AddPolicy("TipoAnalisisAgregar", policy => policy.RequireClaim("permission", "TipoAnalisis.agregar"));
+    options.AddPolicy("TipoAnalisisActualizar", policy => policy.RequireClaim("permission", "TipoAnalisis.actualizar"));
+    options.AddPolicy("TipoAnalisisEliminar", policy => policy.RequireClaim("permission", "TipoAnalisis.eliminar"));
+
+    // Políticas para Turno
+    options.AddPolicy("Turno", policy => policy.RequireClaim("permission", "Turno"));
+    options.AddPolicy("TurnoAgregar", policy => policy.RequireClaim("permission", "Turno.agregar"));
+    options.AddPolicy("TurnoActualizar", policy => policy.RequireClaim("permission", "Turno.actualizar"));
+    options.AddPolicy("TurnoEliminar", policy => policy.RequireClaim("permission", "Turno.eliminar"));
+// Fallback: Requerir autenticación para endpoints no especificados
+options.FallbackPolicy = options.DefaultPolicy;
+});
+
+// Add CORS for Blazor WebAssembly + React Native
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowBlazorWasm",
-        policy =>
-        {
-            policy.WithOrigins("https://localhost:7170", "http://localhost:5076", "http://localhost:5068")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+options.AddPolicy("AllowBlazorWasm",
+    policy =>
+{
+policy.AllowAnyOrigin() // TODO: En producción especificar orígenes exactos por seguridad
+      .AllowAnyHeader()
+      .AllowAnyMethod();
+});
 });
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();   
-    app.UseHttpLogging();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseHttpLogging();
 }
 
 app.UseHttpsRedirection();
-app.UseRewriter(new RewriteOptions()
-    .AddRedirect("^$", "/swagger/index.html") // Redirect root to home/index
-);
 
 // Use CORS
 app.UseCors("AllowBlazorWasm");
+
+// Use Authentication & Authorization
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapGet("/Pacientes/{id}", (int id) =>
 {
