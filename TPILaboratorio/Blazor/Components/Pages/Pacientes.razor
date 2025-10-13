@@ -1,6 +1,7 @@
 ﻿@page "/pacientes"
 @using DTOs
 @using API.Clients
+@using Blazor.Components
 @inject IJSRuntime JSRuntime
 @attribute [StreamRendering]
 
@@ -9,6 +10,7 @@
 <h1>Pacientes</h1>
 
 <p>Listado de pacientes.</p>
+
 
 @if (pacientes == null)
 {
@@ -33,7 +35,7 @@ else
             @foreach (var p in pacientes)
             {
                 <tr>
-                    <td>@p.Nombre + @p.Apellido</td>
+                    <td>@p.Nombre, @p.Apellido</td>
                     <td>@p.Dni</td>
                     <td>@p.Telefono</td>
                     <td>@p.Email</td>
@@ -46,10 +48,37 @@ else
     </table>
 }
 
+<button class="btn btn-primary" @onclick="OpenAddModal">
+    <i class="fas fa-plus"></i> Agregar
+</button>
+<div class="mb-2"><strong>showModal:</strong> @showModal.ToString()</div>
+    <PacienteModal @ref="pacienteModal" OnPacienteChanged="LoadPacientes" />
+
 @code {
     private List<PacienteDTO> pacientes;
+    private PacienteModal pacienteModal;
+    private bool showModal = false;
+
     protected override async Task OnInitializedAsync()
     {
-        var pacientes = (await PacienteApiClient.GetAllAsync())?.ToList();
+        await LoadPacientes();
+    }
+
+    private async Task LoadPacientes()
+    {
+        pacientes = (await PacienteApiClient.GetAllAsync())?.ToList();
+        StateHasChanged();
+    }
+
+    private async Task OpenAddModal()
+    {
+        Console.WriteLine("OpenAddModal ejecutado - antes");
+        Console.WriteLine($"pacienteModal es null: {pacienteModal == null}");
+
+        if (pacienteModal != null)
+        {
+            await pacienteModal.ShowAddModal();
+            Console.WriteLine("OpenAddModal ejecutado - después");
+        }
     }
 }

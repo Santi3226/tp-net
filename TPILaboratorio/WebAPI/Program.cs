@@ -83,8 +83,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("TurnoAgregar", policy => policy.RequireClaim("permission", "Turno.agregar"));
     options.AddPolicy("TurnoActualizar", policy => policy.RequireClaim("permission", "Turno.actualizar"));
     options.AddPolicy("TurnoEliminar", policy => policy.RequireClaim("permission", "Turno.eliminar"));
-// Fallback: Requerir autenticación para endpoints no especificados
-options.FallbackPolicy = options.DefaultPolicy;
+    // Fallback: Requerir autenticación para endpoints no especificados
+    //options.FallbackPolicy = options.DefaultPolicy;
+    options.FallbackPolicy = null;
 });
 
 // Add CORS for Blazor WebAssembly + React Native
@@ -114,10 +115,11 @@ app.UseHttpsRedirection();
 // Use CORS
 app.UseCors("AllowBlazorWasm");
 
+/*
 // Use Authentication & Authorization
 app.UseAuthentication();
 app.UseAuthorization();
-
+*/
 app.MapGet("/Pacientes/{id}", (int id) =>
 {
     PacienteService pacienteService = new PacienteService();
