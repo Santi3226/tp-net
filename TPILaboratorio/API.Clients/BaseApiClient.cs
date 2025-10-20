@@ -7,7 +7,11 @@ namespace API.Clients
     {
         protected static async Task<HttpClient> CreateHttpClientAsync()
         {
-            var client = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+            var client = new HttpClient(handler);
             await ConfigureHttpClientAsync(client);
             return client;
         }

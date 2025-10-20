@@ -1,0 +1,271 @@
+﻿@page "/turnos"
+@using DTOs
+@using System.Text.RegularExpressions
+@using API.Clients
+@using Blazor.Components
+@inject IJSRuntime JSRuntime
+@attribute [StreamRendering]
+
+<PageTitle>Turnos</PageTitle>
+
+<h1>Turnos</h1>
+
+<p>Listado de Turnos.</p>
+
+
+@if (turnos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estado</th>
+                <th>Receta</th>
+                <th>Observaciones</th>
+                <th>Fecha-Hora Reserva</th>
+                <th>Paciente</th>
+                <th>Tipo de Analisis</th>
+                <th>Centro de Atencion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (turnos != null && turnos.Any())
+            {
+                @foreach (var p in turnos)
+                {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Estado</td>
+                    <td>@p.Receta</td>
+                    <td>@p.Observaciones</td>
+                    <td>@p.FechaHoraReserva</td>
+                    <td>@p.IdPaciente</td>
+                    <td>@p.IdTipoAnalisis</td>
+                    <td>@p.IdCentroAtencion</td>
+                </tr>
+            }
+    }
+        </tbody>
+    </table>
+}
+
+<div class="modal-body">
+    <EditForm Model="currentTurno" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+
+        @if (mode == FormMode.Update)
+        {
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" value="@currentTurno.Id" readonly />
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Recibe Mail *</label>
+            <InputCheckbox @bind-Value="currentTurno.RecibeMail" class="form-control" />
+            @if (validationErrors.ContainsKey("RecibeMail"))
+            {
+                <div class="text-danger small">@validationErrors["RecibeMail"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado *</label>
+            <InputText @bind-Value="currentTurno.Estado" class="form-control" />
+            @if (validationErrors.ContainsKey("Estado"))
+            {
+                <div class="text-danger small">@validationErrors["Estado"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Receta *</label>
+            <InputText @bind-Value="currentTurno.Receta" class="form-control" />
+            @if (validationErrors.ContainsKey("Receta"))
+            {
+                <div class="text-danger small">@validationErrors["Receta"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Observaciones *</label>
+            <InputText @bind-Value="currentTurno.Observaciones" class="form-control" />
+            @if (validationErrors.ContainsKey("Observaciones"))
+            {
+                <div class="text-danger small">@validationErrors["Observaciones"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha Hora Reserva*</label>
+            <InputDate @bind-Value="currentTurno.FechaHoraReserva" class="form-control" />
+            @if (validationErrors.ContainsKey("FechaHoraReserva"))
+            {
+                <div class="text-danger small">@validationErrors["FechaHoraReserva"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Paciente ID *</label>
+            <InputNumber @bind-Value="currentTurno.IdPaciente" class="form-control"/>
+            @if (validationErrors.ContainsKey("IdPaciente"))
+            {
+                <div class="text-danger small">@validationErrors["IdPaciente"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo Analisis ID *</label>
+            <InputNumber @bind-Value="currentTurno.IdTipoAnalisis" class="form-control" />
+            @if (validationErrors.ContainsKey("IdTipoAnalisis"))
+            {
+                <div class="text-danger small">@validationErrors["IdTipoAnalisis"]</div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Centro de Atencion ID*</label>
+            <InputNumber @bind-Value="currentTurno.IdCentroAtencion" class="form-control" />
+            @if (validationErrors.ContainsKey("IdCentroAtencion"))
+            {
+                <div class="text-danger small">@validationErrors["IdCentroAtencion"]</div>
+            }
+        </div>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">
+                @errorMessage
+            </div>
+        }
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" disabled="@saving">
+                @if (saving)
+                {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                }
+                @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+            </button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private List<TurnoDTO> turnos;
+    private bool showModal = false;
+    [Parameter] public EventCallback OnTurnoChanged { get; set; }
+    private FormMode mode = FormMode.Add;
+    private TurnoDTO currentTurno = new TurnoDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+    //private List<Clase>? clases -> para un select
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadTurnos();
+    }
+
+    private async Task LoadTurnos()
+    {
+        turnos = (await TurnoApiClient.GetAllAsync())?.ToList();
+        StateHasChanged();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateTurno())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                await TurnoApiClient.AddAsync(currentTurno);
+            }
+            else
+            {
+                await TurnoApiClient.UpdateAsync(currentTurno);
+            }
+
+            await OnTurnoChanged.InvokeAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool ValidateTurno()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentTurno.Estado))
+        {
+            validationErrors["Estado"] = "El Estado es requerido";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentTurno.Receta))
+        {
+            validationErrors["Receta"] = "El Receta es requerido";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentTurno.Observaciones))
+        {
+            validationErrors["Observaciones"] = "El Observaciones es requerido";
+            isValid = false;
+        }
+        if (currentTurno.FechaHoraReserva == default)
+        {
+            validationErrors["FechaHoraReserva"] = "La Fecha de Reserva es requerida";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentTurno.Observaciones.ToString()))
+        {
+            validationErrors["RecibeMail"] = "El RecibeMail es requerido";
+            isValid = false;
+        }
+        if (null==(currentTurno.IdPaciente))
+        {
+            validationErrors["IdPaciente"] = "La IdPaciente es requerida";
+            isValid = false;
+        }
+        if (null==(currentTurno.IdTipoAnalisis))
+        {
+            validationErrors["IdTipoAnalisis"] = "El IdTipoAnalisis es requerido";
+            isValid = false;
+        }
+        if ((currentTurno.IdCentroAtencion)==null)
+        {
+            validationErrors["IdCentroAtencion"] = "El IdCentroAtencion es requerido";
+            isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+    }
+
+}

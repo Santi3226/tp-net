@@ -48,7 +48,7 @@ namespace Data
         public IEnumerable<Turno> GetAll()
         {
             using var context = CreateContext();
-            return context.Turnos.Include(t => t.Paciente).Include(t => t.TipoAnalisis).ToList();
+            return context.Turnos.Include(t => t.Paciente).Include(t => t.TipoAnalisis).Include(t => t.CentroAtencion).ToList();
         }
 
         public bool Update(Turno t)

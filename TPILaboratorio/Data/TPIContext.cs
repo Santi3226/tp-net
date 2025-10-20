@@ -16,11 +16,13 @@ namespace Data
         public TPIContext(DbContextOptions<TPIContext> options) : base(options)
         {
             this.Database.EnsureCreated();
+            //this.Database.EnsureDeleted();
             //SeedInitialData();
         }
 
         internal TPIContext()
         {
+            //this.Database.EnsureDeleted();
             this.Database.EnsureCreated();
             //SeedInitialData();
         }
@@ -71,6 +73,7 @@ namespace Data
                 entity.Property(e => e.FechaNacimiento)
                     .IsRequired();
                 entity.Property(e => e.Tipo)
+                .IsRequired();
                     ;
             });
             modelBuilder.Entity<CentroAtencion>(entity =>

@@ -100,12 +100,14 @@ policy.AllowAnyOrigin() // TODO: En producción especificar orígenes exactos por 
 });
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 app.UseSwagger();
+app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 app.UseSwaggerUI();
 app.UseHttpLogging();
 }

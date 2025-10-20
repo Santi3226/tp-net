@@ -94,6 +94,8 @@ namespace Domain.Model
 
         public void SetTipo(string tipo)
         {
+            if (string.IsNullOrWhiteSpace(tipo))
+                throw new ArgumentException("El tipo no puede ser nulo.", nameof(tipo));
             Tipo = tipo;
         }
 

@@ -4,21 +4,13 @@ using System.Net.Http.Json;
 
 namespace API.Clients
 {
-    public class TurnoApiClient
+    public class TurnoApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static TurnoApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5068/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<TurnoDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("turnos/" + id);
 
                 if (response.IsSuccessStatusCode)
@@ -28,16 +20,16 @@ namespace API.Clients
                 else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener turno con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al obtener Turno con Id {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al obtener turno con Id {id}: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al obtener Turno con Id {id}: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al obtener turno con Id {id}: {ex.Message}", ex);
+                throw new Exception($"Timeout al obtener Turno con Id {id}: {ex.Message}", ex);
             }
         }
 
@@ -45,6 +37,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("turnos");
 
                 if (response.IsSuccessStatusCode)
@@ -54,12 +47,12 @@ namespace API.Clients
                 else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener lista de turnos. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al obtener lista de Turno. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al obtener lista de turnos: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al obtener lista de turno: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
@@ -67,11 +60,12 @@ namespace API.Clients
             }
         }
 
-        public async static Task AddAsync(TurnoDTO t)
+        public async static Task AddAsync(TurnoDTO turno)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("turnos", t);
+                using var client = await CreateHttpClientAsync();
+                HttpResponseMessage response = await client.PostAsJsonAsync("turnos", turno);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -93,6 +87,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("turnos/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -111,25 +106,26 @@ namespace API.Clients
             }
         }
 
-        public static async Task UpdateAsync(TurnoDTO t)
+        public static async Task UpdateAsync(TurnoDTO turno)
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("turnos", t);
+                using var client = await CreateHttpClientAsync();
+                HttpResponseMessage response = await client.PutAsJsonAsync("turnos", turno);
 
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al actualizar turno con Id {t.Id}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al actualizar turno con Id {turno.Id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al actualizar turno con Id {t.Id}: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al actualizar turno con Id {turno.Id}: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al actualizar turno con Id {t.Id}: {ex.Message}", ex);
+                throw new Exception($"Timeout al actualizar turno con Id {turno.Id}: {ex.Message}", ex);
             }
         }
     }
