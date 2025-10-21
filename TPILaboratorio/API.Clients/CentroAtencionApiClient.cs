@@ -4,26 +4,18 @@ using System.Net.Http.Json;
 
 namespace API.Clients
 {
-    public class CentroAtencionApiClient
+    public class CentroAtencionApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static CentroAtencionApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5183/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<CentroAtencionDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("centrosAtencion/" + id);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<CentroAtencionDTO>();
+                    return await response.Content.ReadFromJsonAsync<CentroAtencionDTO>();
                 }
                 else
                 {
@@ -45,17 +37,8 @@ namespace API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("centrosAtencion");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<IEnumerable<CentroAtencionDTO>>();
-                }
-                else
-                {
-                    string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener lista de centros de atencion. Status: {response.StatusCode}, Detalle: {errorContent}");
-                }
+                using var client = await CreateHttpClientAsync();
+                return await client.GetFromJsonAsync<IEnumerable<CentroAtencionDTO>>("centrosAtencion");
             }
             catch (HttpRequestException ex)
             {
@@ -67,10 +50,11 @@ namespace API.Clients
             }
         }
 
-        public async static Task AddAsync(CentroAtencionDTO centroAtencion)
+        public static async Task AddAsync(CentroAtencionDTO centroAtencion)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("centroAtencion", centroAtencion);
 
                 if (!response.IsSuccessStatusCode)
@@ -93,6 +77,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("centrosAtencion/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -115,6 +100,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("centrosAtencion", centroAtencion);
 
                 if (!response.IsSuccessStatusCode)

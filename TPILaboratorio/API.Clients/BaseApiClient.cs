@@ -48,19 +48,19 @@ namespace API.Clients
                 string runtimeInfo = System.Runtime.InteropServices.RuntimeInformation.RuntimeIdentifier;
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] Runtime: {runtimeInfo}");
 
-            if (runtimeInfo.StartsWith("android"))
-            {
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] Detectado Android - usando IP de emulador");
-                return "http://10.0.2.2:5068/";
-            }
+                if (runtimeInfo.StartsWith("android"))
+                {
+                    System.Diagnostics.Debug.WriteLine($"[DEBUG] Detectado Android - usando IP de emulador");
+                    return "http://10.0.2.2:5068/";
+                }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] Error detectando plataforma: {ex.Message}");
             }
 
-            // URL por defecto para Windows/otras plataformas
-            string defaultUrl = "http://localhost:5068/";
+            // URL por defecto para Windows/otras plataformas ajustada al backend en desarrollo (https://localhost:7179/)
+            string defaultUrl = "https://localhost:7179/";
             System.Diagnostics.Debug.WriteLine($"[DEBUG] Usando URL por defecto: {defaultUrl}");
             return defaultUrl;
         }

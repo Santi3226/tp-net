@@ -4,14 +4,13 @@
 @using API.Clients
 @using Blazor.Components
 @inject IJSRuntime JSRuntime
-@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Pacientes</PageTitle>
 
 <h1>Pacientes</h1>
 
 <p>Listado de pacientes.</p>
-
 
 @if (pacientes == null)
 {
@@ -28,40 +27,50 @@ else
                 <th>Email</th>
                 <th>Tipo</th>
                 <th>Fecha Nac.</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-    @if (pacientes != null && pacientes.Any())
-    {
-            @foreach (var p in pacientes)
+            @if (pacientes != null && pacientes.Any())
             {
-                <tr>
-                    <td>@p.Nombre, @p.Apellido</td>
-                    <td>@p.Dni</td>
-                    <td>@p.Telefono</td>
-                    <td>@p.Email</td>
-                    <td>@p.Tipo</td>
-                    <td>@p.FechaNacimiento</td>
-                </tr>
+                @foreach (var p in pacientes)
+                {
+                    <tr>
+                        <td>@p.Nombre, @p.Apellido</td>
+                        <td>@p.Dni</td>
+                        <td>@p.Telefono</td>
+                        <td>@p.Email</td>
+                        <td>@p.Tipo</td>
+                        <td>@p.FechaNacimiento.ToShortDateString()</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
-    }
         </tbody>
     </table>
 }
 
-<div class="modal-body">
-    <EditForm Model="currentPaciente" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator />
+<hr />
 
-        @if (mode == FormMode.Update)
-        {
-            <div class="mb-3">
-                <label class="form-label">Id</label>
-                <input type="text" class="form-control" value="@currentPaciente.Id" readonly />
-            </div>
-        }
+<h3>@(mode == FormMode.Add ? "Nuevo Paciente" : "Editar Paciente")</h3>
 
+<EditForm Model="currentPaciente" OnValidSubmit="HandleValidSubmit" FormName="PacienteForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
         <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentPaciente.Id" readonly />
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Nombre *</label>
             <InputText @bind-Value="currentPaciente.Nombre" class="form-control" />
             @if (validationErrors.ContainsKey("Nombre"))
@@ -70,7 +79,7 @@ else
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Apellido *</label>
             <InputText @bind-Value="currentPaciente.Apellido" class="form-control" />
             @if (validationErrors.ContainsKey("Apellido"))
@@ -78,8 +87,10 @@ else
                 <div class="text-danger small">@validationErrors["Apellido"]</div>
             }
         </div>
+    </div>
 
-        <div class="mb-3">
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">DNI *</label>
             <InputText @bind-Value="currentPaciente.Dni" class="form-control" />
             @if (validationErrors.ContainsKey("Dni"))
@@ -88,7 +99,7 @@ else
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Teléfono *</label>
             <InputText @bind-Value="currentPaciente.Telefono" class="form-control" />
             @if (validationErrors.ContainsKey("Telefono"))
@@ -96,26 +107,28 @@ else
                 <div class="text-danger small">@validationErrors["Telefono"]</div>
             }
         </div>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Domicilio *</label>
-            <InputText @bind-Value="currentPaciente.Domicilio" class="form-control" />
-            @if (validationErrors.ContainsKey("Domicilio"))
-            {
-                <div class="text-danger small">@validationErrors["Domicilio"]</div>
-            }
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Domicilio *</label>
+        <InputText @bind-Value="currentPaciente.Domicilio" class="form-control" />
+        @if (validationErrors.ContainsKey("Domicilio"))
+        {
+            <div class="text-danger small">@validationErrors["Domicilio"]</div>
+        }
+    </div>
 
-        <div class="mb-3">
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Email *</label>
-            <InputText @bind-Value="currentPaciente.Email" class="form-control" />
+            <InputText @bind-Value="currentPaciente.Email" class="form-control" type="email" />
             @if (validationErrors.ContainsKey("Email"))
             {
                 <div class="text-danger small">@validationErrors["Email"]</div>
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Contraseña *</label>
             <InputText @bind-Value="currentPaciente.Contraseña" class="form-control" type="password" />
             @if (validationErrors.ContainsKey("Contraseña"))
@@ -123,8 +136,10 @@ else
                 <div class="text-danger small">@validationErrors["Contraseña"]</div>
             }
         </div>
+    </div>
 
-        <div class="mb-3">
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Fecha de Nacimiento *</label>
             <InputDate @bind-Value="currentPaciente.FechaNacimiento" class="form-control" />
             @if (validationErrors.ContainsKey("FechaNacimiento"))
@@ -133,45 +148,57 @@ else
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Tipo *</label>
-            <InputText @bind-Value="currentPaciente.Tipo" class="form-control" />
-            @if (validationErrors.ContainsKey("Tipo"))
+            <InputSelect @bind-Value="currentPaciente.Tipo" class="form-select">
+                <option value="Paciente">Paciente</option>
+                <option value="Administrador">Administrador</option>
+            </InputSelect>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
             {
-                <div class="text-danger small">@validationErrors["Tipo"]</div>
+                <span class="spinner-border spinner-border-sm me-2"></span>
             }
-        </div>
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
 
-        @if (!string.IsNullOrEmpty(errorMessage))
+        @if (mode == FormMode.Update)
         {
-            <div class="alert alert-danger">
-                @errorMessage
-            </div>
-        }
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" disabled="@saving">
-                @if (saving)
-                {
-                    <span class="spinner-border spinner-border-sm me-2"></span>
-                }
-                @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
             </button>
-        </div>
-    </EditForm>
-</div>
+        }
+    </div>
+</EditForm>
 
 @code {
     private List<PacienteDTO> pacientes;
-    private PacienteModal pacienteModal;
-    private bool showModal = false;
     [Parameter] public EventCallback OnPacienteChanged { get; set; }
     private FormMode mode = FormMode.Add;
     private PacienteDTO currentPaciente = new PacienteDTO();
     private bool saving = false;
     private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
     private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
-    //private List<Clase>? clases -> para un select
+
     public enum FormMode
     {
         Add,
@@ -189,6 +216,31 @@ else
         StateHasChanged();
     }
 
+    private void LoadForEdit(PacienteDTO paciente)
+    {
+        mode = FormMode.Update;
+        currentPaciente = new PacienteDTO
+        {
+            Id = paciente.Id,
+            Nombre = paciente.Nombre,
+            Apellido = paciente.Apellido,
+            Dni = paciente.Dni,
+            Telefono = paciente.Telefono,
+            Domicilio = paciente.Domicilio,
+            Email = paciente.Email,
+            Contraseña = paciente.Contraseña,
+            FechaNacimiento = paciente.FechaNacimiento,
+            Tipo = paciente.Tipo
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentPaciente = new PacienteDTO();
+        ClearValidationErrors();
+    }
 
     private async Task HandleValidSubmit()
     {
@@ -199,17 +251,22 @@ else
         {
             saving = true;
             errorMessage = string.Empty;
+            successMessage = string.Empty;
 
             if (mode == FormMode.Add)
             {
                 await PacienteApiClient.AddAsync(currentPaciente);
+                successMessage = "Paciente agregado exitosamente";
             }
             else
             {
                 await PacienteApiClient.UpdateAsync(currentPaciente);
+                successMessage = "Paciente actualizado exitosamente";
             }
 
+            await LoadPacientes();
             await OnPacienteChanged.InvokeAsync();
+            ResetForm();
         }
         catch (Exception ex)
         {
@@ -291,5 +348,6 @@ else
     {
         validationErrors.Clear();
         errorMessage = string.Empty;
+        successMessage = string.Empty;
     }
 }

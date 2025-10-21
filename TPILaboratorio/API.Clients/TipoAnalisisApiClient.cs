@@ -4,26 +4,18 @@ using System.Net.Http.Json;
 
 namespace API.Clients
 {
-    public class TipoAnalisisApiClient
+    public class TipoAnalisisApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static TipoAnalisisApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5068/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<TipoAnalisisDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("tiposAnalisis/" + id);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<TipoAnalisisDTO>();
+                    return await response.Content.ReadFromJsonAsync<TipoAnalisisDTO>();
                 }
                 else
                 {
@@ -45,17 +37,8 @@ namespace API.Clients
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("tiposAnalisis");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<IEnumerable<TipoAnalisisDTO>>();
-                }
-                else
-                {
-                    string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener lista de tipos de análisis. Status: {response.StatusCode}, Detalle: {errorContent}");
-                }
+                using var client = await CreateHttpClientAsync();
+                return await client.GetFromJsonAsync<IEnumerable<TipoAnalisisDTO>>("tiposAnalisis");
             }
             catch (HttpRequestException ex)
             {
@@ -67,10 +50,11 @@ namespace API.Clients
             }
         }
 
-        public async static Task AddAsync(TipoAnalisisDTO ta)
+        public static async Task AddAsync(TipoAnalisisDTO ta)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("tiposAnalisis", ta);
 
                 if (!response.IsSuccessStatusCode)
@@ -93,6 +77,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("tiposAnalisis/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -115,6 +100,7 @@ namespace API.Clients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("tiposAnalisis", ta);
 
                 if (!response.IsSuccessStatusCode)

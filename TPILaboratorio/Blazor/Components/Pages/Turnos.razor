@@ -4,14 +4,13 @@
 @using API.Clients
 @using Blazor.Components
 @inject IJSRuntime JSRuntime
-@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Turnos</PageTitle>
 
 <h1>Turnos</h1>
 
 <p>Listado de Turnos.</p>
-
 
 @if (turnos == null)
 {
@@ -30,6 +29,7 @@ else
                 <th>Paciente</th>
                 <th>Tipo de Analisis</th>
                 <th>Centro de Atencion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -37,44 +37,44 @@ else
             {
                 @foreach (var p in turnos)
                 {
-                <tr>
-                    <td>@p.Id</td>
-                    <td>@p.Estado</td>
-                    <td>@p.Receta</td>
-                    <td>@p.Observaciones</td>
-                    <td>@p.FechaHoraReserva</td>
-                    <td>@p.IdPaciente</td>
-                    <td>@p.IdTipoAnalisis</td>
-                    <td>@p.IdCentroAtencion</td>
-                </tr>
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.Estado</td>
+                        <td>@p.Receta</td>
+                        <td>@p.Observaciones</td>
+                        <td>@p.FechaHoraReserva</td>
+                        <td>@p.IdPaciente</td>
+                        <td>@p.IdTipoAnalisis</td>
+                        <td>@p.IdCentroAtencion</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
-    }
         </tbody>
     </table>
 }
 
-<div class="modal-body">
-    <EditForm Model="currentTurno" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator />
+<hr />
 
-        @if (mode == FormMode.Update)
-        {
-            <div class="mb-3">
-                <label class="form-label">Id</label>
-                <input type="text" class="form-control" value="@currentTurno.Id" readonly />
-            </div>
-        }
+<h3>@(mode == FormMode.Add ? "Nuevo Turno" : "Editar Turno")</h3>
 
+<EditForm Model="currentTurno" OnValidSubmit="HandleValidSubmit" FormName="TurnoForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
         <div class="mb-3">
-            <label class="form-label">Recibe Mail *</label>
-            <InputCheckbox @bind-Value="currentTurno.RecibeMail" class="form-control" />
-            @if (validationErrors.ContainsKey("RecibeMail"))
-            {
-                <div class="text-danger small">@validationErrors["RecibeMail"]</div>
-            }
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentTurno.Id" readonly />
         </div>
+    }
 
-        <div class="mb-3">
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Estado *</label>
             <InputText @bind-Value="currentTurno.Estado" class="form-control" />
             @if (validationErrors.ContainsKey("Estado"))
@@ -83,7 +83,7 @@ else
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Receta *</label>
             <InputText @bind-Value="currentTurno.Receta" class="form-control" />
             @if (validationErrors.ContainsKey("Receta"))
@@ -91,18 +91,20 @@ else
                 <div class="text-danger small">@validationErrors["Receta"]</div>
             }
         </div>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Observaciones *</label>
-            <InputText @bind-Value="currentTurno.Observaciones" class="form-control" />
-            @if (validationErrors.ContainsKey("Observaciones"))
-            {
-                <div class="text-danger small">@validationErrors["Observaciones"]</div>
-            }
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Observaciones *</label>
+        <InputTextArea @bind-Value="currentTurno.Observaciones" class="form-control" rows="3" />
+        @if (validationErrors.ContainsKey("Observaciones"))
+        {
+            <div class="text-danger small">@validationErrors["Observaciones"]</div>
+        }
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Fecha Hora Reserva*</label>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Fecha Hora Reserva *</label>
             <InputDate @bind-Value="currentTurno.FechaHoraReserva" class="form-control" />
             @if (validationErrors.ContainsKey("FechaHoraReserva"))
             {
@@ -110,16 +112,27 @@ else
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
+            <div class="form-check mt-4">
+                <InputCheckbox @bind-Value="currentTurno.RecibeMail" class="form-check-input" id="recibeMail" />
+                <label class="form-check-label" for="recibeMail">
+                    Recibe Mail
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
             <label class="form-label">Paciente ID *</label>
-            <InputNumber @bind-Value="currentTurno.IdPaciente" class="form-control"/>
+            <InputNumber @bind-Value="currentTurno.IdPaciente" class="form-control" />
             @if (validationErrors.ContainsKey("IdPaciente"))
             {
                 <div class="text-danger small">@validationErrors["IdPaciente"]</div>
             }
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-4 mb-3">
             <label class="form-label">Tipo Analisis ID *</label>
             <InputNumber @bind-Value="currentTurno.IdTipoAnalisis" class="form-control" />
             @if (validationErrors.ContainsKey("IdTipoAnalisis"))
@@ -128,52 +141,70 @@ else
             }
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Centro de Atencion ID*</label>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Centro de Atencion ID *</label>
             <InputNumber @bind-Value="currentTurno.IdCentroAtencion" class="form-control" />
             @if (validationErrors.ContainsKey("IdCentroAtencion"))
             {
                 <div class="text-danger small">@validationErrors["IdCentroAtencion"]</div>
             }
         </div>
+    </div>
 
-        @if (!string.IsNullOrEmpty(errorMessage))
-        {
-            <div class="alert alert-danger">
-                @errorMessage
-            </div>
-        }
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" disabled="@saving">
-                @if (saving)
-                {
-                    <span class="spinner-border spinner-border-sm me-2"></span>
-                }
-                @(mode == FormMode.Add ? "Agregar" : "Actualizar")
-            </button>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
         </div>
-    </EditForm>
-</div>
-<button type="submit" class="btn btn-primary" disabled="@saving">
-    Generar Reporte de Ganancias
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
+
+        @if (mode == FormMode.Update)
+        {
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
+            </button>
+        }
+    </div>
+</EditForm>
+
+<hr />
+
+<button type="button" class="btn btn-success" @onclick="GenerarReporte">
+    <i class="bi bi-file-earmark-pdf"></i> Generar Reporte de Ganancias
 </button>
 
 @code {
     private List<TurnoDTO> turnos;
-    private bool showModal = false;
     [Parameter] public EventCallback OnTurnoChanged { get; set; }
     private FormMode mode = FormMode.Add;
     private TurnoDTO currentTurno = new TurnoDTO();
     private bool saving = false;
     private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
     private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
-    //private List<Clase>? clases -> para un select
+
     public enum FormMode
     {
         Add,
         Update
     }
+
     protected override async Task OnInitializedAsync()
     {
         await LoadTurnos();
@@ -185,6 +216,31 @@ else
         StateHasChanged();
     }
 
+    private void LoadForEdit(TurnoDTO turno)
+    {
+        mode = FormMode.Update;
+        currentTurno = new TurnoDTO
+        {
+            Id = turno.Id,
+            RecibeMail = turno.RecibeMail,
+            Estado = turno.Estado,
+            Receta = turno.Receta,
+            Observaciones = turno.Observaciones,
+            FechaHoraReserva = turno.FechaHoraReserva,
+            IdPaciente = turno.IdPaciente,
+            IdTipoAnalisis = turno.IdTipoAnalisis,
+            IdCentroAtencion = turno.IdCentroAtencion
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentTurno = new TurnoDTO();
+        ClearValidationErrors();
+    }
+
     private async Task HandleValidSubmit()
     {
         if (!ValidateTurno())
@@ -194,17 +250,22 @@ else
         {
             saving = true;
             errorMessage = string.Empty;
+            successMessage = string.Empty;
 
             if (mode == FormMode.Add)
             {
                 await TurnoApiClient.AddAsync(currentTurno);
+                successMessage = "Turno agregado exitosamente";
             }
             else
             {
                 await TurnoApiClient.UpdateAsync(currentTurno);
+                successMessage = "Turno actualizado exitosamente";
             }
 
+            await LoadTurnos();
             await OnTurnoChanged.InvokeAsync();
+            ResetForm();
         }
         catch (Exception ex)
         {
@@ -228,12 +289,12 @@ else
         }
         if (string.IsNullOrWhiteSpace(currentTurno.Receta))
         {
-            validationErrors["Receta"] = "El Receta es requerido";
+            validationErrors["Receta"] = "La Receta es requerida";
             isValid = false;
         }
         if (string.IsNullOrWhiteSpace(currentTurno.Observaciones))
         {
-            validationErrors["Observaciones"] = "El Observaciones es requerido";
+            validationErrors["Observaciones"] = "Las Observaciones son requeridas";
             isValid = false;
         }
         if (currentTurno.FechaHoraReserva == default)
@@ -241,34 +302,35 @@ else
             validationErrors["FechaHoraReserva"] = "La Fecha de Reserva es requerida";
             isValid = false;
         }
-        if (string.IsNullOrWhiteSpace(currentTurno.Observaciones.ToString()))
+        if (currentTurno.IdPaciente == null || currentTurno.IdPaciente == 0)
         {
-            validationErrors["RecibeMail"] = "El RecibeMail es requerido";
+            validationErrors["IdPaciente"] = "El ID de Paciente es requerido";
             isValid = false;
         }
-        if (null==(currentTurno.IdPaciente))
+        if (currentTurno.IdTipoAnalisis == null || currentTurno.IdTipoAnalisis == 0)
         {
-            validationErrors["IdPaciente"] = "La IdPaciente es requerida";
+            validationErrors["IdTipoAnalisis"] = "El ID de Tipo de Análisis es requerido";
             isValid = false;
         }
-        if (null==(currentTurno.IdTipoAnalisis))
+        if (currentTurno.IdCentroAtencion == null || currentTurno.IdCentroAtencion == 0)
         {
-            validationErrors["IdTipoAnalisis"] = "El IdTipoAnalisis es requerido";
-            isValid = false;
-        }
-        if ((currentTurno.IdCentroAtencion)==null)
-        {
-            validationErrors["IdCentroAtencion"] = "El IdCentroAtencion es requerido";
+            validationErrors["IdCentroAtencion"] = "El ID de Centro de Atención es requerido";
             isValid = false;
         }
         StateHasChanged();
         return isValid;
     }
 
+    private void GenerarReporte()
+    {
+        // Implementar lógica para generar reporte
+        successMessage = "Funcionalidad de reporte en desarrollo";
+    }
+
     private void ClearValidationErrors()
     {
         validationErrors.Clear();
         errorMessage = string.Empty;
+        successMessage = string.Empty;
     }
-
 }

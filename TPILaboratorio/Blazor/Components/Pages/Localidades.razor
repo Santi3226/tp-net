@@ -1,0 +1,227 @@
+﻿@page "/localidades"
+@using DTOs
+@using System.Text.RegularExpressions
+@using API.Clients
+@using Blazor.Components
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Localidades</PageTitle>
+
+<h1>Localidades</h1>
+
+<p>Listado de localidades</p>
+
+@if (localidades == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Codigo Postal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (localidades != null && localidades.Any())
+            {
+                @foreach (var p in localidades)
+                {
+                    <tr>
+                        <td>@p.Nombre</td>
+                        <td>@p.CodigoPostal</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(mode == FormMode.Add ? "Nueva Localidad" : "Editar Localidad")</h3>
+
+<EditForm Model="currentLocalidad" OnValidSubmit="HandleValidSubmit" FormName="LocalidadForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentLocalidad.Id" readonly />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Nombre *</label>
+        <InputText @bind-Value="currentLocalidad.Nombre" class="form-control" />
+        @if (validationErrors.ContainsKey("Nombre"))
+        {
+            <div class="text-danger small">@validationErrors["Nombre"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Codigo Postal *</label>
+        <InputText @bind-Value="currentLocalidad.CodigoPostal" class="form-control" />
+        @if (validationErrors.ContainsKey("CodigoPostal"))
+        {
+            <div class="text-danger small">@validationErrors["CodigoPostal"]</div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
+
+        @if (mode == FormMode.Update)
+        {
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
+            </button>
+        }
+    </div>
+</EditForm>
+
+@code {
+    private List<LocalidadDTO> localidades;
+
+    [Parameter] public EventCallback OnLocalidadChanged { get; set; }
+    private FormMode mode = FormMode.Add;
+    private LocalidadDTO currentLocalidad = new LocalidadDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLocalidades();
+    }
+
+    private async Task LoadLocalidades()
+    {
+        localidades = (await LocalidadApiClient.GetAllAsync())?.ToList();
+        StateHasChanged();
+    }
+
+    private void LoadForEdit(LocalidadDTO localidad)
+    {
+        mode = FormMode.Update;
+        currentLocalidad = new LocalidadDTO
+        {
+            Id = localidad.Id,
+            Nombre = localidad.Nombre,
+            CodigoPostal = localidad.CodigoPostal
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentLocalidad = new LocalidadDTO();
+        ClearValidationErrors();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateLocalidad())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                LocalidadDTO localidad = new LocalidadDTO
+                {
+                    Nombre = currentLocalidad.Nombre,
+                    CodigoPostal = currentLocalidad.CodigoPostal,
+                };
+                await LocalidadApiClient.AddAsync(localidad);
+                successMessage = "Localidad agregada exitosamente";
+            }
+            else
+            {
+                await LocalidadApiClient.UpdateAsync(currentLocalidad);
+                successMessage = "Localidad actualizada exitosamente";
+            }
+
+            await LoadLocalidades();
+            await OnLocalidadChanged.InvokeAsync();
+            ResetForm();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool ValidateLocalidad()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentLocalidad.Nombre))
+        {
+            validationErrors["Nombre"] = "El Nombre es requerido";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentLocalidad.CodigoPostal))
+        {
+            validationErrors["CodigoPostal"] = "El Código Postal es requerido";
+            isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+}
