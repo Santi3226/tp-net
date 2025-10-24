@@ -65,6 +65,8 @@ namespace WinForms
                 }).ToList();
 
                 proximosTurnosPacienteDGV.DataSource = turnosVista;
+                this.Controls.Remove(btnGanancias);
+                this.Controls.Remove(btnRecepcion);
             }
             else if (paciente.Tipo == "Administrador")
             {
@@ -270,7 +272,7 @@ namespace WinForms
                 t.Receta,
                 t.Observaciones,
                 t.FechaHoraExtraccion,
-                t.FechaHoraReserva, 
+                t.FechaHoraReserva,
                 t.TipoAnalisisId,
                 t.CentroAtencionId,
                 t.PacienteId
@@ -688,6 +690,75 @@ namespace WinForms
             else
             {
                 MessageBox.Show("Debe seleccionar una plantilla para poder eliminarla.");
+            }
+        }
+
+        private void btnRecepcion_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "PDF files (*.pdf)|*.pdf";
+                sfd.FileName = "reporte_ganancias.pdf";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ReporteRecepcion.Generar(sfd.FileName);
+                        MessageBox.Show($"Reporte generado en:\n{sfd.FileName}", "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Abrir el PDF automáticamente
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = sfd.FileName,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch
+                        {
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void btnGanancias_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "PDF files (*.pdf)|*.pdf";
+                sfd.FileName = "reporte_ganancias.pdf";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ReporteGanancias.Generar(sfd.FileName);
+                        MessageBox.Show($"Reporte generado en:\n{sfd.FileName}", "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Intentar abrir automáticamente
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = sfd.FileName,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch
+                        {
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

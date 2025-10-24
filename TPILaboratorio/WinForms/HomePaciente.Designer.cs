@@ -33,6 +33,8 @@
             labelMisProximosTurnos = new Label();
             pacienteMenuStrip = new MenuStrip();
             proximosTurnosAdministradorDGV = new DataGridView();
+            btnRecepcion = new Button();
+            btnGanancias = new Button();
             ((System.ComponentModel.ISupportInitialize)proximosTurnosPacienteDGV).BeginInit();
             ((System.ComponentModel.ISupportInitialize)proximosTurnosAdministradorDGV).BeginInit();
             SuspendLayout();
@@ -101,12 +103,34 @@
             proximosTurnosAdministradorDGV.Visible = false;
             proximosTurnosAdministradorDGV.CellContentClick += proximosTurnosAdministradorDGV_CellContentClick;
             // 
+            // btnRecepcion
+            // 
+            btnRecepcion.Location = new Point(553, 582);
+            btnRecepcion.Name = "btnRecepcion";
+            btnRecepcion.Size = new Size(156, 29);
+            btnRecepcion.TabIndex = 9;
+            btnRecepcion.Text = "Reporte Recepción";
+            btnRecepcion.UseVisualStyleBackColor = true;
+            btnRecepcion.Click += btnRecepcion_Click;
+            // 
+            // btnGanancias
+            // 
+            btnGanancias.Location = new Point(369, 582);
+            btnGanancias.Name = "btnGanancias";
+            btnGanancias.Size = new Size(158, 29);
+            btnGanancias.TabIndex = 10;
+            btnGanancias.Text = "Reporte Ganancias";
+            btnGanancias.UseVisualStyleBackColor = true;
+            btnGanancias.Click += btnGanancias_Click;
+            // 
             // HomePaciente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(915, 637);
+            Controls.Add(btnGanancias);
+            Controls.Add(btnRecepcion);
             Controls.Add(proximosTurnosAdministradorDGV);
             Controls.Add(cerrarSesionBtn);
             Controls.Add(proximosTurnosPacienteDGV);
@@ -131,5 +155,7 @@
         private Label labelMisProximosTurnos;
         private MenuStrip pacienteMenuStrip;
         private DataGridView proximosTurnosAdministradorDGV;
+        private Button btnRecepcion;
+        private Button btnGanancias;
     }
 }
