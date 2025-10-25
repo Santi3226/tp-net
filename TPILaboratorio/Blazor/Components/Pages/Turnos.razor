@@ -3,6 +3,7 @@
 @using System.Text.RegularExpressions
 @using API.Clients
 @using Blazor.Components
+@using System.Data
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
@@ -49,6 +50,9 @@ else
                         <td>
                             <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
                                 Editar
+                            </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
                             </button>
                         </td>
                     </tr>
@@ -185,10 +189,6 @@ else
 
 <hr />
 
-<button type="button" class="btn btn-success" @onclick="GenerarReporte">
-    <i class="bi bi-file-earmark-pdf"></i> Generar Reporte de Ganancias
-</button>
-
 @code {
     private List<TurnoDTO> turnos;
     [Parameter] public EventCallback OnTurnoChanged { get; set; }
@@ -234,6 +234,13 @@ else
         ClearValidationErrors();
     }
 
+    private async Task LoadDelete(TurnoDTO turno)
+    {
+        await TurnoApiClient.DeleteAsync(turno.Id);
+        await LoadTurnos();
+        await OnTurnoChanged.InvokeAsync();
+    }
+
     private void ResetForm()
     {
         mode = FormMode.Add;
@@ -254,6 +261,7 @@ else
 
             if (mode == FormMode.Add)
             {
+                currentTurno.Estado = "Pendiente";
                 await TurnoApiClient.AddAsync(currentTurno);
                 successMessage = "Turno agregado exitosamente";
             }
@@ -282,11 +290,6 @@ else
         ClearValidationErrors();
         bool isValid = true;
 
-        if (string.IsNullOrWhiteSpace(currentTurno.Estado))
-        {
-            validationErrors["Estado"] = "El Estado es requerido";
-            isValid = false;
-        }
         if (string.IsNullOrWhiteSpace(currentTurno.Receta))
         {
             validationErrors["Receta"] = "La Receta es requerida";
@@ -319,12 +322,6 @@ else
         }
         StateHasChanged();
         return isValid;
-    }
-
-    private void GenerarReporte()
-    {
-        // Implementar lógica para generar reporte
-        successMessage = "Funcionalidad de reporte en desarrollo";
     }
 
     private void ClearValidationErrors()

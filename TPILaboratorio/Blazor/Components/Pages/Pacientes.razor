@@ -46,6 +46,9 @@ else
                             <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
                                 Editar
                             </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                 }
@@ -335,6 +338,12 @@ else
         }
         StateHasChanged();
         return isValid;
+    }
+    private async Task LoadDelete(PacienteDTO paciente)
+    {
+        await PacienteApiClient.DeleteAsync(paciente.Id);
+        await LoadPacientes();
+        await OnPacienteChanged.InvokeAsync();
     }
 
     private bool IsValidEmail(string email)

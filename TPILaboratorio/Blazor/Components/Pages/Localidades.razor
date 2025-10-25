@@ -38,6 +38,9 @@ else
                             <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
                                 Editar
                             </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                 }
@@ -197,6 +200,13 @@ else
         {
             saving = false;
         }
+    }
+
+    private async Task LoadDelete(LocalidadDTO localidad)
+    {
+        await LocalidadApiClient.DeleteAsync(localidad.Id);
+        await LoadLocalidades();
+        await OnLocalidadChanged.InvokeAsync();
     }
 
     private bool ValidateLocalidad()
