@@ -55,7 +55,7 @@ namespace API.Clients
             try
             {
                 using var client = await CreateHttpClientAsync();
-                HttpResponseMessage response = await client.PostAsJsonAsync("centroAtencion", centroAtencion);
+                HttpResponseMessage response = await client.PostAsJsonAsync("centrosAtencion", centroAtencion);
 
                 if (!response.IsSuccessStatusCode)
                 {

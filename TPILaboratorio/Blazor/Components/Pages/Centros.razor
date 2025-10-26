@@ -1,0 +1,277 @@
+﻿@page "/centros"
+@using DTOs
+@using System.Text.RegularExpressions
+@using API.Clients
+@using Blazor.Components
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Centros de atención</PageTitle>
+
+<h1>Centros de atención</h1>
+
+<p>Listado de centros de atención</p>
+
+@if (centros == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Domicilio</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (centros != null && centros.Any())
+            {
+                @foreach (var p in centros)
+                {
+                    <tr>
+                        <td>@p.Nombre</td>
+                        <td>@p.Domicilio</td>
+                        <td>@(localidades?.FirstOrDefault(l => l.Id == p.IdLocalidad)?.Nombre ?? "—")</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(mode == FormMode.Add ? "Nuevo Centro" : "Editar Centro")</h3>
+
+<EditForm Model="currentCentro" OnValidSubmit="HandleValidSubmit" FormName="CentroForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentCentro.Id" readonly />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Nombre *</label>
+        <InputText @bind-Value="currentCentro.Nombre" class="form-control" />
+        @if (validationErrors.ContainsKey("Nombre"))
+        {
+            <div class="text-danger small">@validationErrors["Nombre"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Domicilio *</label>
+        <InputText @bind-Value="currentCentro.Domicilio" class="form-control" />
+        @if (validationErrors.ContainsKey("Domicilio"))
+        {
+            <div class="text-danger small">@validationErrors["Domicilio"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Localidad *</label>
+        <InputSelect @bind-Value="currentCentro.IdLocalidad" class="form-select">
+            <option value="">Seleccione una localidad...</option>
+            @if (localidades != null && localidades.Any())
+            {
+                @foreach (var loc in localidades)
+                {
+                    <option value="@loc.Id">@loc.Nombre</option>
+                }
+            }
+            else
+            {
+                <option disabled>Cargando localidades...</option>
+            }
+        </InputSelect>
+        @if (validationErrors.ContainsKey("IdLocalidad"))
+        {
+            <div class="text-danger small">@validationErrors["IdLocalidad"]</div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
+
+        @if (mode == FormMode.Update)
+        {
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
+            </button>
+        }
+    </div>
+</EditForm>
+
+@code {
+    private List<CentroAtencionDTO> centros;
+    private List<LocalidadDTO> localidades = new();
+    [Parameter] public EventCallback OnCentroChanged { get; set; }
+    private FormMode mode = FormMode.Add;
+    private CentroAtencionDTO currentCentro = new CentroAtencionDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCentros();
+        await LoadLocalidades();    
+    }
+
+    private async Task LoadCentros()
+    {
+        centros = (await CentroAtencionApiClient.GetAllAsync())?.ToList() ?? new List<CentroAtencionDTO>();
+        StateHasChanged();
+    }
+
+    private async Task LoadLocalidades()
+    {
+        localidades = (await LocalidadApiClient.GetAllAsync())?.ToList() ?? new List<LocalidadDTO>();
+    }
+
+    private void LoadForEdit(CentroAtencionDTO centro)
+    {
+        mode = FormMode.Update;
+        currentCentro = new CentroAtencionDTO
+        {
+            Id = centro.Id,
+            Nombre = centro.Nombre,
+            Domicilio = centro.Domicilio,
+			IdLocalidad = centro.IdLocalidad
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentCentro = new CentroAtencionDTO();
+        ClearValidationErrors();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateCentro())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                CentroAtencionDTO centro = new CentroAtencionDTO
+                {
+                    Nombre = currentCentro.Nombre,
+                    Domicilio = currentCentro.Domicilio,
+					IdLocalidad = currentCentro.IdLocalidad
+                };
+                await CentroAtencionApiClient.AddAsync(centro);
+                successMessage = "Centro agregado exitosamente";
+            }
+            else
+            {
+                await CentroAtencionApiClient.UpdateAsync(currentCentro);
+                successMessage = "Centro actualizado exitosamente";
+            }
+
+            await LoadCentros();
+            await OnCentroChanged.InvokeAsync();
+            ResetForm();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private async Task LoadDelete(CentroAtencionDTO centro)
+    {
+        if (centro.Id.HasValue)
+        {
+            await CentroAtencionApiClient.DeleteAsync(centro.Id.Value);
+            await LoadCentros();
+            await OnCentroChanged.InvokeAsync();
+        }
+    }
+
+    private bool ValidateCentro()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentCentro.Nombre))
+        {
+            validationErrors["Nombre"] = "El Nombre es requerido";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentCentro.Domicilio))
+        {
+            validationErrors["Domicilio"] = "El Domicilio es requerido";
+            isValid = false;
+        }
+        if (currentCentro.IdLocalidad <= 0)
+        {
+            validationErrors["IdLocalidad"] = "Debe seleccionar una localidad";
+            isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+}

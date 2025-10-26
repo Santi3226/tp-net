@@ -1,0 +1,274 @@
+﻿@page "/tipos"
+@using DTOs
+@using System.Text.RegularExpressions
+@using API.Clients
+@using Blazor.Components
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Tipos de análisis</PageTitle>
+
+<h1>Tipos de análisis</h1>
+
+<p>Listado de tipos de análisis</p>
+
+@if (tipos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Importe</th>
+                <th>Plantilla</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (tipos != null && tipos.Any())
+            {
+                @foreach (var p in tipos)
+                {
+                    <tr>
+                        <td>@p.Nombre</td>
+                        <td>@p.Importe</td>
+                        <td>@(plantillas?.FirstOrDefault(pl => pl.Id == p.IdPlantillaAnalisis)?.Preparacion ?? "—")</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(mode == FormMode.Add ? "Nuevo Tipo" : "Editar Tipo")</h3>
+
+<EditForm Model="currentTipo" OnValidSubmit="HandleValidSubmit" FormName="TipoForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentTipo.Id" readonly />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Nombre *</label>
+        <InputText @bind-Value="currentTipo.Nombre" class="form-control" />
+        @if (validationErrors.ContainsKey("Nombre"))
+        {
+            <div class="text-danger small">@validationErrors["Nombre"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Importe *</label>
+        <InputNumber @bind-Value="currentTipo.Importe" class="form-control" />
+        @if (validationErrors.ContainsKey("Importe"))
+        {
+            <div class="text-danger small">@validationErrors["Importe"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Plantilla *</label>
+        <InputSelect @bind-Value="currentTipo.IdPlantillaAnalisis" class="form-select">
+            <option value="">Seleccione una plantilla...</option>
+            @if (plantillas != null && plantillas.Any())
+            {
+                @foreach (var pla in plantillas)
+                {
+                    <option value="@pla.Id">@pla.Preparacion</option>
+                }
+            }
+            else
+            {
+                <option disabled>Cargando plantillas...</option>
+            }
+        </InputSelect>
+        @if (validationErrors.ContainsKey("IdPlantillaAnalisis"))
+        {
+            <div class="text-danger small">@validationErrors["IdPlantillaAnalisis"]</div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
+
+        @if (mode == FormMode.Update)
+        {
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
+            </button>
+        }
+    </div>
+</EditForm>
+
+@code {
+    private List<TipoAnalisisDTO> tipos;
+    private List<PlantillaAnalisisDTO> plantillas = new();
+    [Parameter] public EventCallback OnTipoChanged { get; set; }
+    private FormMode mode = FormMode.Add;
+    private TipoAnalisisDTO currentTipo = new TipoAnalisisDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadTipos();
+        await LoadPlantillas();
+    }
+
+    private async Task LoadTipos()
+    {
+        tipos = (await TipoAnalisisApiClient.GetAllAsync())?.ToList() ?? new List<TipoAnalisisDTO>();
+        StateHasChanged();
+    }
+
+    private async Task LoadPlantillas()
+    {
+        plantillas = (await PlantillaAnalisisApiClient.GetAllAsync())?.ToList() ?? new List<PlantillaAnalisisDTO>();
+    }
+
+    private void LoadForEdit(TipoAnalisisDTO tipo)
+    {
+        mode = FormMode.Update;
+        currentTipo = new TipoAnalisisDTO
+        {
+            Id = tipo.Id,
+            Nombre = tipo.Nombre,
+            Importe = tipo.Importe,
+            IdPlantillaAnalisis = tipo.IdPlantillaAnalisis
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentTipo = new TipoAnalisisDTO();
+        ClearValidationErrors();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateTipo())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                TipoAnalisisDTO tipo = new TipoAnalisisDTO
+                {
+                    Nombre = currentTipo.Nombre,
+                    Importe = currentTipo.Importe,
+                    IdPlantillaAnalisis = currentTipo.IdPlantillaAnalisis
+                };
+                await TipoAnalisisApiClient.AddAsync(tipo);
+                successMessage = "Tipo agregado exitosamente";
+            }
+            else
+            {
+                await TipoAnalisisApiClient.UpdateAsync(currentTipo);
+                successMessage = "Tipo actualizado exitosamente";
+            }
+
+            await LoadTipos();
+            await OnTipoChanged.InvokeAsync();
+            ResetForm();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private async Task LoadDelete(TipoAnalisisDTO tipo)
+    {
+        await TipoAnalisisApiClient.DeleteAsync(tipo.Id);
+        await LoadTipos();
+        await OnTipoChanged.InvokeAsync();
+    }
+
+    private bool ValidateTipo()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentTipo.Nombre))
+        {
+            validationErrors["Nombre"] = "El Nombre es requerido";
+            isValid = false;
+        }
+        if (currentTipo.Importe == 0)
+        {
+            validationErrors["Importe"] = "El Importe es requerido";
+            isValid = false;
+        }
+        if (currentTipo.IdPlantillaAnalisis<= 0)
+        {
+            validationErrors["IdPlantillaAnalisis"] = "Debe seleccionar una plantilla";
+            isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+}

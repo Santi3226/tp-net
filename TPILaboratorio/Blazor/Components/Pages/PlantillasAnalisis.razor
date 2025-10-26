@@ -1,0 +1,254 @@
+﻿@page "/plantillas"
+@using DTOs
+@using System.Text.RegularExpressions
+@using API.Clients
+@using Blazor.Components
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Plantillas de análisis</PageTitle>
+
+<h1>Plantillas de análisis</h1>
+
+<p>Listado de plantillas</p>
+
+@if (plantillas == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Horas de ayuno</th>
+                <th>Preparación</th>
+                <th>Días previstos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (plantillas != null && plantillas.Any())
+            {
+                @foreach (var p in plantillas)
+                {
+                    <tr>
+                        <td>@p.HsAyuno</td>
+                        <td>@p.Preparacion</td>
+                        <td>@p.DiasPrevistos</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(mode == FormMode.Add ? "Nueva Plantilla" : "Editar Plantilla")</h3>
+
+<EditForm Model="currentPlantilla" OnValidSubmit="HandleValidSubmit" FormName="PlantillaForm">
+    <DataAnnotationsValidator />
+
+    @if (mode == FormMode.Update)
+    {
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" value="@currentPlantilla.Id" readonly />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Horas de ayuno *</label>
+        <InputText @bind-Value="currentPlantilla.HsAyuno" class="form-control" />
+        @if (validationErrors.ContainsKey("HsAyuno"))
+        {
+            <div class="text-danger small">@validationErrors["HsAyuno"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Preparación *</label>
+        <InputText @bind-Value="currentPlantilla.Preparacion" class="form-control" />
+        @if (validationErrors.ContainsKey("Preparacion"))
+        {
+            <div class="text-danger small">@validationErrors["Preparacion"]</div>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Días previstos *</label>
+        <InputNumber @bind-Value="currentPlantilla.DiasPrevistos" class="form-control" />
+        @if (validationErrors.ContainsKey("DiasPrevistos"))
+        {
+            <div class="text-danger small">@validationErrors["DiasPrevistos"]</div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@saving">
+            @if (saving)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+        </button>
+
+        @if (mode == FormMode.Update)
+        {
+            <button type="button" class="btn btn-secondary" @onclick="ResetForm">
+                Cancelar
+            </button>
+        }
+    </div>
+</EditForm>
+
+@code {
+    private List<PlantillaAnalisisDTO> plantillas;
+    [Parameter] public EventCallback OnPlantillaChanged { get; set; }
+    private FormMode mode = FormMode.Add;
+    private PlantillaAnalisisDTO currentPlantilla = new PlantillaAnalisisDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPlantillas();
+    }
+
+    private async Task LoadPlantillas()
+    {
+        plantillas = (await PlantillaAnalisisApiClient.GetAllAsync())?.ToList();
+        StateHasChanged();
+    }
+
+    private void LoadForEdit(PlantillaAnalisisDTO plantilla)
+    {
+        mode = FormMode.Update;
+        currentPlantilla = new PlantillaAnalisisDTO
+        {
+            Id = plantilla.Id,
+            HsAyuno = plantilla.HsAyuno,
+			Preparacion = plantilla.Preparacion,
+			DiasPrevistos = plantilla.DiasPrevistos
+        };
+        ClearValidationErrors();
+    }
+
+    private void ResetForm()
+    {
+        mode = FormMode.Add;
+        currentPlantilla = new PlantillaAnalisisDTO();
+        ClearValidationErrors();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidatePlantilla())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                PlantillaAnalisisDTO plantilla = new PlantillaAnalisisDTO
+                {
+                    HsAyuno = currentPlantilla.HsAyuno,
+                    Preparacion = currentPlantilla.Preparacion,
+					DiasPrevistos = currentPlantilla.DiasPrevistos
+                };
+                await PlantillaAnalisisApiClient.AddAsync(plantilla);
+                successMessage = "Plantilla agregada exitosamente";
+            }
+            else
+            {
+                await PlantillaAnalisisApiClient.UpdateAsync(currentPlantilla);
+                successMessage = "Plantilla actualizada exitosamente";
+            }
+
+            await LoadPlantillas();
+            await OnPlantillaChanged.InvokeAsync();
+            ResetForm();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private async Task LoadDelete(PlantillaAnalisisDTO plantilla)
+    {
+        await PlantillaAnalisisApiClient.DeleteAsync(plantilla.Id);
+        await LoadPlantillas();
+        await OnPlantillaChanged.InvokeAsync();
+    }
+
+    private bool ValidatePlantilla()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentPlantilla.HsAyuno))
+        {
+            validationErrors["HsAyuno"] = "Las horas de ayuno son requeridas";
+            isValid = false;
+        }
+        if (string.IsNullOrWhiteSpace(currentPlantilla.Preparacion))
+        {
+            validationErrors["Preparacion"] = "La preparacón es requerida";
+            isValid = false;
+        }
+        if (currentPlantilla.DiasPrevistos <= 0)
+        {
+			validationErrors["DiasPrevistos"] = "Los días previstos deben ser mayores a cero";
+			isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+}
