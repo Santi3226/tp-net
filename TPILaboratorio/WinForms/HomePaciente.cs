@@ -698,7 +698,7 @@ namespace WinForms
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = "PDF files (*.pdf)|*.pdf";
-                sfd.FileName = "reporte_ganancias.pdf";
+                sfd.FileName = "reporte_recepción.pdf";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
