@@ -41,24 +41,16 @@ namespace WinForms
 
         private async void modificarBtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(direccionTextBox.Text))
+            CentroAtencionDTO centroAModificar = new CentroAtencionDTO
             {
-                MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            else
-            {
-                CentroAtencionDTO centroAModificar = new CentroAtencionDTO
-                {
-                    Id = centro.Id,
-                    Nombre = nombreTextBox.Text == string.Empty ? centro.Nombre : nombreTextBox.Text,
-                    Domicilio = direccionTextBox.Text == string.Empty ? centro.Domicilio : direccionTextBox.Text,
-                    IdLocalidad = (int)this.localidadCombo.SelectedValue
-                };
-                await CentroAtencionApiClient.UpdateAsync(centroAModificar);
-                MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
-            }
+                Id = centro.Id,
+                Nombre = nombreTextBox.Text == string.Empty ? centro.Nombre : nombreTextBox.Text,
+                Domicilio = direccionTextBox.Text == string.Empty ? centro.Domicilio : direccionTextBox.Text,
+                IdLocalidad = (int)this.localidadCombo.SelectedValue
+            };
+            await CentroAtencionApiClient.UpdateAsync(centroAModificar);
+            MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }

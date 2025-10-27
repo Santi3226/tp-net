@@ -47,24 +47,15 @@ namespace WinForms
 
         private async void modificarBtn_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(importeTextBox.Text))
+            TipoAnalisisDTO tipoAnalisisDTO = new TipoAnalisisDTO
             {
-                MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            else
-            {
-                TipoAnalisisDTO tipoAnalisisDTO = new TipoAnalisisDTO
-                {
-                    Id = tipoAnalisis.Id,
-                    Nombre = nombreTextBox.Text == string.Empty ? tipoAnalisis.Nombre : nombreTextBox.Text,
-                    Importe = importeTextBox.Text == string.Empty ? tipoAnalisis.Importe : float.Parse(importeTextBox.Text),
-                    IdPlantillaAnalisis = (int)this.plantillaCombo.SelectedValue
-                };
-                await TipoAnalisisApiClient.UpdateAsync(tipoAnalisisDTO);
-                MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                Id = tipoAnalisis.Id,
+                Nombre = nombreTextBox.Text == string.Empty ? tipoAnalisis.Nombre : nombreTextBox.Text,
+                Importe = importeTextBox.Text == string.Empty ? tipoAnalisis.Importe : float.Parse(importeTextBox.Text),
+                IdPlantillaAnalisis = (int)this.plantillaCombo.SelectedValue
+            };
+            await TipoAnalisisApiClient.UpdateAsync(tipoAnalisisDTO);
+            MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
     }
