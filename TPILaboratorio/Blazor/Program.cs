@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddFilter("Microsoft.AspNetCore.Razor", LogLevel.Debug);
+builder.Logging.AddFilter("Microsoft.AspNetCore.Components", LogLevel.Debug);
+
 builder.Services.AddScoped<PacienteApiClient>();
 
 builder.Services.AddCors(options =>

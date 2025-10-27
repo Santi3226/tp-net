@@ -35,7 +35,7 @@ else
                     <tr>
                         <td>@p.Nombre</td>
                         <td>@p.Importe</td>
-                        <td>@(plantillas?.FirstOrDefault(pl => pl.Id == p.IdPlantillaAnalisis)?.Preparacion ?? "—")</td>
+                        <td>@p.IdPlantillaAnalisis</td>
                         <td>
                             <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
                                 Editar
