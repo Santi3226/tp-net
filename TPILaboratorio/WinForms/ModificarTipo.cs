@@ -34,10 +34,15 @@ namespace WinForms
             this.Close();
         }
 
-        private void ModificarTipo_Load(object sender, EventArgs e)
+        private async void ModificarTipo_Load(object sender, EventArgs e)
         {
             nombreTextBox.PlaceholderText = tipoAnalisis.Nombre;
             importeTextBox.PlaceholderText = (tipoAnalisis.Importe).ToString();
+            IEnumerable<PlantillaAnalisisDTO> plantillas = await PlantillaAnalisisApiClient.GetAllAsync();
+            plantillaCombo.Items.Clear();
+            plantillaCombo.DataSource = plantillas.ToList();
+            plantillaCombo.DisplayMember = "Preparacion";
+            plantillaCombo.ValueMember = "Id";
         }
 
         private async void modificarBtn_Click(object sender, EventArgs e)
@@ -55,6 +60,7 @@ namespace WinForms
                     Id = tipoAnalisis.Id,
                     Nombre = nombreTextBox.Text == string.Empty ? tipoAnalisis.Nombre : nombreTextBox.Text,
                     Importe = importeTextBox.Text == string.Empty ? tipoAnalisis.Importe : float.Parse(importeTextBox.Text),
+                    IdPlantillaAnalisis = (int)this.plantillaCombo.SelectedValue
                 };
                 await TipoAnalisisApiClient.UpdateAsync(tipoAnalisisDTO);
                 MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);

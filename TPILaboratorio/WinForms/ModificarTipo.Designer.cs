@@ -35,6 +35,8 @@
             importeTextBox = new TextBox();
             nombreTextBox = new TextBox();
             modificarLabel = new Label();
+            plantillaCombo = new ComboBox();
+            plantillaLabel = new Label();
             SuspendLayout();
             // 
             // cancelarBtn
@@ -77,7 +79,7 @@
             // 
             importeLabel.AutoSize = true;
             importeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importeLabel.Location = new Point(246, 265);
+            importeLabel.Location = new Point(246, 228);
             importeLabel.Name = "importeLabel";
             importeLabel.Size = new Size(54, 17);
             importeLabel.TabIndex = 40;
@@ -97,7 +99,7 @@
             // 
             importeTextBox.BorderStyle = BorderStyle.FixedSingle;
             importeTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importeTextBox.Location = new Point(248, 285);
+            importeTextBox.Location = new Point(248, 248);
             importeTextBox.Name = "importeTextBox";
             importeTextBox.Size = new Size(281, 33);
             importeTextBox.TabIndex = 38;
@@ -123,12 +125,32 @@
             modificarLabel.Text = "Modificar tipo";
             modificarLabel.TextAlign = ContentAlignment.TopCenter;
             // 
+            // plantillaCombo
+            // 
+            plantillaCombo.FormattingEnabled = true;
+            plantillaCombo.Location = new Point(248, 329);
+            plantillaCombo.Name = "plantillaCombo";
+            plantillaCombo.Size = new Size(281, 23);
+            plantillaCombo.TabIndex = 44;
+            // 
+            // plantillaLabel
+            // 
+            plantillaLabel.AutoSize = true;
+            plantillaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            plantillaLabel.Location = new Point(244, 310);
+            plantillaLabel.Name = "plantillaLabel";
+            plantillaLabel.Size = new Size(52, 17);
+            plantillaLabel.TabIndex = 43;
+            plantillaLabel.Text = "Plantilla";
+            // 
             // ModificarTipo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(801, 478);
+            Controls.Add(plantillaCombo);
+            Controls.Add(plantillaLabel);
             Controls.Add(cancelarBtn);
             Controls.Add(modificarBtn);
             Controls.Add(importeLabel);
@@ -153,5 +175,7 @@
         private TextBox importeTextBox;
         private TextBox nombreTextBox;
         private Label modificarLabel;
+        private ComboBox plantillaCombo;
+        private Label plantillaLabel;
     }
 }

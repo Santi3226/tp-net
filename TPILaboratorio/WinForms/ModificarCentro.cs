@@ -23,10 +23,15 @@ namespace WinForms
             centro = centroAModificar;
         }
 
-        private void ModificarCentro_Load(object sender, EventArgs e)
+        private async void ModificarCentro_Load(object sender, EventArgs e)
         {
             nombreTextBox.PlaceholderText = centro.Nombre;
             direccionTextBox.PlaceholderText = centro.Domicilio;
+            IEnumerable<LocalidadDTO> localidades = await LocalidadApiClient.GetAllAsync();
+            localidadCombo.Items.Clear();
+            localidadCombo.DataSource = localidades.ToList();
+            localidadCombo.DisplayMember = "Nombre";
+            localidadCombo.ValueMember = "Id";
         }
 
         private void cancelarBtn_Click(object sender, EventArgs e)
@@ -48,6 +53,7 @@ namespace WinForms
                     Id = centro.Id,
                     Nombre = nombreTextBox.Text == string.Empty ? centro.Nombre : nombreTextBox.Text,
                     Domicilio = direccionTextBox.Text == string.Empty ? centro.Domicilio : direccionTextBox.Text,
+                    IdLocalidad = (int)this.localidadCombo.SelectedValue
                 };
                 await CentroAtencionApiClient.UpdateAsync(centroAModificar);
                 MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);

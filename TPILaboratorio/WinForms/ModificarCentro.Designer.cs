@@ -35,15 +35,17 @@
             nombreTextBox = new TextBox();
             cancelarBtn = new Button();
             modificarBtn = new Button();
+            localidadCombo = new ComboBox();
+            localidadLabel = new Label();
             SuspendLayout();
             // 
             // modificarLabel
             // 
             modificarLabel.AutoSize = true;
             modificarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            modificarLabel.Location = new Point(342, 39);
+            modificarLabel.Location = new Point(299, 29);
             modificarLabel.Name = "modificarLabel";
-            modificarLabel.Size = new Size(254, 41);
+            modificarLabel.Size = new Size(206, 32);
             modificarLabel.TabIndex = 26;
             modificarLabel.Text = "Modificar centro";
             modificarLabel.TextAlign = ContentAlignment.TopCenter;
@@ -52,9 +54,9 @@
             // 
             direccionLabel.AutoSize = true;
             direccionLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionLabel.Location = new Point(296, 339);
+            direccionLabel.Location = new Point(259, 209);
             direccionLabel.Name = "direccionLabel";
-            direccionLabel.Size = new Size(81, 23);
+            direccionLabel.Size = new Size(62, 17);
             direccionLabel.TabIndex = 33;
             direccionLabel.Text = "Dirección";
             // 
@@ -62,9 +64,9 @@
             // 
             nombreLabel.AutoSize = true;
             nombreLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreLabel.Location = new Point(296, 175);
+            nombreLabel.Location = new Point(259, 131);
             nombreLabel.Name = "nombreLabel";
-            nombreLabel.Size = new Size(73, 23);
+            nombreLabel.Size = new Size(57, 17);
             nombreLabel.TabIndex = 32;
             nombreLabel.Text = "Nombre";
             // 
@@ -72,20 +74,18 @@
             // 
             direccionTextBox.BorderStyle = BorderStyle.FixedSingle;
             direccionTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            direccionTextBox.Location = new Point(298, 365);
-            direccionTextBox.Margin = new Padding(3, 4, 3, 4);
+            direccionTextBox.Location = new Point(261, 229);
             direccionTextBox.Name = "direccionTextBox";
-            direccionTextBox.Size = new Size(321, 39);
+            direccionTextBox.Size = new Size(281, 33);
             direccionTextBox.TabIndex = 31;
             // 
             // nombreTextBox
             // 
             nombreTextBox.BorderStyle = BorderStyle.FixedSingle;
             nombreTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nombreTextBox.Location = new Point(298, 201);
-            nombreTextBox.Margin = new Padding(3, 4, 3, 4);
+            nombreTextBox.Location = new Point(261, 151);
             nombreTextBox.Name = "nombreTextBox";
-            nombreTextBox.Size = new Size(321, 39);
+            nombreTextBox.Size = new Size(281, 33);
             nombreTextBox.TabIndex = 30;
             // 
             // cancelarBtn
@@ -98,10 +98,9 @@
             cancelarBtn.FlatStyle = FlatStyle.Flat;
             cancelarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelarBtn.ForeColor = Color.Black;
-            cancelarBtn.Location = new Point(478, 528);
-            cancelarBtn.Margin = new Padding(3, 4, 3, 4);
+            cancelarBtn.Location = new Point(418, 396);
             cancelarBtn.Name = "cancelarBtn";
-            cancelarBtn.Size = new Size(195, 44);
+            cancelarBtn.Size = new Size(171, 33);
             cancelarBtn.TabIndex = 35;
             cancelarBtn.Text = "Cancelar";
             cancelarBtn.UseVisualStyleBackColor = false;
@@ -117,21 +116,40 @@
             modificarBtn.FlatStyle = FlatStyle.Flat;
             modificarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             modificarBtn.ForeColor = Color.White;
-            modificarBtn.Location = new Point(233, 528);
-            modificarBtn.Margin = new Padding(3, 4, 3, 4);
+            modificarBtn.Location = new Point(204, 396);
             modificarBtn.Name = "modificarBtn";
-            modificarBtn.Size = new Size(198, 44);
+            modificarBtn.Size = new Size(173, 33);
             modificarBtn.TabIndex = 34;
             modificarBtn.Text = "Modificar";
             modificarBtn.UseVisualStyleBackColor = false;
             modificarBtn.Click += modificarBtn_Click;
             // 
+            // localidadCombo
+            // 
+            localidadCombo.FormattingEnabled = true;
+            localidadCombo.Location = new Point(261, 305);
+            localidadCombo.Name = "localidadCombo";
+            localidadCombo.Size = new Size(281, 23);
+            localidadCombo.TabIndex = 40;
+            // 
+            // localidadLabel
+            // 
+            localidadLabel.AutoSize = true;
+            localidadLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            localidadLabel.Location = new Point(257, 286);
+            localidadLabel.Name = "localidadLabel";
+            localidadLabel.Size = new Size(64, 17);
+            localidadLabel.TabIndex = 39;
+            localidadLabel.Text = "Localidad";
+            // 
             // ModificarCentro
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(915, 637);
+            ClientSize = new Size(801, 478);
+            Controls.Add(localidadCombo);
+            Controls.Add(localidadLabel);
             Controls.Add(cancelarBtn);
             Controls.Add(modificarBtn);
             Controls.Add(direccionLabel);
@@ -139,7 +157,6 @@
             Controls.Add(direccionTextBox);
             Controls.Add(nombreTextBox);
             Controls.Add(modificarLabel);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "ModificarCentro";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ModificarCentro";
@@ -157,5 +174,7 @@
         private TextBox nombreTextBox;
         private Button cancelarBtn;
         private Button modificarBtn;
+        private ComboBox localidadCombo;
+        private Label localidadLabel;
     }
 }
