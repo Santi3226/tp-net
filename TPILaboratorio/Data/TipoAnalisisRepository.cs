@@ -55,6 +55,7 @@ namespace Data
                 context.PlantillasAnalisis.Attach(ta.PlantillaAnalisis);
                 existingTipo.SetNombre(ta.Nombre);
                 existingTipo.SetImporte(ta.Importe);
+                existingTipo.SetPlantillaAnalisis(ta.PlantillaAnalisis);
                 context.SaveChanges();
                 return true;
             }

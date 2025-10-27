@@ -57,6 +57,7 @@ namespace Data
                 context.Localidades.Attach(c.Localidad);
                 existingCentro.SetNombre(c.Nombre);
                 existingCentro.SetDomicilio(c.Domicilio);
+                existingCentro.SetLocalidad(c.Localidad);
                 context.SaveChanges();
                 return true;
             }
