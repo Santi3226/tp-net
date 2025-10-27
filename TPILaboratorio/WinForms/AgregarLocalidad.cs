@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using DTOs;
 
@@ -29,9 +30,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void agregarBtn_Click(object sender, EventArgs e)
+        private async void agregarBtn_Click(object sender, EventArgs e)
         {
-            LocalidadService localidadService = new LocalidadService();
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) || string.IsNullOrWhiteSpace(codigoPostalTextBox.Text))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -41,7 +41,7 @@ namespace WinForms
             {
                 LocalidadDTO localidad = new LocalidadDTO
                 { Nombre = nombreTextBox.Text, CodigoPostal = codigoPostalTextBox.Text };
-                LocalidadDTO lo = localidadService.Add(localidad);
+                await LocalidadApiClient.AddAsync(localidad);
                 MessageBox.Show("Localidad registrada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

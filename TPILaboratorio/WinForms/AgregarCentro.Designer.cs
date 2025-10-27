@@ -104,7 +104,6 @@
             agregarBtn.TabIndex = 30;
             agregarBtn.Text = "Agregar";
             agregarBtn.UseVisualStyleBackColor = false;
-            agregarBtn.Click += agregarBtn_Click;
             // 
             // cancelarBtn
             // 

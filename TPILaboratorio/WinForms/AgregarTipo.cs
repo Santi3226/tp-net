@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using Data;
 using DTOs;
@@ -25,9 +26,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void agregarBtn_Click(object sender, EventArgs e)
+        private async void agregarBtn_Click(object sender, EventArgs e)
         {
-            TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) || string.IsNullOrWhiteSpace(importeTextBox.Text))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -37,7 +37,7 @@ namespace WinForms
             {
                 TipoAnalisisDTO tipoAnalisis = new TipoAnalisisDTO
                 { Nombre = nombreTextBox.Text, Importe = float.Parse(importeTextBox.Text), IdPlantillaAnalisis = (int)this.plantillaCombo.SelectedValue };
-                TipoAnalisisDTO ta = tipoAnalisisService.Add(tipoAnalisis);
+                await TipoAnalisisApiClient.AddAsync(tipoAnalisis);
                 MessageBox.Show("Centro de Atencion registrado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -51,10 +51,9 @@ namespace WinForms
             }
         }
 
-        private void AgregarTipo_Load(object sender, EventArgs e)
+        private async void AgregarTipo_Load(object sender, EventArgs e)
         {
-            PlantillaAnalisisRepository plantillaRepository = new PlantillaAnalisisRepository();
-            var plantillas = plantillaRepository.GetAll();
+            IEnumerable<PlantillaAnalisisDTO> plantillas = await PlantillaAnalisisApiClient.GetAllAsync();
             plantillaCombo.Items.Clear();
             plantillaCombo.DataSource = plantillas.ToList();
             plantillaCombo.DisplayMember = "Preparacion";

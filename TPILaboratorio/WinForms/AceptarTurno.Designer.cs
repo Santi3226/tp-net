@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             aceptarLabel = new Label();
-            recetaTextBox = new TextBox();
             observacionesTextBox = new TextBox();
-            recetaLabel = new Label();
             observacionesLabel = new Label();
             aceptarBtn = new Button();
             cancelarBtn = new Button();
@@ -41,47 +39,29 @@
             // 
             aceptarLabel.AutoSize = true;
             aceptarLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            aceptarLabel.Location = new Point(288, 29);
+            aceptarLabel.Location = new Point(329, 39);
             aceptarLabel.Name = "aceptarLabel";
-            aceptarLabel.Size = new Size(174, 32);
+            aceptarLabel.Size = new Size(214, 41);
             aceptarLabel.TabIndex = 25;
             aceptarLabel.Text = "Aceptar turno";
-            // 
-            // recetaTextBox
-            // 
-            recetaTextBox.BorderStyle = BorderStyle.FixedSingle;
-            recetaTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            recetaTextBox.Location = new Point(227, 126);
-            recetaTextBox.Name = "recetaTextBox";
-            recetaTextBox.Size = new Size(281, 33);
-            recetaTextBox.TabIndex = 26;
             // 
             // observacionesTextBox
             // 
             observacionesTextBox.BorderStyle = BorderStyle.FixedSingle;
             observacionesTextBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            observacionesTextBox.Location = new Point(226, 250);
+            observacionesTextBox.Location = new Point(272, 187);
+            observacionesTextBox.Margin = new Padding(3, 4, 3, 4);
             observacionesTextBox.Name = "observacionesTextBox";
-            observacionesTextBox.Size = new Size(281, 33);
+            observacionesTextBox.Size = new Size(321, 39);
             observacionesTextBox.TabIndex = 27;
-            // 
-            // recetaLabel
-            // 
-            recetaLabel.AutoSize = true;
-            recetaLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            recetaLabel.Location = new Point(225, 106);
-            recetaLabel.Name = "recetaLabel";
-            recetaLabel.Size = new Size(50, 17);
-            recetaLabel.TabIndex = 28;
-            recetaLabel.Text = "Receta:";
             // 
             // observacionesLabel
             // 
             observacionesLabel.AutoSize = true;
             observacionesLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            observacionesLabel.Location = new Point(224, 230);
+            observacionesLabel.Location = new Point(270, 161);
             observacionesLabel.Name = "observacionesLabel";
-            observacionesLabel.Size = new Size(97, 17);
+            observacionesLabel.Size = new Size(124, 23);
             observacionesLabel.TabIndex = 29;
             observacionesLabel.Text = "Observaciones:";
             // 
@@ -95,9 +75,10 @@
             aceptarBtn.FlatStyle = FlatStyle.Flat;
             aceptarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             aceptarBtn.ForeColor = Color.White;
-            aceptarBtn.Location = new Point(188, 404);
+            aceptarBtn.Location = new Point(220, 297);
+            aceptarBtn.Margin = new Padding(3, 4, 3, 4);
             aceptarBtn.Name = "aceptarBtn";
-            aceptarBtn.Size = new Size(173, 33);
+            aceptarBtn.Size = new Size(198, 44);
             aceptarBtn.TabIndex = 30;
             aceptarBtn.Text = "Aceptar";
             aceptarBtn.UseVisualStyleBackColor = false;
@@ -113,9 +94,10 @@
             cancelarBtn.FlatStyle = FlatStyle.Flat;
             cancelarBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelarBtn.ForeColor = Color.Black;
-            cancelarBtn.Location = new Point(397, 404);
+            cancelarBtn.Location = new Point(459, 297);
+            cancelarBtn.Margin = new Padding(3, 4, 3, 4);
             cancelarBtn.Name = "cancelarBtn";
-            cancelarBtn.Size = new Size(171, 33);
+            cancelarBtn.Size = new Size(195, 44);
             cancelarBtn.TabIndex = 31;
             cancelarBtn.Text = "Cancelar";
             cancelarBtn.UseVisualStyleBackColor = false;
@@ -123,17 +105,16 @@
             // 
             // AceptarTurno
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(801, 478);
+            ClientSize = new Size(875, 411);
             Controls.Add(cancelarBtn);
             Controls.Add(aceptarBtn);
             Controls.Add(observacionesLabel);
-            Controls.Add(recetaLabel);
             Controls.Add(observacionesTextBox);
-            Controls.Add(recetaTextBox);
             Controls.Add(aceptarLabel);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "AceptarTurno";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Aceptar Turno";

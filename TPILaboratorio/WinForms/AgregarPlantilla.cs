@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using DTOs;
 
@@ -29,9 +30,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void agregarBtn_Click(object sender, EventArgs e)
+        private async void agregarBtn_Click(object sender, EventArgs e)
         {
-            PlantillaAnalisisService plantillaService = new PlantillaAnalisisService();
             if (string.IsNullOrWhiteSpace(horasAyunoTextBox.Text) || string.IsNullOrWhiteSpace(preparacionTextBox.Text) || string.IsNullOrWhiteSpace(diasPrevistosTextBox.Text))
             {
                 MessageBox.Show("Completar todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -41,7 +41,7 @@ namespace WinForms
             {
                 PlantillaAnalisisDTO plantillaAnalisis = new PlantillaAnalisisDTO
                 { HsAyuno = horasAyunoTextBox.Text, Preparacion = preparacionTextBox.Text, DiasPrevistos = int.Parse(diasPrevistosTextBox.Text) };
-                PlantillaAnalisisDTO pl = plantillaService.Add(plantillaAnalisis);
+                await PlantillaAnalisisApiClient.AddAsync(plantillaAnalisis);
                 MessageBox.Show("Plantilla de análisis registrada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

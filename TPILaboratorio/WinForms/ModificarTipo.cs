@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using DTOs;
 
@@ -40,9 +41,9 @@ namespace WinForms
             importeTextBox.PlaceholderText = (tipoAnalisis.Importe).ToString();
         }
 
-        private void modificarBtn_Click(object sender, EventArgs e)
+        private async void modificarBtn_Click(object sender, EventArgs e)
         {
-            TipoAnalisisService tipoAnalisisService = new TipoAnalisisService();
+
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(importeTextBox.Text))
             {
                 MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -56,17 +57,10 @@ namespace WinForms
                     Nombre = nombreTextBox.Text == string.Empty ? tipoAnalisis.Nombre : nombreTextBox.Text,
                     Importe = importeTextBox.Text == string.Empty ? tipoAnalisis.Importe : float.Parse(importeTextBox.Text),
                 };
-                bool update = tipoAnalisisService.Update(tipoAnalisisDTO);
-                if (update)
-                {
-                    MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo modificar el Centro de Atencion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                this.Close();
+                await TipoAnalisisApiClient.UpdateAsync(tipoAnalisisDTO);
+                MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            this.Close();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application.Services;
 using Data;
+using API.Clients;
 using Domain.Model;
 using DTOs;
 
@@ -33,34 +34,24 @@ namespace WinForms
             this.Close();
         }
 
-        private void aceptarBtn_Click(object sender, EventArgs e)
+        private async void aceptarBtn_Click(object sender, EventArgs e)
         {
-            if(recetaTextBox.Text == string.Empty)
+            TurnoDTO turnoAceptado = new TurnoDTO()
             {
-                MessageBox.Show("Complete el campo receta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else
-            {
-                TurnoDTO turnoAceptado = new TurnoDTO()
-                {
-                    Id = turno.Id,
-                    RecibeMail = turno.RecibeMail,
-                    Estado = "Reservado",
-                    Receta = recetaTextBox.Text,
-                    Observaciones = observacionesTextBox.Text == string.Empty ? turno.Observaciones : observacionesTextBox.Text,
-                    FechaHoraExtraccion = turno.FechaHoraExtraccion,
-                    FechaHoraReserva = turno.FechaHoraReserva,
-                    IdPaciente = turno.IdPaciente,
-                    IdTipoAnalisis = turno.IdTipoAnalisis,
-                    IdCentroAtencion = turno.IdCentroAtencion
-                };
-                TurnoService turnoService = new TurnoService();
-                bool aceptado = turnoService.Update(turnoAceptado);
-                if (aceptado)
-                {
-                    MessageBox.Show("Turno aceptado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
-            }
+                Id = turno.Id,
+                RecibeMail = turno.RecibeMail,
+                Estado = "Reservado",
+                Receta = turno.Receta,
+                Observaciones = observacionesTextBox.Text == string.Empty ? turno.Observaciones : observacionesTextBox.Text,
+                FechaHoraExtraccion = turno.FechaHoraExtraccion,
+                FechaHoraReserva = turno.FechaHoraReserva,
+                IdPaciente = turno.IdPaciente,
+                IdTipoAnalisis = turno.IdTipoAnalisis,
+                IdCentroAtencion = turno.IdCentroAtencion
+            };
+            await TurnoApiClient.UpdateAsync(turnoAceptado);
+            MessageBox.Show("Turno Aceptado.", "Aceptado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using Data;
 using DTOs;
@@ -25,9 +26,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void agregarBtn_Click(object sender, EventArgs e)
+        private async Task agregarBtn_Click(object sender, EventArgs e)
         {
-            CentroAtencionService centroAtencionService = new CentroAtencionService();
             string nombre = this.nombreTextBox.Text;
             string domicilio = this.direccionTextBox.Text;
             int localidadId = (int)this.localidadCombo.SelectedValue;
@@ -40,16 +40,15 @@ namespace WinForms
             {
                 CentroAtencionDTO centro = new CentroAtencionDTO
                 { Nombre = nombre, Domicilio = domicilio, IdLocalidad = localidadId};
-                CentroAtencionDTO ca = centroAtencionService.Add(centro);
+                await CentroAtencionApiClient.AddAsync(centro);
                 MessageBox.Show("Centro de Atencion registrado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }
 
-        private void AgregarCentro_Load(object sender, EventArgs e)
+        private async void AgregarCentro_Load(object sender, EventArgs e)
         {
-            LocalidadRepository localidadRepository = new LocalidadRepository();
-            var localidades = localidadRepository.GetAll();
+            IEnumerable<LocalidadDTO> localidades = await LocalidadApiClient.GetAllAsync();
             localidadCombo.Items.Clear();
             localidadCombo.DataSource = localidades.ToList();
             localidadCombo.DisplayMember = "Nombre";

@@ -120,7 +120,6 @@
             modificarBtn.TabIndex = 34;
             modificarBtn.Text = "Modificar";
             modificarBtn.UseVisualStyleBackColor = false;
-            modificarBtn.Click += modificarBtn_Click;
             // 
             // ModificarCentro
             // 

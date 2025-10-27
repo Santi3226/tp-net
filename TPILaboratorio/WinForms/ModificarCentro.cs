@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using Domain.Model;
 using DTOs;
@@ -34,9 +35,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void modificarBtn_Click(object sender, EventArgs e)
+        private async Task modificarBtn_Click(object sender, EventArgs e)
         {
-            CentroAtencionService centroAtencionService = new CentroAtencionService();
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(direccionTextBox.Text))
             {
                 MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -50,15 +50,8 @@ namespace WinForms
                     Nombre = nombreTextBox.Text == string.Empty ? centro.Nombre : nombreTextBox.Text,
                     Domicilio = direccionTextBox.Text == string.Empty ? centro.Domicilio : direccionTextBox.Text,
                 };
-                bool update = centroAtencionService.Update(centroAModificar);
-                if (update)
-                {
-                    MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo modificar el Centro de Atencion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await CentroAtencionApiClient.UpdateAsync(centroAModificar);
+                MessageBox.Show("Centro de Atencion modificado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }

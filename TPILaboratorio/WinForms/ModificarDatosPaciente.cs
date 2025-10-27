@@ -1,4 +1,9 @@
-﻿using System;
+﻿using API.Clients;
+using Application.Services;
+using Data;
+using Domain.Model;
+using DTOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,10 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DTOs;
-using Data;
-using Domain.Model;
-using Application.Services;
 
 
 namespace WinForms
@@ -33,7 +34,7 @@ namespace WinForms
             mailTextBox.PlaceholderText = paciente.Email;
         }
 
-        private void confirmarBtn_Click(object sender, EventArgs e)
+        private async void confirmarBtn_Click(object sender, EventArgs e)
         {
             if (nombreTextBox.Text == string.Empty && apellidoTextBox.Text == string.Empty && mailTextBox.Text == string.Empty && telefonoTextBox.Text == string.Empty && direccionTextBox.Text == string.Empty)
             {
@@ -59,14 +60,8 @@ namespace WinForms
                     FechaNacimiento = paciente.FechaNacimiento,
                     Tipo = paciente.Tipo
                 };
-                PacienteService pacienteService = new PacienteService();
-                bool modificado = pacienteService.Update(pacienteModificado);
-
-                if (modificado)
-                {
-                    MessageBox.Show("Datos modificados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
+                await PacienteApiClient.UpdateAsync(pacienteModificado);
+                MessageBox.Show("Paciente Modificado.", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

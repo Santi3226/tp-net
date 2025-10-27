@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using API.Clients;
 using Application.Services;
 using Domain.Model;
 using DTOs;
@@ -27,9 +28,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void modificarBtn_Click(object sender, EventArgs e)
+        private async void modificarBtn_Click(object sender, EventArgs e)
         {
-            LocalidadService localidadService = new LocalidadService();
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(codigoPostalTextBox.Text))
             {
                 MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -43,15 +43,8 @@ namespace WinForms
                     Nombre = nombreTextBox.Text == string.Empty ? localidad.Nombre : nombreTextBox.Text,
                     CodigoPostal = codigoPostalTextBox.Text == string.Empty ? localidad.CodigoPostal : codigoPostalTextBox.Text
                 };
-                bool update = localidadService.Update(localidadDTO);
-                if (update)
-                {
-                    MessageBox.Show("Localidad modificada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo modificar la localidad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await LocalidadApiClient.UpdateAsync(localidadDTO);
+                MessageBox.Show("Localidad modificada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }
