@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Data;
+using Microsoft.VisualBasic;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -20,13 +21,16 @@ namespace WinForms
             var turnoRepository = new TurnoRepository();
             var turnos = turnoRepository.GetAll().ToList();
 
-            int totalTurnos = turnos.Count(t => t.Estado == "Reservado");
-            int turnosConMail = turnos.Count(t => t.RecibeMail && t.Estado == "Reservado");
+            int totalTurnos = turnos.Count(t => (t.Estado == "Confirmado" || t.Estado == "Realizado"));
+            int turnosConMail = turnos.Count(t => t.RecibeMail && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosSinMail = totalTurnos - turnosConMail;
-            int turnosConObservaciones = turnos.Count(t => !string.IsNullOrWhiteSpace(t.Observaciones) && t.Estado == "Reservado");
+            int turnosTarde = turnos.Count(t => t.Estado!="Cancelado" && t.Estado != "Pendiente" && (t.FechaHoraExtraccion - t.FechaHoraReserva) > TimeSpan.FromHours(1));
+            int turnosTemprano = turnos.Count(t => t.Estado != "Cancelado" && t.Estado != "Pendiente") - turnosTarde;
+            int turnosConObservaciones = turnos.Count(t => !string.IsNullOrWhiteSpace(t.Observaciones) && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosSinObservaciones = totalTurnos - turnosConObservaciones;
 
-            var graficoRecibeMail = GenerarGraficoCircular(turnosConMail, turnosSinMail);
+            var graficoRecibeMail = GenerarGraficoCircularMail(turnosConMail, turnosSinMail);
+            var graficoTardanza= GenerarGraficoCircularDemora(turnosTarde, turnosTemprano);
             var graficoObservaciones = GenerarGraficoBarras(turnosConObservaciones, turnosSinObservaciones);
 
             Document.Create(container =>
@@ -39,18 +43,27 @@ namespace WinForms
                     page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Arial"));
 
                     page.Header()
+                        .PaddingBottom(10)
                         .Column(col =>
                         {
                             col.Item()
-                            .AlignCenter()
-                            .Text("REPORTE DE RECEPCIÓN")
-                            .FontSize(20)
-                            .Bold();
+                                .AlignCenter()
+                                .Text("REPORTE DE GANANCIAS")
+                                .FontSize(20)
+                                .Bold()
+                                .FontColor(Colors.Blue.Darken2);
 
                             col.Item()
+                                .PaddingTop(5)
                                 .AlignCenter()
                                 .Text($"Generado el {DateTime.Now:dd/MM/yyyy HH:mm}")
-                                .FontSize(9);
+                                .FontSize(9)
+                                .FontColor(Colors.Grey.Darken1);
+
+                            col.Item()
+                                .PaddingTop(10)
+                                .LineHorizontal(2)
+                                .LineColor(Colors.Blue.Medium);
                         });
 
                     page.Content()
@@ -71,9 +84,18 @@ namespace WinForms
                                 x.Item().Image(ConvertirImagenABytes(graficoRecibeMail));
                                 x.Item().AlignCenter().Text($"Con mail: {turnosConMail}  |  Sin mail: {turnosSinMail}");
                             });
+                            
+                            col.Item().Column(x =>
+                            {
+                                x.Item().PageBreak();
+                                x.Item().Text("Turnos con llegada tardía (Demora mayor a 1Hr)").FontSize(14).Bold().FontColor(Colors.Blue.Medium);
+                                x.Item().Image(ConvertirImagenABytes(graficoTardanza));
+                                x.Item().AlignCenter().Text($"Demora: {turnosTarde}  |  A tiempo: {turnosTemprano}");
+                            });
 
                             col.Item().Column(x =>
                             {
+                                x.Item().PageBreak();
                                 x.Item().PaddingTop(15).Text("Turnos con observaciones").FontSize(14).Bold().FontColor(Colors.Blue.Medium);
                                 x.Item().Image(ConvertirImagenABytes(graficoObservaciones));
                                 x.Item().AlignCenter().Text($"Con observaciones: {turnosConObservaciones}  |  Sin observaciones: {turnosSinObservaciones}");
@@ -96,7 +118,7 @@ namespace WinForms
             graficoObservaciones.Dispose();
         }
 
-        private static System.Drawing.Image GenerarGraficoCircular(int conMail, int sinMail)
+        private static System.Drawing.Bitmap GenerarGraficoCircularMail(int conMail, int sinMail)
         {
             int width = 300, height = 200;
             Bitmap bmp = new Bitmap(width, height);
@@ -126,7 +148,37 @@ namespace WinForms
             return bmp;
         }
 
-        private static System.Drawing.Image GenerarGraficoBarras(int conObs, int sinObs)
+        private static System.Drawing.Bitmap GenerarGraficoCircularDemora(int demora, int tiempo)
+        {
+            int width = 300, height = 200;
+            Bitmap bmp = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(System.Drawing.Color.White);
+
+                int total = demora + tiempo;
+                if (total == 0) total = 1;
+
+                float anguloDemora = (float)demora / total * 360;
+                float anguloTiempo = (float)tiempo / total * 360;
+
+                Rectangle rect = new Rectangle(20, 20, 160, 160);
+                Brush azul = new SolidBrush(System.Drawing.Color.FromArgb(60, 120, 216));
+                Brush gris = new SolidBrush(System.Drawing.Color.FromArgb(200, 200, 200));
+
+                g.FillPie(azul, rect, 0, anguloDemora);
+                g.FillPie(gris, rect, anguloDemora, anguloTiempo);
+
+                g.DrawString("Demora", new Font("Arial", 9), azul, 200, 70);
+                g.DrawString($"{(demora * 100f / total):0.0}%", new Font("Arial", 8), Brushes.Black, 260, 70);
+
+                g.DrawString("Sin Mail", new Font("Arial", 9), gris, 200, 90);
+                g.DrawString($"{(tiempo * 100f / total):0.0}%", new Font("Arial", 8), Brushes.Black, 260, 90);
+            }
+            return bmp;
+        }
+
+        private static System.Drawing.Bitmap GenerarGraficoBarras(int conObs, int sinObs)
         {
             int width = 300, height = 200;
             Bitmap bmp = new Bitmap(width, height);
