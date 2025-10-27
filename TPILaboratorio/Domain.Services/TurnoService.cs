@@ -74,6 +74,24 @@ namespace Application.Services
             }).ToList();
         }
 
+        public IEnumerable<TurnoDTO> GetByPacienteId(int pacienteId)
+        {
+            var turnoRepository = new TurnoRepository();
+            return turnoRepository.GetByPacienteId(pacienteId).Select(t => new TurnoDTO
+            {
+                Id = t.Id,
+                Estado = t.Estado,
+                RecibeMail = t.RecibeMail,
+                Receta = t.Receta,
+                Observaciones = t.Observaciones,
+                FechaHoraReserva = t.FechaHoraReserva,
+                FechaHoraExtraccion = t.FechaHoraExtraccion,
+                IdPaciente = t.Paciente?.Id ?? 0,
+                IdTipoAnalisis = t.TipoAnalisis?.Id ?? 0,
+                IdCentroAtencion = t.CentroAtencion?.Id ?? 0
+            }).ToList();
+        }
+
         public bool Update(TurnoDTO dto)
         {
             var turnoRepository = new TurnoRepository();

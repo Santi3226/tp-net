@@ -25,7 +25,7 @@ namespace WinForms
             paciente = pacienteLogueado;
         }
 
-        private void HomePaciente_Load(object sender, EventArgs e)
+        private async void HomePaciente_Load(object sender, EventArgs e)
         {
             pacienteMenuStrip.Items.Clear();
             if (paciente.Tipo == "Paciente")
@@ -49,8 +49,7 @@ namespace WinForms
                 labelMisProximosTurnos.Visible = true;
                 proximosTurnosPacienteDGV.Visible = true;
 
-                TurnoRepository turnoRepository = new TurnoRepository();
-                var turnosDelPaciente = turnoRepository.GetByPacienteId(paciente.Id);
+                IEnumerable<TurnoDTO> turnosDelPaciente = await TurnoApiClient.GetByPacinteIdAsync(paciente.Id);
 
                 var turnosVista = turnosDelPaciente.Select(t => new
                 {
@@ -60,9 +59,6 @@ namespace WinForms
                     t.Observaciones,
                     t.FechaHoraExtraccion,
                     t.FechaHoraReserva,
-                    t.CentroAtencionId,
-                    t.TipoAnalisisId,
-                    t.PacienteId
                 }).ToList();
 
                 proximosTurnosPacienteDGV.DataSource = turnosVista;

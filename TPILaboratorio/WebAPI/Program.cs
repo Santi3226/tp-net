@@ -349,6 +349,17 @@ app.MapGet("/turnos/{id}", (int id) =>
 .Produces(StatusCodes.Status404NotFound).
 WithOpenApi();
 
+app.MapGet("/turnos/paciente/{pacienteId}", (int pacienteId) =>
+{
+    TurnoService turnoService = new TurnoService();
+    var dtos = turnoService.GetByPacienteId(pacienteId);
+    return Results.Ok(dtos);
+})
+.WithName("GetTurnosByPacienteId")
+.Produces<List<TurnoDTO>>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound).
+WithOpenApi();
+
 app.MapGet("/turnos", () =>
 {
     TurnoService turnoService = new TurnoService();

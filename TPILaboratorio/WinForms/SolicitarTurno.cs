@@ -11,6 +11,7 @@ using Data;
 using DTOs;
 using Domain.Model;
 using Application.Services;
+using API.Clients;
 
 namespace WinForms
 {
@@ -23,23 +24,21 @@ namespace WinForms
             paciente = pacienteLogueado;
         }
 
-        private void SolicitarTurno_Load(object sender, EventArgs e)
+        private async void SolicitarTurno_Load(object sender, EventArgs e)
         {
-            TipoAnalisisRepository tipoAnalisisRepository = new TipoAnalisisRepository();
-            var tiposAnalisis = tipoAnalisisRepository.GetAll();
+            IEnumerable<TipoAnalisisDTO> tiposAnalisis = await TipoAnalisisApiClient.GetAllAsync();
             tipoAnalisisCombo.Items.Clear();
             tipoAnalisisCombo.DataSource = tiposAnalisis.ToList();
             tipoAnalisisCombo.DisplayMember = "Nombre";
             tipoAnalisisCombo.ValueMember = "Id";
-            CentroRepository centroRepository= new CentroRepository();
-            var centros = centroRepository.GetAll();
+            IEnumerable<CentroAtencionDTO> centros = await CentroAtencionApiClient.GetAllAsync();
             centroAtencionCombo.Items.Clear();
             centroAtencionCombo.DataSource = centros.ToList();
             centroAtencionCombo.DisplayMember = "Nombre";
             centroAtencionCombo.ValueMember = "Id";
         }
 
-        private void solicitarBtn_Click(object sender, EventArgs e)
+        private async void solicitarBtn_Click(object sender, EventArgs e)
         {
             if (fechaTurnoCalendario.Value < DateTime.Now)
             {
@@ -47,7 +46,6 @@ namespace WinForms
             }
             else
             {
-                TurnoRepository turnoRepository = new TurnoRepository();
                 TurnoDTO turnoACrear = new TurnoDTO()
                 {
                     Estado = "Pendiente",
@@ -60,8 +58,7 @@ namespace WinForms
                     IdTipoAnalisis = (int)tipoAnalisisCombo.SelectedValue,
                     IdCentroAtencion = (int)centroAtencionCombo.SelectedValue
                 };
-                TurnoService turnoService = new TurnoService();
-                turnoService.Add(turnoACrear);
+                await TurnoApiClient.AddAsync(turnoACrear);
                 MessageBox.Show("Turno solicitado exitosamente.", "Turno solicitado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
