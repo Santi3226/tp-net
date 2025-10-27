@@ -25,7 +25,7 @@ namespace WinForms
             this.Close();
         }
 
-        private async Task agregarBtn_Click(object sender, EventArgs e)
+        private async void agregarBtn_Click(object sender, EventArgs e)
         {
             string nombre = this.nombreTextBox.Text;
             string domicilio = this.direccionTextBox.Text;

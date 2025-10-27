@@ -34,7 +34,7 @@ namespace WinForms
             this.Close();
         }
 
-        private async Task modificarBtn_Click(object sender, EventArgs e)
+        private async void modificarBtn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text) && string.IsNullOrWhiteSpace(direccionTextBox.Text))
             {
