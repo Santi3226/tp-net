@@ -53,7 +53,7 @@ namespace Application.Services
                 Id = ta.Id,
                 Nombre = ta.Nombre,
                 Importe = ta.Importe,
-                IdPlantillaAnalisis = ta.PlantillaAnalisis?.Id ?? 0,
+                IdPlantillaAnalisis = ta.PlantillaAnalisis?.Id ?? 1,
             }).ToList();
         }
 

@@ -322,22 +322,7 @@ namespace WinForms
             };
             AceptarTurno aceptar = new AceptarTurno(turno);
             aceptar.ShowDialog();
-            IEnumerable<TurnoDTO> turnos = await TurnoApiClient.GetAllAsync();
-            var turnosPendientes = from t in turnos
-                                   where t.Estado == "Pendiente"
-                                   select t;
-            var turnosVista = turnosPendientes.Select(t => new
-            {
-                t.Id,
-                t.Estado,
-                t.FechaHoraExtraccion,
-                t.FechaHoraReserva,
-                t.IdTipoAnalisis,
-                t.IdCentroAtencion,
-                t.IdPaciente
-            }).ToList();
-
-            proximosTurnosAdministradorDGV.DataSource = turnosVista;
+            this.ListarTurnosPendientes_Click(sender, e);
         }
 
         private async void RechazarTurno_Click(object sender, EventArgs e)
@@ -356,6 +341,7 @@ namespace WinForms
             {
                 MessageBox.Show("Debe seleccionar un turno para poder rechazarlo.");
             }
+            this.ListarTurnosPendientes_Click(sender, e);
         }
 
         private async void EliminarTurno_Click(object sender, EventArgs e)
@@ -476,6 +462,7 @@ namespace WinForms
                     MessageBox.Show("Debe seleccionar un usuario para poder eliminarlo.");
                 }
             }
+            this.ListarCentros_Click(sender, e);
         }
 
         private async void ListarTipos_Click(object sender, EventArgs e)
@@ -502,6 +489,7 @@ namespace WinForms
         {
             AgregarTipo agregarTipo = new AgregarTipo();
             agregarTipo.ShowDialog();
+            this.ListarTipos_Click(sender, e);
         }
 
         private async void ModificarTipo_Click(object sender, EventArgs e)
@@ -515,6 +503,7 @@ namespace WinForms
             };
             ModificarTipo modificar = new ModificarTipo(tipoAnalisis);
             modificar.ShowDialog();
+            this.ListarTipos_Click(sender, e);
         }
 
         private async void EliminarTipo_Click(object sender, EventArgs e)
@@ -527,6 +516,7 @@ namespace WinForms
                     int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
                     await TipoAnalisisApiClient.DeleteAsync(idABorrar);
                     MessageBox.Show("Tipo de análisis eliminado exitosamente.");
+                    this.ListarTipos_Click(sender, e);
                 }
             }
             else
@@ -559,6 +549,7 @@ namespace WinForms
         {
             AgregarLocalidad agregarLocalidad = new AgregarLocalidad();
             agregarLocalidad.ShowDialog();
+            this.ListarLocalidades_Click(sender, e);
         }
 
         private async void ModificarLocalidad_Click(object sender, EventArgs e)
@@ -572,6 +563,7 @@ namespace WinForms
             };
             ModificarLocalidad modificar = new ModificarLocalidad(localidad);
             modificar.ShowDialog();
+            this.ListarLocalidades_Click(sender, e);
         }
 
         private async void EliminarLocalidad_Click(object sender, EventArgs e)
@@ -584,6 +576,7 @@ namespace WinForms
                     int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
                     await LocalidadApiClient.DeleteAsync(idABorrar);
                     MessageBox.Show("Localidad eliminada exitosamente.");
+                    this.ListarLocalidades_Click(sender, e);
                 }
             }
             else
@@ -627,22 +620,20 @@ namespace WinForms
             };
             ModificarPlantilla modificar = new ModificarPlantilla(plantilla);
             modificar.ShowDialog();
+            this.ListarPlantillas_Click(sender, e);
         }
 
-        private void EliminarPlantilla_Click(object sender, EventArgs e)
+        private async void EliminarPlantilla_Click(object sender, EventArgs e)
         {
-            PlantillaAnalisisService plantillaService = new PlantillaAnalisisService();
             if (proximosTurnosAdministradorDGV.CurrentCell != null)
             {
                 DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar la plantilla seleccionada?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
-                    bool eliminado = plantillaService.Delete(idABorrar);
-                    if (eliminado)
-                        MessageBox.Show("Plantilla eliminada exitosamente.");
-                    else
-                        MessageBox.Show("No se pudo eliminar la plantilla.");
+                    await PlantillaAnalisisApiClient.DeleteAsync(idABorrar);
+                    MessageBox.Show("Plantilla eliminada exitosamente.");
+                    this.ListarPlantillas_Click(sender, e);
                 }
             }
             else

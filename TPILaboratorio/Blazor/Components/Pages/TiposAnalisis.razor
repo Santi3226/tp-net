@@ -35,12 +35,12 @@ else
                     <tr>
                         <td>@p.Nombre</td>
                         <td>@p.Importe</td>
-                        <td>@(plantillas?.FirstOrDefault(pl => pl.Id == p.IdPlantillaAnalisis)?.Preparacion ?? "—")</td>
+                        <td>@p.IdPlantillaAnalisis</td>
                         <td>
                             <button class="btn btn-sm btn-warning" @onclick="() => LoadForEdit(p)">
                                 Editar
                             </button>
-                            <button class="btn btn-sm btn-warning" @onclick="() => LoadDelete(p)">
+                            <button class="btn btn-sm btn-danger" @onclick="() => LoadDelete(p)">
                                 Eliminar
                             </button>
                         </td>
