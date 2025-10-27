@@ -1,3 +1,4 @@
+using API.Clients;
 using Data;
 using Domain.Model;
 using DTOs;
@@ -24,11 +25,11 @@ namespace WinForms
             InitializeComponent();
         }
 
-        private void iniciarSesionBtn_Click(object sender, EventArgs e)
+        private async void iniciarSesionBtn_Click(object sender, EventArgs e)
         {
             if (this.ValidateEntry())
             {
-                PacienteDTO? pacienteLogueado = this.ValidatePacienteAsync();
+                PacienteDTO? pacienteLogueado = await ValidatePacienteAsync();
                 if (pacienteLogueado != null)
                 {
                     MessageBox.Show(Text = "Bienvenido!", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -68,10 +69,9 @@ namespace WinForms
             return isValid;
         }
 
-        private PacienteDTO? ValidatePacienteAsync()
+        private async Task<PacienteDTO?> ValidatePacienteAsync()
         {
-            var pacienteRepository = new PacienteRepository();
-            var pacientes = pacienteRepository.GetAll();
+            var pacientes = await PacienteApiClient.GetAllAsync();
             string email = this.emailTextBox.Text.Trim();
             string contraseña = this.contraseñaTextBox.Text.Trim();
 

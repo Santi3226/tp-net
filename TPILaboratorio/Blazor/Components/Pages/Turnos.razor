@@ -78,9 +78,15 @@ else
     }
 
     <div class="row">
+
         <div class="col-md-6 mb-3">
-            <label class="form-label">Estado *</label>
-            <InputText @bind-Value="currentTurno.Estado" class="form-control" />
+            <label class="form-label">Tipo *</label>
+            <InputSelect @bind-Value="currentTurno.Estado" class="form-select">
+                <option value="">- Seleccione -</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Reservado">Reservado</option>
+                <option value="Completado">Completado</option>
+            </InputSelect>
             @if (validationErrors.ContainsKey("Estado"))
             {
                 <div class="text-danger small">@validationErrors["Estado"]</div>
@@ -127,34 +133,74 @@ else
     </div>
 
     <div class="row">
-        <div class="col-md-4 mb-3">
-            <label class="form-label">Paciente ID *</label>
-            <InputNumber @bind-Value="currentTurno.IdPaciente" class="form-control" />
+        <div class="mb-3">
+            <label class="form-label">Paciente *</label>
+            <InputSelect @bind-Value="currentTurno.IdPaciente" class="form-select">
+                <option value="">Seleccione un paciente...</option>
+                @if (pacientes != null && pacientes.Any())
+                {
+                    @foreach (var loc in pacientes)
+                    {
+                        <option value="@loc.Id">@loc.Nombre, @loc.Apellido</option>
+                    }
+                }
+                else
+                {
+                    <option disabled>Cargando pacientes...</option>
+                }
+            </InputSelect>
             @if (validationErrors.ContainsKey("IdPaciente"))
             {
                 <div class="text-danger small">@validationErrors["IdPaciente"]</div>
             }
         </div>
 
-        <div class="col-md-4 mb-3">
-            <label class="form-label">Tipo Analisis ID *</label>
-            <InputNumber @bind-Value="currentTurno.IdTipoAnalisis" class="form-control" />
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de Analisis *</label>
+            <InputSelect @bind-Value="currentTurno.IdTipoAnalisis" class="form-select">
+                <option value="">Seleccione un tipo...</option>
+                @if (tipos != null && tipos.Any())
+                {
+                    @foreach (var loc in tipos)
+                    {
+                        <option value="@loc.Id">@loc.Nombre</option>
+                    }
+                }
+                else
+                {
+                    <option disabled>Cargando tipos...</option>
+                }
+            </InputSelect>
             @if (validationErrors.ContainsKey("IdTipoAnalisis"))
             {
                 <div class="text-danger small">@validationErrors["IdTipoAnalisis"]</div>
             }
         </div>
 
-        <div class="col-md-4 mb-3">
-            <label class="form-label">Centro de Atencion ID *</label>
-            <InputNumber @bind-Value="currentTurno.IdCentroAtencion" class="form-control" />
+
+        <div class="mb-3">
+            <label class="form-label">Centro de Atencion *</label>
+            <InputSelect @bind-Value="currentTurno.IdCentroAtencion" class="form-select">
+                <option value="">Seleccione un centro...</option>
+                @if (centros != null && centros.Any())
+                {
+                    @foreach (var loc in centros)
+                    {
+                        <option value="@loc.Id">@loc.Nombre</option>
+                    }
+                }
+                else
+                {
+                    <option disabled>Cargando centros...</option>
+                }
+            </InputSelect>
             @if (validationErrors.ContainsKey("IdCentroAtencion"))
             {
                 <div class="text-danger small">@validationErrors["IdCentroAtencion"]</div>
             }
         </div>
-    </div>
-
+        </div>
     @if (!string.IsNullOrEmpty(errorMessage))
     {
         <div class="alert alert-danger">
@@ -191,6 +237,9 @@ else
 
 @code {
     private List<TurnoDTO> turnos;
+    private List<CentroAtencionDTO> centros;
+    private List<TipoAnalisisDTO> tipos;
+    private List<PacienteDTO> pacientes;
     [Parameter] public EventCallback OnTurnoChanged { get; set; }
     private FormMode mode = FormMode.Add;
     private TurnoDTO currentTurno = new TurnoDTO();
@@ -213,6 +262,9 @@ else
     private async Task LoadTurnos()
     {
         turnos = (await TurnoApiClient.GetAllAsync())?.ToList();
+        centros = (await CentroAtencionApiClient.GetAllAsync())?.ToList();
+        pacientes = (await PacienteApiClient.GetAllAsync())?.ToList();
+        tipos = (await TipoAnalisisApiClient.GetAllAsync())?.ToList();
         StateHasChanged();
     }
 
@@ -297,8 +349,7 @@ else
         }
         if (string.IsNullOrWhiteSpace(currentTurno.Observaciones))
         {
-            validationErrors["Observaciones"] = "Las Observaciones son requeridas";
-            isValid = false;
+            currentTurno.Observaciones = "-";
         }
         if (currentTurno.FechaHoraReserva == default)
         {

@@ -1,5 +1,4 @@
 ﻿using API.Clients;
-using Application.Services;
 using Data;
 using Domain.Model;
 using DTOs;
@@ -607,10 +606,9 @@ namespace WinForms
             this.ListarPlantillas_Click(sender, e);
         }
 
-        private void ModificarPlantilla_Click(object sender, EventArgs e)
+        private async void ModificarPlantilla_Click(object sender, EventArgs e)
         {
-            PlantillaAnalisisRepository plantillaRepository = new PlantillaAnalisisRepository();
-            PlantillaAnalisis plantillaAModificar = plantillaRepository.Get((int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value);
+            PlantillaAnalisisDTO plantillaAModificar = await PlantillaAnalisisApiClient.GetAsync((int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value);
             PlantillaAnalisisDTO plantilla = new PlantillaAnalisisDTO
             {
                 Id = plantillaAModificar.Id,

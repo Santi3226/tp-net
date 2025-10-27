@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Application.Services;
+using API.Clients;
 using Domain.Model;
 using DTOs;
 
@@ -34,9 +34,8 @@ namespace WinForms
             this.Close();
         }
 
-        private void agregarBtn_Click(object sender, EventArgs e)
+        private async void agregarBtn_Click(object sender, EventArgs e)
         {
-            PlantillaAnalisisService plantillaService = new PlantillaAnalisisService();
             if (string.IsNullOrWhiteSpace(horasAyunoTextBox.Text) && string.IsNullOrWhiteSpace(preparacionTextBox.Text) && string.IsNullOrWhiteSpace(diasPrevistosTextBox.Text))
             {
                 MessageBox.Show("Debe llenar al menos un campo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -51,15 +50,8 @@ namespace WinForms
                     Preparacion = preparacionTextBox.Text == string.Empty ? plantillaAnalisis.Preparacion : preparacionTextBox.Text,
                     DiasPrevistos = diasPrevistosTextBox.Text == string.Empty ? plantillaAnalisis.DiasPrevistos : int.Parse(diasPrevistosTextBox.Text)
                 };
-                bool update = plantillaService.Update(plantillaAnalisisDTO);
-                if (update)
-                {
-                    MessageBox.Show("Plantilla análisis modificada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo modificar la plantilla análisis", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await PlantillaAnalisisApiClient.UpdateAsync(plantillaAnalisisDTO);
+                MessageBox.Show("Plantilla análisis modificada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }

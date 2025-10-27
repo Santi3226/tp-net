@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using API.Clients;
 using Data;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -11,28 +12,24 @@ namespace WinForms
 {
     public static class ReporteGanancias
     {
-        public static void Generar(string filePath)
+        public async static void Generar(string filePath)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
-            var turnoRepository = new TurnoRepository();
-            var tipoRepo = new TipoAnalisisRepository();
-            var pacienteRepo = new PacienteRepository();
-
-            var turnos = turnoRepository.GetAll()?.ToList() ?? new List<Domain.Model.Turno>();
+            var turnos = await TurnoApiClient.GetAllAsync();
 
             var filas = new List<(int Id, DateTime Fecha, string Paciente, string TipoNombre, double Importe)>();
             double total = 0;
 
             foreach (var t in turnos)
             {
-                var tipo = t.TipoAnalisisId != 0 ? tipoRepo.Get(t.TipoAnalisisId) : null;
-                var paciente = t.PacienteId != 0 ? pacienteRepo.Get(t.PacienteId) : null;
+                var tipo = t.IdTipoAnalisis != 0 ? await TipoAnalisisApiClient.GetAsync(t.IdTipoAnalisis) : null;
+                var paciente = t.IdPaciente != 0 ? await PacienteApiClient.GetAsync(t.IdPaciente) : null;
 
                 double importe = tipo?.Importe ?? 0.0;
                 string pacienteNombre = paciente != null
                     ? $"{paciente.Nombre} {paciente.Apellido}"
-                    : (t.PacienteId != 0 ? t.PacienteId.ToString() : "-");
+                    : (t.IdPaciente != 0 ? t.IdPaciente.ToString() : "-");
                 string tipoNombre = tipo?.Nombre ?? "-";
 
                 filas.Add((t.Id, t.FechaHoraReserva, pacienteNombre, tipoNombre, importe));

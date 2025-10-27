@@ -3,7 +3,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using API.Clients;
 using Data;
+using DTOs;
 using Microsoft.VisualBasic;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -13,20 +16,19 @@ namespace WinForms
 {
     public static class ReporteRecepcion
     {
-        public static void Generar(string filePath)
+        public static async Task Generar(string filePath)
         {
             // Asegúrate de usar la licencia adecuada una sola vez (se puede hacer también en Program.Main)
             QuestPDF.Settings.License = LicenseType.Community;
 
-            var turnoRepository = new TurnoRepository();
-            var turnos = turnoRepository.GetAll().ToList();
+            IEnumerable<TurnoDTO> turnos = await TurnoApiClient.GetAllAsync();
 
             int totalTurnos = turnos.Count(t => (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosConMail = turnos.Count(t => t.RecibeMail && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosSinMail = totalTurnos - turnosConMail;
             int turnosTarde = turnos.Count(t => t.Estado!="Cancelado" && t.Estado != "Pendiente" && (t.FechaHoraExtraccion - t.FechaHoraReserva) > TimeSpan.FromHours(1));
             int turnosTemprano = turnos.Count(t => t.Estado != "Cancelado" && t.Estado != "Pendiente") - turnosTarde;
-            int turnosConObservaciones = turnos.Count(t => !string.IsNullOrWhiteSpace(t.Observaciones) && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
+            int turnosConObservaciones = turnos.Count(t => (!string.IsNullOrWhiteSpace(t.Observaciones)|| t.Observaciones=="-") && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosSinObservaciones = totalTurnos - turnosConObservaciones;
 
             var graficoRecibeMail = GenerarGraficoCircularMail(turnosConMail, turnosSinMail);
