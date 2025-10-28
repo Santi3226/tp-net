@@ -356,6 +356,11 @@ else
             validationErrors["FechaHoraReserva"] = "La Fecha de Reserva es requerida";
             isValid = false;
         }
+        if (currentTurno.FechaHoraReserva < DateTime.Today)
+        {
+            validationErrors["FechaHoraReserva"] = "La Fecha de Reserva debe ser Mayor a hoy";
+            isValid = false;
+        }
         if (currentTurno.IdPaciente == null || currentTurno.IdPaciente == 0)
         {
             validationErrors["IdPaciente"] = "El ID de Paciente es requerido";

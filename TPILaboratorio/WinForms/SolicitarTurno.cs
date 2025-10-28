@@ -49,10 +49,10 @@ namespace WinForms
                 {
                     Estado = "Pendiente",
                     RecibeMail = mailCheckBox.Checked ? true : false,
-                    FechaHoraReserva = DateTime.Now,
+                    FechaHoraReserva = fechaTurnoCalendario.Value,
                     Receta = "-",
-                    FechaHoraExtraccion = fechaTurnoCalendario.Value,
-                    Observaciones = "",
+                    FechaHoraExtraccion = default,
+                    Observaciones = "-",
                     IdPaciente = paciente.Id,
                     IdTipoAnalisis = (int)tipoAnalisisCombo.SelectedValue,
                     IdCentroAtencion = (int)centroAtencionCombo.SelectedValue

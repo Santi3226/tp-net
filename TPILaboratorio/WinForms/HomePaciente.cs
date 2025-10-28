@@ -213,10 +213,23 @@ namespace WinForms
             }
         }
 
-        private void SolicitarTurno_Click(object sender, EventArgs e)
+        private async void SolicitarTurno_Click(object sender, EventArgs e)
         {
             SolicitarTurno solicitar = new SolicitarTurno(paciente);
             solicitar.ShowDialog();
+            IEnumerable<TurnoDTO> turnosDelPaciente = await TurnoApiClient.GetByPacinteIdAsync(paciente.Id);
+
+            var turnosVista = turnosDelPaciente.Select(t => new
+            {
+                t.Id,
+                t.Estado,
+                t.Receta,
+                t.Observaciones,
+                t.FechaHoraExtraccion,
+                t.FechaHoraReserva,
+            }).ToList();
+
+            proximosTurnosPacienteDGV.DataSource = turnosVista;
         }
 
         private async void CancelarTurno_Click(object sender, EventArgs e)
@@ -226,9 +239,31 @@ namespace WinForms
                 DialogResult result = MessageBox.Show("¿Está seguro que desea cancelar el turno seleccionado?", "Confirmar cancelación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    int idABorrar = (int)proximosTurnosAdministradorDGV.CurrentRow.Cells["Id"].Value;
-                    await TurnoApiClient.DeleteAsync(idABorrar);
-                    MessageBox.Show("Turno Eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Leer el Id de forma segura
+                    var cellValue = proximosTurnosPacienteDGV.CurrentRow.Cells["Id"].Value;
+                    if (cellValue != null && int.TryParse(cellValue.ToString(), out int idABorrar))
+                    {
+                        await TurnoApiClient.DeleteAsync(idABorrar);
+                        MessageBox.Show("Turno Eliminado.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Refrescar la lista del paciente
+                        IEnumerable<TurnoDTO> turnosDelPaciente = await TurnoApiClient.GetByPacinteIdAsync(paciente.Id);
+                        var turnosVista = turnosDelPaciente.Select(t => new
+                        {
+                            t.Id,
+                            t.Estado,
+                            t.Receta,
+                            t.Observaciones,
+                            t.FechaHoraExtraccion,
+                            t.FechaHoraReserva,
+                        }).ToList();
+
+                        proximosTurnosPacienteDGV.DataSource = turnosVista;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo obtener el Id del turno seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
