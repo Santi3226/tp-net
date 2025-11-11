@@ -117,45 +117,79 @@ namespace Data
             return turnosProximos;
         }
 
-        /*
-                public IEnumerable<Paciente> GetByCriteria(ClienteCriteria criteria)
-                {
-                    const string sql = @"
-                        SELECT Id, Nombre, Apellido, Email, FechaAlta 
-                        FROM Clientes 
-                        WHERE Nombre LIKE @SearchTerm 
-                           OR Apellido LIKE @SearchTerm 
-                           OR Email LIKE @SearchTerm
-                        ORDER BY Nombre, Apellido";
+        public IEnumerable<Turno> GetByADO()
+        {
+            const string sql = @"SELECT 
+            t.Id AS TurnoId, t.RecibeMail, t.Estado, t.Receta, t.Observaciones, t.FechaHoraReserva, t.FechaHoraExtraccion,
+            p.Id AS PacienteId, p.Nombre AS PacienteNombre, p.Apellido AS PacienteApellido, p.Dni AS PacienteDni, p.Telefono AS 
+            PacienteTelefono, p.Domicilio AS PacienteDomicilio, p.Email AS PacienteEmail, p.Contraseña AS PacienteContraseña, 
+            p.FechaNacimiento AS PacienteFechaNacimiento, p.Tipo AS PacienteTipo,
+            ta.Id AS TipoAnalisisId, ta.Nombre AS TipoAnalisisNombre, ta.Importe AS TipoAnalisisImporte, ta.PlantillaAnalisisId AS TipoAnalisisPlantillaId,
+            ca.Id AS CentroAtencionId,ca.Nombre AS CentroAtencionNombre, ca.Domicilio AS CentroAtencionDomicilio,ca.LocalidadId AS CentroAtencionLocalidadId
 
-                    var clientes = new List<Cliente>();
-                    string connectionString = new TPIContext().Database.GetConnectionString();
-                    string searchPattern = $"%{criteria.Texto}%";
+            FROM dbo.Turnos t
+            INNER JOIN dbo.Pacientes p ON t.PacienteId = p.Id
+            INNER JOIN dbo.TiposAnalisis ta ON t.TipoAnalisisId = ta.Id
+            INNER JOIN dbo.Centros ca ON t.CentroAtencionId = ca.Id
+            ORDER BY t.Id;";
 
-                    using var connection = new SqlConnection(connectionString);
-                    using var command = new SqlCommand(sql, connection);
+			var turnos = new List<Turno>();
+			string connectionString = new TPIContext().Database.GetConnectionString();
 
-                    command.Parameters.AddWithValue("@SearchTerm", searchPattern);
+			using var connection = new SqlConnection(connectionString);
+			using var command = new SqlCommand(sql, connection);
+			connection.Open();
+			using var reader = command.ExecuteReader();
 
-                    connection.Open();
-                    using var reader = command.ExecuteReader();
+			while (reader.Read())
+			{
+				// PACIENTE
+				var paciente = new Paciente(
+					reader.GetInt32(reader.GetOrdinal("PacienteId")),
+					reader.GetString(reader.GetOrdinal("PacienteNombre")),
+					reader.GetString(reader.GetOrdinal("PacienteApellido")),
+					reader.GetString(reader.GetOrdinal("PacienteDni")),
+					reader.GetString(reader.GetOrdinal("PacienteTelefono")),
+					reader.GetString(reader.GetOrdinal("PacienteDomicilio")),
+					reader.GetString(reader.GetOrdinal("PacienteEmail")),
+					reader.GetString(reader.GetOrdinal("PacienteContraseña")),
+					reader.GetDateTime(reader.GetOrdinal("PacienteFechaNacimiento")),
+					reader.GetString(reader.GetOrdinal("PacienteTipo"))
+				);
 
-                    while (reader.Read())
-                    {
-                        var cliente = new Cliente(
-                            reader.GetInt32(0),    // Id
-                            reader.GetString(1),   // Nombre
-                            reader.GetString(2),   // Apellido
-                            reader.GetString(3),   // Email
-                            reader.GetDateTime(4)  // FechaAlta
-                        );
+				// TIPO ANALISIS
+				var tipoAnalisis = new TipoAnalisis(
+	                reader.GetInt32(reader.GetOrdinal("TipoAnalisisId")),
+	                reader.GetString(reader.GetOrdinal("TipoAnalisisNombre")),
+	                (float)reader.GetDouble(reader.GetOrdinal("TipoAnalisisImporte"))
+                );
 
-                        clientes.Add(cliente);
-                    }
+				var centroAtencion = new CentroAtencion(
+					reader.GetInt32(reader.GetOrdinal("CentroAtencionId")),
+					reader.GetString(reader.GetOrdinal("CentroAtencionNombre")),
+					reader.GetString(reader.GetOrdinal("CentroAtencionDomicilio"))
+				);
 
-                    return clientes;
-                }
+				// TURNO
+				var turno = new Turno(
+					reader.GetInt32(reader.GetOrdinal("TurnoId")),
+					reader.GetBoolean(reader.GetOrdinal("RecibeMail")),
+					reader.GetString(reader.GetOrdinal("Estado")),
+					reader.IsDBNull(reader.GetOrdinal("Receta")) ? null : reader.GetString(reader.GetOrdinal("Receta")),
+					reader.IsDBNull(reader.GetOrdinal("Observaciones")) ? null : reader.GetString(reader.GetOrdinal("Observaciones")),
+					reader.GetDateTime(reader.GetOrdinal("FechaHoraReserva")),
+					reader.IsDBNull(reader.GetOrdinal("FechaHoraExtraccion"))
+						? (DateTime?)null
+						: reader.GetDateTime(reader.GetOrdinal("FechaHoraExtraccion")),
+					paciente,
+					tipoAnalisis,
+					centroAtencion
+				);
 
-            */
-    }
+				turnos.Add(turno);
+			}
+
+			return turnos;
+		}
+	}
 }

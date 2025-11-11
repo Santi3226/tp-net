@@ -16,8 +16,14 @@
             SetImporte(importe);
             SetPlantillaAnalisis(plantillaAnalisis);
         }
-
-        public void SetId(int id)
+		public TipoAnalisis(int id, string nombre, float importe)
+		{
+			SetId(id);
+			SetNombre(nombre);
+			SetImporte(importe);
+			// No seteamos PlantillaAnalisis porque no lo estamos trayendo
+		}
+		public void SetId(int id)
         {
             if (id < 0)
                 throw new ArgumentException("El Id debe ser mayor que 0.", nameof(id));

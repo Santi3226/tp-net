@@ -17,8 +17,14 @@
             SetDomicilio(domicilio);
             SetLocalidad(localidad);
         }
-
-        public void SetId(int id)
+		public CentroAtencion(int id, string nombre, string domicilio)
+		{
+			SetId(id);
+			SetNombre(nombre);
+			SetDomicilio(domicilio);
+			// Localidad se deja null
+		}
+		public void SetId(int id)
         {
             if (id < 0)
                 throw new ArgumentException("El Id debe ser mayor que 0.", nameof(id));

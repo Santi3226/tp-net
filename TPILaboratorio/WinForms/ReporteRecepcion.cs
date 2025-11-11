@@ -21,9 +21,9 @@ namespace WinForms
             // Asegúrate de usar la licencia adecuada una sola vez (se puede hacer también en Program.Main)
             QuestPDF.Settings.License = LicenseType.Community;
 
-            IEnumerable<TurnoDTO> turnos = await TurnoApiClient.GetAllAsync();
+			var turnos = await TurnoApiClient.GetByADOAsync();
 
-            int totalTurnos = turnos.Count(t => (t.Estado == "Confirmado" || t.Estado == "Realizado"));
+			int totalTurnos = turnos.Count(t => (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosConMail = turnos.Count(t => t.RecibeMail && (t.Estado == "Confirmado" || t.Estado == "Realizado"));
             int turnosSinMail = totalTurnos - turnosConMail;
             int turnosTarde = turnos.Count(t => t.Estado!="Cancelado" && t.Estado != "Pendiente" && (t.FechaHoraExtraccion - t.FechaHoraReserva) > TimeSpan.FromHours(1));

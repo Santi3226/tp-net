@@ -106,26 +106,27 @@ namespace Application.Services
             dto.FechaHoraReserva, dto.FechaHoraExtraccion, p, ta,ca);
             return turnoRepository.Update(turno);
         }
-        /*
-        public IEnumerable<PacienteDTO> GetByCriteria(ClienteCriteriaDTO criteriaDTO)
+        
+        public IEnumerable<TurnoDTO> GetByADO()
         {
-            var clienteRepository = new ClienteRepository();
+            var turnoRepository = new TurnoRepository();
 
-            // Mapear DTO a Domain Model
-            var criteria = new ClienteCriteria(criteriaDTO.Texto);
-
-            // Llamar al repositorio
-            var clientes = clienteRepository.GetByCriteria(criteria);
+            var turnos = turnoRepository.GetByADO();
 
             // Mapear Domain Model a DTO
-            return clientes.Select(c => new ClienteDTO
+            return turnos.Select(t => new TurnoDTO
             {
-                Id = c.Id,
-                Nombre = c.Nombre,
-                Apellido = c.Apellido,
-                Email = c.Email,
-                FechaAlta = c.FechaAlta
-            });
-        }*/
+				Id = t.Id,
+				Estado = t.Estado,
+				RecibeMail = t.RecibeMail,
+				Receta = t.Receta,
+				Observaciones = t.Observaciones,
+				FechaHoraReserva = t.FechaHoraReserva,
+				FechaHoraExtraccion = t.FechaHoraExtraccion,
+				IdPaciente = (int)(t.Paciente?.Id),
+				IdTipoAnalisis = (int)(t.TipoAnalisis?.Id),
+				IdCentroAtencion = (int)(t.CentroAtencion?.Id)
+			});
+        }
     }
 }

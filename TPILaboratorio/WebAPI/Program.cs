@@ -436,6 +436,21 @@ app.MapDelete("/turnos/{id}", (int id) =>
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
 
+app.MapGet("/turnos/criteria", () =>
+{
+	try
+	{
+		TurnoService turnoService = new TurnoService();
+		var turnos = turnoService.GetByADO();
+		return Results.Ok(turnos);
+	}
+	catch (Exception ex)
+	{
+		return Results.BadRequest(new { error = ex.Message });
+	}
+})
+.WithName("GetTurnosByCriteria")
+.WithOpenApi();
 // ------------
 
 app.MapGet("/tiposAnalisis/{id}", (int id) =>

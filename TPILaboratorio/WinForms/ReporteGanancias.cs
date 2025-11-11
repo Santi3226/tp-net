@@ -16,7 +16,7 @@ namespace WinForms
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
-            var turnos = await TurnoApiClient.GetAllAsync();
+            var turnos = await TurnoApiClient.GetByADOAsync();
 
             var filas = new List<(int Id, DateTime Fecha, string Paciente, string TipoNombre, double Importe)>();
             double total = 0;

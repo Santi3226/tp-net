@@ -155,5 +155,33 @@ namespace API.Clients
                 throw new Exception($"Timeout al actualizar turno con Id {turno.Id}: {ex.Message}", ex);
             }
         }
-    }
+
+		public static async Task<IEnumerable<TurnoDTO>> GetByADOAsync()
+		{
+			try
+			{
+				using var client = await CreateHttpClientAsync();
+				HttpResponseMessage response = await client.GetAsync("/turnos/criteria");
+
+				if (response.IsSuccessStatusCode)
+				{
+					var turnos = await response.Content.ReadFromJsonAsync<IEnumerable<TurnoDTO>>();
+					return turnos ?? new List<TurnoDTO>();
+				}
+				else
+				{
+					string errorContent = await response.Content.ReadAsStringAsync();
+					throw new Exception($"Error al buscar turnos. Status: {response.StatusCode}, Detalle: {errorContent}");
+				}
+			}
+			catch (HttpRequestException ex)
+			{
+				throw new Exception($"Error de conexión al buscar turnos: {ex.Message}", ex);
+			}
+			catch (TaskCanceledException ex)
+			{
+				throw new Exception($"Timeout al buscar turnos: {ex.Message}", ex);
+			}
+		}
+	}
 }
